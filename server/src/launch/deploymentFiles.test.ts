@@ -167,6 +167,25 @@ describe("deployment files", () => {
     expect(learnPage).not.toContain("whsec_");
   });
 
+  it("keeps the Skills Passport connected to lesson start and Spindel onboarding", async () => {
+    const skillsPassportPage = await readFile(
+      path.resolve(process.cwd(), "client/src/pages/SkillsPassport.tsx"),
+      "utf8"
+    );
+
+    expect(skillsPassportPage).toContain("Start Module 1");
+    expect(skillsPassportPage).toContain('href="/learn"');
+    expect(skillsPassportPage).toContain("Start as demo learner");
+    expect(skillsPassportPage).toContain(
+      "/api/dev/demo-learner/start?email=jeff.demo%40example.com"
+    );
+    expect(skillsPassportPage).toContain("spindelOnboardingLanes");
+    expect(skillsPassportPage).toContain("Spindel Eye onboarding layer");
+    expect(skillsPassportPage).toContain("Onboarding assessment");
+    expect(skillsPassportPage).not.toContain("sk_test_");
+    expect(skillsPassportPage).not.toContain("whsec_");
+  });
+
   it("runs the launch secret scan and local course smoke check in GitHub launch CI", async () => {
     const packageJson = await readFile(
       path.resolve(process.cwd(), "package.json"),
