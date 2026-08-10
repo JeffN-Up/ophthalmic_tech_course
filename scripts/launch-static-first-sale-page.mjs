@@ -67,8 +67,8 @@ function renderStaticFirstSalePage() {
   const individualPaymentLink = readStripePaymentLink(
     process.env.PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER
   );
-  const practiceFivePaymentLink = readStripePaymentLink(
-    process.env.PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS
+  const practiceSixPaymentLink = readStripePaymentLink(
+    process.env.PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS
   );
   const practiceFifteenPaymentLink = readStripePaymentLink(
     process.env.PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS
@@ -317,7 +317,7 @@ function renderStaticFirstSalePage() {
         <aside class="price-box">
           <div>
             <p class="eyebrow">Founding learner access</p>
-            <span class="price">$199</span>
+            <span class="price">$299</span>
             <p>12 months of access to published foundations content.</p>
           </div>
           <div class="stack">
@@ -346,16 +346,16 @@ function renderStaticFirstSalePage() {
           </ul>
         </article>
         <article class="card">
-          <h2>Five-seat practice pack</h2>
+          <h2>Six-seat practice pack</h2>
           <p>
             For a small hiring group or a few new team members who need the
             same starter language before local training.
           </p>
-          <p><strong>$799 one-time</strong></p>
+          <p><strong>$999 one-time</strong></p>
           ${renderPaymentButton({
-            href: practiceFivePaymentLink,
-            label: "Use 5-seat payment link",
-            disabledLabel: "5-seat link not configured",
+            href: practiceSixPaymentLink,
+            label: "Use 6-seat payment link",
+            disabledLabel: "6-seat link not configured",
           })}
         </article>
         <article class="card">

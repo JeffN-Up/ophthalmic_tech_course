@@ -26,7 +26,7 @@ describe("normalizeCheckoutEmail", () => {
 describe("foundingLearnerOffer", () => {
   it("uses the approved founding learner price and access period", () => {
     expect(foundingLearnerOffer.id).toBe("founding-learner");
-    expect(foundingLearnerOffer.priceCents).toBe(19900);
+    expect(foundingLearnerOffer.priceCents).toBe(29900);
     expect(foundingLearnerOffer.currency).toBe("usd");
     expect(foundingLearnerOffer.accessMonths).toBe(12);
   });
@@ -47,11 +47,11 @@ describe("foundingLearnerOffer", () => {
 describe("practicePackOffers", () => {
   it("defines the approved employer seat packs", () => {
     expect(practicePackOffers.map(offer => offer.id)).toEqual([
-      "practice-five-seat-pack",
+      "practice-six-seat-pack",
       "practice-fifteen-seat-pack",
     ]);
-    expect(practicePackOffers[0].seatCount).toBe(5);
-    expect(practicePackOffers[0].priceCents).toBe(79900);
+    expect(practicePackOffers[0].seatCount).toBe(6);
+    expect(practicePackOffers[0].priceCents).toBe(99900);
     expect(practicePackOffers[1].seatCount).toBe(15);
     expect(practicePackOffers[1].priceCents).toBe(179900);
   });

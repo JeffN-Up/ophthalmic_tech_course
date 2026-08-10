@@ -43,7 +43,7 @@ describe("createCheckoutSession", () => {
 
     await createCheckoutSession({
       email: "manager@example.com",
-      offerId: "practice-five-seat-pack",
+      offerId: "practice-six-seat-pack",
       acceptedTerms: true,
       fetcher,
     });
@@ -53,7 +53,7 @@ describe("createCheckoutSession", () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: "manager@example.com",
-        offerId: "practice-five-seat-pack",
+        offerId: "practice-six-seat-pack",
         acceptedTerms: true,
       }),
     });

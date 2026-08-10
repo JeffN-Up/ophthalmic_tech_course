@@ -11,8 +11,8 @@ packet is the script for inviting the first customers inside.
 
 | Buyer              | Offer                                   |         Price | Best Fit                                                                            |
 | ------------------ | --------------------------------------- | ------------: | ----------------------------------------------------------------------------------- |
-| Individual learner | Founding Learner Access                 |        `$199` | Career changers, medical assistants, and new techs who want ophthalmic foundations. |
-| Practice buyer     | Five-Seat Practice Onboarding Pack      |        `$799` | Small practices training one hiring class or a few new team members.                |
+| Individual learner | Founding Learner Access                 |        `$299` | Career changers, medical assistants, and new techs who want ophthalmic foundations. |
+| Practice buyer     | Six-Seat Practice Onboarding Pack       |        `$999` | Small practices training one hiring class or a few new team members.                |
 | Practice buyer     | Fifteen-Seat Practice Onboarding Pack   |      `$1,799` | Growing practices standardizing onboarding across locations, hires, or supervisors. |
 | Larger practice    | Custom Practice Onboarding Conversation | Contact first | More than 15 seats, Spindel pilot training, or custom rollout planning.             |
 
@@ -141,7 +141,7 @@ communication, knowledge checks, and supervised practice preparation. It is not
 a certification program and it does not replace hands-on training, but it can
 help someone feel much less lost when starting in eye care.
 
-Founding Learner Access is $199 for 12 months.
+Founding Learner Access is $299 for 12 months.
 
 Free preview:
 [Preview link]
@@ -176,7 +176,7 @@ practice-specific protocols.
 
 Current founding practice options are:
 
-- Five seats for $799
+- Six seats for $999
 - Fifteen seats for $1,799
 
 The course does not replace employer supervision, clinical policy, or hands-on

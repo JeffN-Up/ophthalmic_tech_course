@@ -32,9 +32,9 @@ describe("buildCheckoutReturnUrls", () => {
       })
     ).toEqual({
       successUrl:
-        "https://example.com/practice-packs?checkout=success&offer=practice-five-seat-pack",
+        "https://example.com/practice-packs?checkout=success&offer=practice-six-seat-pack",
       cancelUrl:
-        "https://example.com/practice-packs?checkout=cancelled&offer=practice-five-seat-pack",
+        "https://example.com/practice-packs?checkout=cancelled&offer=practice-six-seat-pack",
     });
   });
 });
@@ -55,7 +55,7 @@ describe("buildStripeCheckoutParams", () => {
     expect(params.get("metadata[access_months]")).toBe("12");
     expect(params.get("line_items[0][quantity]")).toBe("1");
     expect(params.get("line_items[0][price_data][currency]")).toBe("usd");
-    expect(params.get("line_items[0][price_data][unit_amount]")).toBe("19900");
+    expect(params.get("line_items[0][price_data][unit_amount]")).toBe("29900");
     expect(params.get("line_items[0][price_data][product_data][name]")).toBe(
       foundingLearnerOffer.name
     );
@@ -87,9 +87,9 @@ describe("buildStripeCheckoutParams", () => {
     expect(params.get("client_reference_id")).toBe(practiceOffer.id);
     expect(params.get("metadata[offer_id]")).toBe(practiceOffer.id);
     expect(params.get("metadata[access_months]")).toBe("12");
-    expect(params.get("metadata[seat_count]")).toBe("5");
+    expect(params.get("metadata[seat_count]")).toBe("6");
     expect(params.get("line_items[0][quantity]")).toBe("1");
-    expect(params.get("line_items[0][price_data][unit_amount]")).toBe("79900");
+    expect(params.get("line_items[0][price_data][unit_amount]")).toBe("99900");
     expect(params.get("line_items[0][price_data][product_data][name]")).toBe(
       practiceOffer.name
     );

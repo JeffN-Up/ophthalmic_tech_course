@@ -16,7 +16,7 @@ const purchaseEvent: PurchaseEvent = {
   checkoutSessionId: "cs_test_123",
   offerId: "founding-learner",
   purchaserEmail: " learner@example.com ",
-  amountTotal: 19900,
+  amountTotal: 29900,
   currency: "usd",
   accessMonths: 12,
 };
@@ -85,10 +85,10 @@ describe("createCommerceFulfillmentService", () => {
       service.fulfillPurchaseEvent({
         ...purchaseEvent,
         checkoutSessionId: "cs_test_practice",
-        offerId: "practice-five-seat-pack",
+        offerId: "practice-six-seat-pack",
         purchaserEmail: "manager@example.com",
-        amountTotal: 79900,
-        seatCount: 5,
+        amountTotal: 99900,
+        seatCount: 6,
       })
     ).resolves.toEqual({
       purchaseRecorded: true,
@@ -102,7 +102,7 @@ describe("createCommerceFulfillmentService", () => {
     ).toMatchObject({
       checkoutSessionId: "cs_test_practice",
       purchaserEmail: "manager@example.com",
-      totalSeats: 5,
+      totalSeats: 6,
       assignedSeats: 0,
     });
   });

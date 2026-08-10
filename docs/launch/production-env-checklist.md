@@ -36,7 +36,7 @@ keys, generated session secrets, or admin tokens into this checklist.
 | Set? | Variable                                       | Source                                  | Validation                                         | Launch note                                                                |
 | ---- | ---------------------------------------------- | --------------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------- |
 | [ ]  | `PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER`  | Optional Stripe dashboard Payment Link. | Leave blank or use a `https://buy.stripe.com` URL. | Shows a controlled manual payment link for first individual buyers.        |
-| [ ]  | `PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS`  | Optional Stripe dashboard Payment Link. | Leave blank or use a `https://buy.stripe.com` URL. | Shows a controlled manual payment link for the five-seat practice pack.    |
+| [ ]  | `PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS`  | Optional Stripe dashboard Payment Link. | Leave blank or use a `https://buy.stripe.com` URL. | Shows a controlled manual payment link for the six-seat practice pack.     |
 | [ ]  | `PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS` | Optional Stripe dashboard Payment Link. | Leave blank or use a `https://buy.stripe.com` URL. | Shows a controlled manual payment link for the fifteen-seat practice pack. |
 | [ ]  | `VITE_ANALYTICS_ENDPOINT`                      | Optional analytics provider.            | Leave blank to disable analytics.                  | Only needed if you want browser analytics at launch.                       |
 | [ ]  | `VITE_ANALYTICS_WEBSITE_ID`                    | Optional analytics provider.            | Leave blank to disable analytics.                  | Pairs with `VITE_ANALYTICS_ENDPOINT` when analytics is used.               |
@@ -86,7 +86,7 @@ MODULE_ONE_CLINICAL_REVIEW_DATE=
 MODULE_ONE_CLINICAL_APPROVED_VERSION=
 MODULE_ONE_CLINICAL_REVIEW_APPROVED=false
 PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER=
-PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS=
+PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS=
 PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS=
 ```
 

@@ -19,7 +19,7 @@ const individualPurchaseEvent: PurchaseEvent = {
   checkoutSessionId: "cs_individual",
   offerId: "founding-learner",
   purchaserEmail: "learner@example.com",
-  amountTotal: 19900,
+  amountTotal: 29900,
   currency: "usd",
   accessMonths: 12,
 };
@@ -27,12 +27,12 @@ const individualPurchaseEvent: PurchaseEvent = {
 const practicePurchaseEvent: PurchaseEvent = {
   stripeEventId: "evt_practice",
   checkoutSessionId: "cs_practice",
-  offerId: "practice-five-seat-pack",
+  offerId: "practice-six-seat-pack",
   purchaserEmail: "manager@example.com",
-  amountTotal: 79900,
+  amountTotal: 99900,
   currency: "usd",
   accessMonths: 12,
-  seatCount: 5,
+  seatCount: 6,
 };
 
 describe("lookupBuyerSupportProfile", () => {
@@ -123,7 +123,7 @@ describe("lookupBuyerSupportProfile", () => {
       practiceSeatPacks: [
         {
           seatPackId: "seatpack_cs_practice",
-          totalSeats: 5,
+          totalSeats: 6,
           assignedSeats: 1,
         },
       ],
@@ -133,7 +133,7 @@ describe("lookupBuyerSupportProfile", () => {
         hasActiveEnrollment: false,
         hasPracticeSeatPack: true,
         hasPracticeSeatAssignment: false,
-        remainingPracticeSeats: 4,
+        remainingPracticeSeats: 5,
       },
       recommendedActions: [
         "Practice seat pack has remaining seats. Collect learner emails and assign seats through the protected practice-seat admin workflow.",

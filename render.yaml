@@ -32,7 +32,7 @@ services:
         sync: false
       - key: PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER
         sync: false
-      - key: PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS
+      - key: PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS
         sync: false
       - key: PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS
         sync: false

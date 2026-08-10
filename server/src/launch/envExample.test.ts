@@ -11,9 +11,15 @@ describe(".env.example", () => {
 
     expect(envExample).toContain("STRIPE_SECRET_KEY=");
     expect(envExample).toContain("STRIPE_WEBHOOK_SECRET=");
-    expect(envExample).toContain("PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER=");
-    expect(envExample).toContain("PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS=");
-    expect(envExample).toContain("PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS=");
+    expect(envExample).toContain(
+      "PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER="
+    );
+    expect(envExample).toContain(
+      "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS="
+    );
+    expect(envExample).toContain(
+      "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS="
+    );
     expect(envExample).toContain("PUBLIC_APP_URL=");
     expect(envExample).toContain("DATABASE_URL=");
     expect(envExample).toContain("AUTH_SESSION_SECRET=");

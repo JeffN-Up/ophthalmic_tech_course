@@ -9,20 +9,20 @@ const expectedOffers = [
   {
     id: "founding-learner",
     name: "Founding Learner Access",
-    stripeLookupKey: "optitech_founding_learner_199",
-    price: "$199",
-    priceCents: 19900,
+    stripeLookupKey: "optitech_founding_learner_299",
+    price: "$299",
+    priceCents: 29900,
     accessMonths: 12,
     seatCount: null,
   },
   {
-    id: "practice-five-seat-pack",
-    name: "Five-Seat Practice Onboarding Pack",
-    stripeLookupKey: "optitech_practice_5_seats_799",
-    price: "$799",
-    priceCents: 79900,
+    id: "practice-six-seat-pack",
+    name: "Six-Seat Practice Onboarding Pack",
+    stripeLookupKey: "optitech_practice_6_seats_999",
+    price: "$999",
+    priceCents: 99900,
     accessMonths: 12,
-    seatCount: 5,
+    seatCount: 6,
   },
   {
     id: "practice-fifteen-seat-pack",
@@ -169,24 +169,21 @@ addCheck(
   "Individual buyer guide shows founding learner price",
   hasSnippet(
     source.buyerGuide,
-    "Founding Learner Access is $199 for 12 months."
+    "Founding Learner Access is $299 for 12 months."
   ),
   files.buyerGuide
 );
 addCheck(
   checks,
   "Practice buyer guide shows both practice pack prices",
-  hasSnippet(source.buyerGuide, "five seats for $799") &&
+  hasSnippet(source.buyerGuide, "six seats for $999") &&
     hasSnippet(source.buyerGuide, "fifteen seats for $1,799"),
   files.buyerGuide
 );
 addCheck(
   checks,
   "Stripe guide explains app-owned price data",
-  hasSnippet(
-    source.stripeGuide,
-    "Because the app sends price data directly"
-  ),
+  hasSnippet(source.stripeGuide, "Because the app sends price data directly"),
   files.stripeGuide
 );
 

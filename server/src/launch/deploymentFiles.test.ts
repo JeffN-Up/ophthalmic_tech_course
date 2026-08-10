@@ -102,7 +102,7 @@ describe("deployment files", () => {
       "PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER"
     );
     expect(renderBlueprint).toContain(
-      "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS"
+      "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS"
     );
     expect(renderBlueprint).toContain(
       "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS"
@@ -941,7 +941,7 @@ describe("deployment files", () => {
       "/api/support/manual-payment-fulfillments"
     );
     expect(manualFulfillmentScript).toContain("x-admin-token");
-    expect(manualFulfillmentScript).toContain("practice-five-seat-pack");
+    expect(manualFulfillmentScript).toContain("practice-six-seat-pack");
     expect(manualFulfillmentScript).toContain(
       "does not call the endpoint by itself"
     );
@@ -949,7 +949,7 @@ describe("deployment files", () => {
       "/api/support/manual-payment-fulfillments"
     );
     expect(manualPaymentChecklist).toContain("x-admin-token");
-    expect(manualPaymentChecklist).toContain("practice-five-seat-pack");
+    expect(manualPaymentChecklist).toContain("practice-six-seat-pack");
     expect(manualPaymentChecklist).toMatch(/does\s+not replace webhook proof/);
     expect(manualPaymentChecklist).toContain("pnpm launch:manual-fulfillment");
     expect(fulfillmentChecklist).toContain(
@@ -1331,8 +1331,8 @@ describe("deployment files", () => {
     expect(stripeProductsScript).toContain(
       "OptiTech Academy Stripe Product Setup"
     );
-    expect(stripeProductsScript).toContain("optitech_founding_learner_199");
-    expect(stripeProductsScript).toContain("optitech_practice_5_seats_799");
+    expect(stripeProductsScript).toContain("optitech_founding_learner_299");
+    expect(stripeProductsScript).toContain("optitech_practice_6_seats_999");
     expect(stripeProductsScript).toContain("optitech_practice_15_seats_1799");
     expect(stripeProductsScript).toContain("checkout.session.completed");
     expect(stripeProductsScript).not.toContain("execSync");

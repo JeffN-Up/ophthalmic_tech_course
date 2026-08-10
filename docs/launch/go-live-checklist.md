@@ -67,7 +67,7 @@ Detailed guides:
 Record safe evidence in `manual-launch-qa-evidence.md`.
 
 - [ ] Individual learner test checkout creates durable learner access.
-- [ ] Five-seat practice pack test checkout creates the correct seat pack.
+- [ ] Six-seat practice pack test checkout creates the correct seat pack.
 - [ ] Fifteen-seat practice pack test checkout creates the correct seat pack.
 - [ ] Practice seat assignment works and cannot exceed purchased capacity.
 - [ ] Learner can sign in, open Module 1, complete progress, submit quiz, and

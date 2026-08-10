@@ -10,9 +10,9 @@ import type { VerifiedPurchaseRecord } from "./purchaseStore";
 const practicePurchase: VerifiedPurchaseRecord = {
   stripeEventId: "evt_practice",
   checkoutSessionId: "cs_test_practice",
-  offerId: "practice-five-seat-pack",
+  offerId: "practice-six-seat-pack",
   purchaserEmail: "manager@example.com",
-  amountTotal: 79900,
+  amountTotal: 99900,
   currency: "usd",
   accessMonths: 12,
   seatCount: 1,
@@ -54,7 +54,7 @@ describe("assignPracticeSeatToLearner", () => {
       },
       enrollment: {
         learnerEmail: "tech@example.com",
-        offerId: "practice-five-seat-pack",
+        offerId: "practice-six-seat-pack",
         status: "active",
       },
       enrollmentProvisioned: true,

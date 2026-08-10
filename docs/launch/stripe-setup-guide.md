@@ -11,8 +11,8 @@ shared offer list:
 
 | Offer                                 | App offer id                 | Price    |
 | ------------------------------------- | ---------------------------- | -------- |
-| Founding Learner Access               | `founding-learner`           | `$199`   |
-| Five-Seat Practice Onboarding Pack    | `practice-five-seat-pack`    | `$799`   |
+| Founding Learner Access               | `founding-learner`           | `$299`   |
+| Six-Seat Practice Onboarding Pack     | `practice-six-seat-pack`     | `$999`   |
 | Fifteen-Seat Practice Onboarding Pack | `practice-fifteen-seat-pack` | `$1,799` |
 
 The app sends these values to Stripe when checkout starts:
@@ -47,7 +47,7 @@ Optional host variables:
 
 ```text
 PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER=
-PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS=
+PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS=
 PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS=
 ```
 
@@ -109,7 +109,7 @@ Run these in Stripe test mode after the production database is connected and
 `pnpm db:setup` has run:
 
 - Individual learner purchase for `founding-learner`.
-- Five-seat practice pack purchase for `practice-five-seat-pack`.
+- Six-seat practice pack purchase for `practice-six-seat-pack`.
 - Fifteen-seat practice pack purchase for `practice-fifteen-seat-pack`.
 
 For each purchase, save safe evidence only:

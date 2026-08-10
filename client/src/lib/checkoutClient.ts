@@ -17,7 +17,7 @@ export interface CheckoutAvailabilityReport {
     | "join-interest-list";
   manualPaymentLinks: {
     foundingLearner?: string;
-    practiceFiveSeatPack?: string;
+    practiceSixSeatPack?: string;
     practiceFifteenSeatPack?: string;
   };
 }

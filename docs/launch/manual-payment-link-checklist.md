@@ -29,8 +29,8 @@ Create one Stripe Payment Link per offer in the Stripe dashboard:
 
 | Offer                                 |    Price | Host variable                                  |
 | ------------------------------------- | -------: | ---------------------------------------------- |
-| Founding Learner Access               |   `$199` | `PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER`  |
-| Five-Seat Practice Onboarding Pack    |   `$799` | `PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS`  |
+| Founding Learner Access               |   `$299` | `PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER`  |
+| Six-Seat Practice Onboarding Pack     |   `$999` | `PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS`  |
 | Fifteen-Seat Practice Onboarding Pack | `$1,799` | `PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS` |
 
 Use only links that begin with:
@@ -55,7 +55,7 @@ Paste only the optional public links that you are ready to use:
 
 ```text
 PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER=
-PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS=
+PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS=
 PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS=
 ```
 
@@ -108,7 +108,7 @@ Invoke-RestMethod `
 Supported `offerId` values:
 
 - `founding-learner`
-- `practice-five-seat-pack`
+- `practice-six-seat-pack`
 - `practice-fifteen-seat-pack`
 
 This endpoint is only for controlled manual Stripe Payment Link sales. It does

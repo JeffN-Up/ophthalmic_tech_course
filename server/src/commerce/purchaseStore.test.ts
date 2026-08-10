@@ -9,7 +9,7 @@ const purchase: VerifiedPurchaseRecord = {
   checkoutSessionId: "cs_test_123",
   offerId: "founding-learner",
   purchaserEmail: "learner@example.com",
-  amountTotal: 19900,
+  amountTotal: 29900,
   currency: "usd",
   accessMonths: 12,
   recordedAt: "2026-06-26T14:00:00.000Z",

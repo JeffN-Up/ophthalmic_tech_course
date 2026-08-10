@@ -7,7 +7,7 @@ export type CheckoutAvailabilityPrimaryAction =
 
 export interface ManualPaymentLinks {
   foundingLearner?: string;
-  practiceFiveSeatPack?: string;
+  practiceSixSeatPack?: string;
   practiceFifteenSeatPack?: string;
 }
 
@@ -19,7 +19,10 @@ export interface CheckoutAvailabilityReport {
   manualPaymentLinks: ManualPaymentLinks;
 }
 
-export type CheckoutAvailabilityEnvironment = Record<string, string | undefined>;
+export type CheckoutAvailabilityEnvironment = Record<
+  string,
+  string | undefined
+>;
 
 function readStripePaymentLink(value?: string): string | undefined {
   const trimmedValue = value?.trim();
@@ -46,8 +49,8 @@ export function getManualPaymentLinks(
     foundingLearner: readStripePaymentLink(
       env.PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER
     ),
-    practiceFiveSeatPack: readStripePaymentLink(
-      env.PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS
+    practiceSixSeatPack: readStripePaymentLink(
+      env.PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS
     ),
     practiceFifteenSeatPack: readStripePaymentLink(
       env.PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS
@@ -55,7 +58,9 @@ export function getManualPaymentLinks(
   };
 }
 
-function hasManualPaymentLinks(manualPaymentLinks: ManualPaymentLinks): boolean {
+function hasManualPaymentLinks(
+  manualPaymentLinks: ManualPaymentLinks
+): boolean {
   return Object.values(manualPaymentLinks).some(Boolean);
 }
 

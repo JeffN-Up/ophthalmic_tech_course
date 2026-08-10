@@ -16,8 +16,10 @@ describe("renderProductionEnvChecklist", () => {
     expect(checklist).toContain(
       "`PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER`"
     );
-    expect(checklist).toContain("PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS=");
-    expect(checklist).toContain("PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS=");
+    expect(checklist).toContain("PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS=");
+    expect(checklist).toContain(
+      "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS="
+    );
     expect(checklist).toContain("`ALERT_ADMIN_TOKEN`");
     expect(checklist).toContain("`VITE_ANALYTICS_ENDPOINT`");
     expect(checklist).toContain("`LAUNCH_SITEMAP_PATH`");

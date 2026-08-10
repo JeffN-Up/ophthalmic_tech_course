@@ -62,7 +62,7 @@ function getBuyerCheckoutState(checkoutAvailability) {
 function getConfiguredManualPaymentLinkLabels(manualPaymentLinks) {
   return [
     manualPaymentLinks.foundingLearner ? "Founding learner" : "",
-    manualPaymentLinks.practiceFiveSeatPack ? "Practice 5-seat pack" : "",
+    manualPaymentLinks.practiceSixSeatPack ? "Practice 6-seat pack" : "",
     manualPaymentLinks.practiceFifteenSeatPack ? "Practice 15-seat pack" : "",
   ].filter(Boolean);
 }

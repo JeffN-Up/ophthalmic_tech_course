@@ -6,9 +6,10 @@ import {
 
 describe("getRecommendedPracticePack", () => {
   it("recommends the smallest practice pack that can hold the learner count", () => {
-    expect(getRecommendedPracticePack(3)?.id).toBe("practice-five-seat-pack");
-    expect(getRecommendedPracticePack(5)?.id).toBe("practice-five-seat-pack");
-    expect(getRecommendedPracticePack(6)?.id).toBe(
+    expect(getRecommendedPracticePack(3)?.id).toBe("practice-six-seat-pack");
+    expect(getRecommendedPracticePack(5)?.id).toBe("practice-six-seat-pack");
+    expect(getRecommendedPracticePack(6)?.id).toBe("practice-six-seat-pack");
+    expect(getRecommendedPracticePack(7)?.id).toBe(
       "practice-fifteen-seat-pack"
     );
     expect(getRecommendedPracticePack(15)?.id).toBe(
@@ -21,16 +22,16 @@ describe("getRecommendedPracticePack", () => {
 describe("calculatePracticeValueEstimate", () => {
   it("estimates supervisor time value without promising outcomes", () => {
     const estimate = calculatePracticeValueEstimate({
-      learnerCount: 5,
+      learnerCount: 6,
       supervisorHourlyCost: 45,
       estimatedHoursSavedPerLearner: 4,
     });
 
-    expect(estimate.recommendedOffer?.id).toBe("practice-five-seat-pack");
-    expect(estimate.estimatedSupervisorTimeValue).toBe(900);
-    expect(estimate.estimatedNetPlanningValue).toBe(101);
-    expect(estimate.estimatedValueMultiple).toBeCloseTo(1.1264, 4);
-    expect(estimate.estimatedCostPerLearner).toBeCloseTo(159.8, 1);
+    expect(estimate.recommendedOffer?.id).toBe("practice-six-seat-pack");
+    expect(estimate.estimatedSupervisorTimeValue).toBe(1080);
+    expect(estimate.estimatedNetPlanningValue).toBe(81);
+    expect(estimate.estimatedValueMultiple).toBeCloseTo(1.0811, 4);
+    expect(estimate.estimatedCostPerLearner).toBeCloseTo(166.5, 1);
     expect(estimate.unusedSeatCount).toBe(0);
     expect(estimate.needsCustomConversation).toBe(false);
   });

@@ -175,7 +175,7 @@ addCheck(
   "Render exposes optional manual Stripe Payment Link settings",
   [
     "PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER",
-    "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS",
+    "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS",
     "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS",
   ].every(key => source.render.includes(`key: ${key}`)),
   files.render

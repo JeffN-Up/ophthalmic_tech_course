@@ -26,7 +26,7 @@ describe("fulfillManualPaymentLinkPurchase", () => {
         checkoutSessionId: "manual_plink_123_paid",
         purchaserEmail: "learner@example.com",
         offerId: "founding-learner",
-        amountTotal: 19900,
+        amountTotal: 29900,
       },
       fulfillment: {
         purchaseRecorded: true,
@@ -47,7 +47,7 @@ describe("fulfillManualPaymentLinkPurchase", () => {
     await expect(
       fulfillManualPaymentLinkPurchase({
         buyerEmail: "manager@example.com",
-        offerId: "practice-five-seat-pack",
+        offerId: "practice-six-seat-pack",
         paymentReference: "pi_manual_5",
         purchaseStore,
         enrollmentStore,
@@ -57,7 +57,7 @@ describe("fulfillManualPaymentLinkPurchase", () => {
     ).resolves.toMatchObject({
       purchaseEvent: {
         checkoutSessionId: "manual_pi_manual_5",
-        seatCount: 5,
+        seatCount: 6,
       },
       fulfillment: {
         purchaseRecorded: true,

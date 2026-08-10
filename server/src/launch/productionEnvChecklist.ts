@@ -123,11 +123,11 @@ export const productionEnvironmentChecklist: ProductionEnvironmentChecklistItem[
         "Shows a controlled manual payment link for first individual buyers.",
     },
     {
-      variableName: "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS",
+      variableName: "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS",
       source: "Optional Stripe dashboard Payment Link.",
       validationRule: "Leave blank or use a https://buy.stripe.com URL.",
       launchNote:
-        "Shows a controlled manual payment link for the five-seat practice pack.",
+        "Shows a controlled manual payment link for the six-seat practice pack.",
     },
     {
       variableName: "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS",
@@ -215,7 +215,7 @@ export function renderProductionEnvChecklist({
     "MODULE_ONE_CLINICAL_APPROVED_VERSION=",
     "MODULE_ONE_CLINICAL_REVIEW_APPROVED=false",
     "PUBLIC_STRIPE_PAYMENT_LINK_FOUNDING_LEARNER=",
-    "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_5_SEATS=",
+    "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_6_SEATS=",
     "PUBLIC_STRIPE_PAYMENT_LINK_PRACTICE_15_SEATS=",
     "```",
     "",

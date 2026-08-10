@@ -6,7 +6,7 @@ import path from "node:path";
 const recommendedReportPath = "launch-evidence/manual-fulfillment-packet.md";
 const supportedOffers = new Set([
   "founding-learner",
-  "practice-five-seat-pack",
+  "practice-six-seat-pack",
   "practice-fifteen-seat-pack",
 ]);
 

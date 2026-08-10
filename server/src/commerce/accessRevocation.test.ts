@@ -17,7 +17,7 @@ const individualPurchase: PurchaseEvent = {
   checkoutSessionId: "cs_individual",
   offerId: "founding-learner",
   purchaserEmail: "learner@example.com",
-  amountTotal: 19900,
+  amountTotal: 29900,
   currency: "usd",
   accessMonths: 12,
 };
@@ -25,12 +25,12 @@ const individualPurchase: PurchaseEvent = {
 const practicePurchase: PurchaseEvent = {
   stripeEventId: "evt_practice",
   checkoutSessionId: "cs_practice",
-  offerId: "practice-five-seat-pack",
+  offerId: "practice-six-seat-pack",
   purchaserEmail: "manager@example.com",
-  amountTotal: 79900,
+  amountTotal: 99900,
   currency: "usd",
   accessMonths: 12,
-  seatCount: 5,
+  seatCount: 6,
 };
 
 describe("revokeAccess", () => {

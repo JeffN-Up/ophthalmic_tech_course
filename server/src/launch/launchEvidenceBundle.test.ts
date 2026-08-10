@@ -450,7 +450,7 @@ describe("createLaunchEvidenceBundle", () => {
     expect(firstCustomersSalesPacket).toContain(
       "LAUNCH_SMOKE_ALLOW_NOT_READY=true"
     );
-    expect(firstCustomersSalesPacket).toContain("Five seats for $799");
+    expect(firstCustomersSalesPacket).toContain("Six seats for $999");
     expect(firstCustomersSalesPacket).toContain("Do not promise certification");
     expect(firstCustomersSalesPacket).toContain("Common Buyer Objections");
     expect(firstCustomersSalesPacket).toContain(
@@ -472,7 +472,7 @@ describe("createLaunchEvidenceBundle", () => {
     );
     expect(individualLearnerDecisionOnePager).toContain("Good Fit If You Are");
     expect(individualLearnerDecisionOnePager).toContain(
-      "Founding Learner Access is $199"
+      "Founding Learner Access is $299"
     );
     expect(individualLearnerDecisionOnePager).toContain(
       "This is education, not certification"
@@ -490,9 +490,7 @@ describe("createLaunchEvidenceBundle", () => {
     expect(practiceManagerApprovalOnePager).toContain(
       "This is not a certification program"
     );
-    expect(practiceManagerApprovalOnePager).toContain(
-      "Five-seat practice pack"
-    );
+    expect(practiceManagerApprovalOnePager).toContain("Six-seat practice pack");
     expectTextToContainWords(
       practiceManagerApprovalOnePager,
       "Do not add patient names, chart details, private employee performance notes, secrets, or payment card information."

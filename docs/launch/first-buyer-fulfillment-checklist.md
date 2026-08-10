@@ -73,7 +73,7 @@ Jeff
 
 ## Practice Pack Fulfillment
 
-Use this when a practice buys a five-seat or fifteen-seat pack.
+Use this when a practice buys a six-seat or fifteen-seat pack.
 
 - [ ] Record purchase date, buyer email, practice name, and purchased pack size.
 - [ ] Confirm Stripe payment status is paid.
@@ -103,7 +103,7 @@ Hi [Name],
 Thank you for purchasing the OptiTech Academy practice onboarding pack.
 
 Purchase email: [buyer email]
-Seat pack: [five-seat / fifteen-seat]
+Seat pack: [six-seat / fifteen-seat]
 
 This pack gives learner access to the shared foundations course. Local
 supervisors remain responsible for practice-specific protocols, observation,

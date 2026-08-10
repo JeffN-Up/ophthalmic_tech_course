@@ -34,7 +34,7 @@ plain-language foundations before the practice teaches its own workflow.
 
 | Option                     |  Price | Best Fit                                                 |
 | -------------------------- | -----: | -------------------------------------------------------- |
-| Five-seat practice pack    |   $799 | Small hiring class or a few new team members.            |
+| Six-seat practice pack     |   $999 | Small hiring class or a few new team members.            |
 | Fifteen-seat practice pack | $1,799 | Larger onboarding group, multiple hires, or supervisors. |
 | Custom conversation        | Custom | More than 15 seats or a coordinated rollout plan.        |
 
@@ -73,7 +73,7 @@ hands-on training, or competency signoff.
 
 The current practice options are:
 
-- Five-seat practice pack: $799
+- Six-seat practice pack: $999
 - Fifteen-seat practice pack: $1,799
 
 I think it may help us give new learners a more consistent foundation before

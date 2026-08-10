@@ -23,7 +23,7 @@ describe("getCheckoutStatus", () => {
 
   it("recognizes successful practice pack Stripe returns", () => {
     expect(
-      getCheckoutStatus("?checkout=success&offer=practice-five-seat-pack")
+      getCheckoutStatus("?checkout=success&offer=practice-six-seat-pack")
     ).toEqual({
       tone: "success",
       title: "Practice pack payment received",
@@ -58,7 +58,7 @@ describe("getCheckoutStatus", () => {
 
   it("recognizes canceled practice pack Stripe returns", () => {
     expect(
-      getCheckoutStatus("?checkout=cancelled&offer=practice-five-seat-pack")
+      getCheckoutStatus("?checkout=cancelled&offer=practice-six-seat-pack")
     ).toEqual({
       tone: "notice",
       title: "Checkout canceled",

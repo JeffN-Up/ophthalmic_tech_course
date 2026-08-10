@@ -12,8 +12,8 @@ const publicPaths = [
   "/checkout?checkout=cancelled&offer=founding-learner",
   "/learn?checkout=success&offer=founding-learner",
   "/practice-packs",
-  "/practice-packs?checkout=cancelled&offer=practice-five-seat-pack",
-  "/practice-packs?checkout=success&offer=practice-five-seat-pack",
+  "/practice-packs?checkout=cancelled&offer=practice-six-seat-pack",
+  "/practice-packs?checkout=success&offer=practice-six-seat-pack",
   "/policies",
   "/curriculum",
   "/onboarding",
@@ -26,7 +26,10 @@ const requiredSecurityHeaders = [
   ["X-Content-Type-Options", "nosniff"],
   ["X-Frame-Options", "DENY"],
   ["Referrer-Policy", "strict-origin-when-cross-origin"],
-  ["Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(self)"],
+  [
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=(self)",
+  ],
   ["Cross-Origin-Opener-Policy", "same-origin"],
 ];
 
@@ -185,7 +188,9 @@ export async function runSmokeTest({
   }
 
   const health = await fetchJson(`${normalizedBaseUrl}/api/health`);
-  const readiness = await fetchJson(`${normalizedBaseUrl}/api/launch/readiness`);
+  const readiness = await fetchJson(
+    `${normalizedBaseUrl}/api/launch/readiness`
+  );
   let checkoutAvailabilityOk = false;
 
   try {
@@ -461,7 +466,9 @@ export function renderConsoleSummary({ report, allowNotReady }) {
   }
 
   if (allowNotReady && !report.readyForPaidLaunch) {
-    lines.push("- Not-ready launch status allowed for this pre-launch smoke run.");
+    lines.push(
+      "- Not-ready launch status allowed for this pre-launch smoke run."
+    );
   }
 
   if (report.blockers.length > 0) {
@@ -486,7 +493,8 @@ export function renderConsoleSummary({ report, allowNotReady }) {
 }
 
 async function main() {
-  const baseUrl = process.env.LAUNCH_BASE_URL || process.env.PUBLIC_APP_URL || "";
+  const baseUrl =
+    process.env.LAUNCH_BASE_URL || process.env.PUBLIC_APP_URL || "";
   const allowNotReady = process.env.LAUNCH_SMOKE_ALLOW_NOT_READY === "true";
   const expectedCommit = process.env.LAUNCH_EXPECTED_COMMIT || "";
   const testPracticeInquiry =

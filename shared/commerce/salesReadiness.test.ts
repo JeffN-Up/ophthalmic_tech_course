@@ -192,7 +192,7 @@ describe("sales readiness copy", () => {
 
     expect(combined).toMatch(/New hires hear the same foundation/i);
     expect(combined).toMatch(/Supervisors can spend more time/i);
-    expect(combined).toMatch(/Five-seat and fifteen-seat packs/i);
+    expect(combined).toMatch(/Six-seat and fifteen-seat packs/i);
     expect(combined).toMatch(/competency observation/i);
     expect(combined).not.toMatch(/guarantee/i);
     expect(combined).not.toMatch(/retention/i);

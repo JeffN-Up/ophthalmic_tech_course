@@ -80,8 +80,8 @@ describe("lead CSV export", () => {
       practiceSeatPacks: [
         {
           seatPackId: "seatpack_cs_test_practice",
-          offerId: "practice-five-seat-pack",
-          totalSeats: 5,
+          offerId: "practice-six-seat-pack",
+          totalSeats: 6,
           assignedSeats: 2,
           status: "active",
         },

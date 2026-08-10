@@ -193,7 +193,7 @@ database schema as verified.
 4. Set `STRIPE_WEBHOOK_SECRET`.
 5. Run a Stripe test checkout for:
    - Individual learner offer.
-   - Five-seat practice pack.
+   - Six-seat practice pack.
    - Fifteen-seat practice pack.
 6. Confirm the webhook creates durable access records in PostgreSQL.
 

@@ -131,8 +131,8 @@ export const deploymentSmokePublicPaths = [
   "/checkout?checkout=cancelled&offer=founding-learner",
   "/learn?checkout=success&offer=founding-learner",
   "/practice-packs",
-  "/practice-packs?checkout=cancelled&offer=practice-five-seat-pack",
-  "/practice-packs?checkout=success&offer=practice-five-seat-pack",
+  "/practice-packs?checkout=cancelled&offer=practice-six-seat-pack",
+  "/practice-packs?checkout=success&offer=practice-six-seat-pack",
   "/policies",
   "/curriculum",
   "/onboarding",
@@ -466,9 +466,7 @@ export function renderDeploymentSmokeReport(
     "",
     `- Health endpoint: ${report.healthOk ? "ok" : "failed"}`,
     `- Deployed commit: ${
-      report.release?.commit
-        ? report.release.commit
-        : "not reported by host"
+      report.release?.commit ? report.release.commit : "not reported by host"
     }`,
     `- Expected commit check: ${
       report.release?.status === "matched"

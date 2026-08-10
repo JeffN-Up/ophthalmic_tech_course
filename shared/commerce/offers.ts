@@ -31,8 +31,8 @@ export interface PracticeInquiryOffer {
 export const foundingLearnerOffer: CourseOffer = {
   id: "founding-learner",
   name: "Founding Learner Access",
-  stripeLookupKey: "optitech_founding_learner_199",
-  priceCents: 19900,
+  stripeLookupKey: "optitech_founding_learner_299",
+  priceCents: 29900,
   currency: "usd",
   accessMonths: 12,
   description:
@@ -53,19 +53,19 @@ export const foundingLearnerOffer: CourseOffer = {
 
 export const practicePackOffers: PracticePackOffer[] = [
   {
-    id: "practice-five-seat-pack",
-    name: "Five-Seat Practice Onboarding Pack",
-    stripeLookupKey: "optitech_practice_5_seats_799",
-    priceCents: 79900,
+    id: "practice-six-seat-pack",
+    name: "Six-Seat Practice Onboarding Pack",
+    stripeLookupKey: "optitech_practice_6_seats_999",
+    priceCents: 99900,
     currency: "usd",
     accessMonths: 12,
-    seatCount: 5,
+    seatCount: 6,
     idealFor:
       "Small practices training one hiring class or a few new team members.",
     description:
-      "Practice onboarding access for up to five learners using the shared OptiTech Academy foundations course, Skills Passport, and career-readiness tools.",
+      "Practice onboarding access for up to six learners using the shared OptiTech Academy foundations course, Skills Passport, and career-readiness tools.",
     includes: [
-      "Five learner seats with 12 months of access.",
+      "Six learner seats with 12 months of access.",
       "Published course modules and future modules released during the access period.",
       "Skills Passport checklists for supervisor-led observation and signoff conversations.",
       "Career Toolkit materials learners can use for role-readiness conversations.",
@@ -122,7 +122,7 @@ export const customPracticeInquiryOffer: PracticeInquiryOffer = {
     "Primary contact:",
     "Approximate learner count:",
     "Target onboarding timeline:",
-    "Interested in: five seats / fifteen seats / larger custom quote",
+    "Interested in: six seats / fifteen seats / larger custom quote",
     "Main onboarding challenge:",
     "",
     "I understand this course supports foundational learning and does not replace local supervision, clinical policy, or hands-on competency signoff.",
@@ -134,7 +134,7 @@ export const customPracticeInquiryOffer: PracticeInquiryOffer = {
   ],
   nextSteps: [
     "Share practice name, approximate learner count, and target onboarding timeline.",
-    "Confirm whether the practice wants five seats, fifteen seats, or a larger custom quote.",
+    "Confirm whether the practice wants six seats, fifteen seats, or a larger custom quote.",
     "Keep clinical protocols, job duties, and hands-on signoff under local practice supervision.",
   ],
   limitations: [

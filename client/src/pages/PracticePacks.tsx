@@ -77,7 +77,7 @@ export default function PracticePacks() {
   const [practiceInquiryMessage, setPracticeInquiryMessage] = useState<
     string | null
   >(null);
-  const [practiceValueLearners, setPracticeValueLearners] = useState("5");
+  const [practiceValueLearners, setPracticeValueLearners] = useState("6");
   const [practiceValueHourlyCost, setPracticeValueHourlyCost] = useState("45");
   const [practiceValueHoursSaved, setPracticeValueHoursSaved] = useState("3");
   const checkoutStatus =
@@ -91,8 +91,8 @@ export default function PracticePacks() {
     estimatedHoursSavedPerLearner: Number(practiceValueHoursSaved),
   });
   const manualPaymentLinksByOfferId: Record<string, string | undefined> = {
-    "practice-five-seat-pack":
-      checkoutAvailability?.manualPaymentLinks.practiceFiveSeatPack,
+    "practice-six-seat-pack":
+      checkoutAvailability?.manualPaymentLinks.practiceSixSeatPack,
     "practice-fifteen-seat-pack":
       checkoutAvailability?.manualPaymentLinks.practiceFifteenSeatPack,
   };

@@ -282,7 +282,7 @@ export const practiceValueProofPoints: PracticeValueProofPoint[] = [
   {
     title: "Seat packs match small teams",
     description:
-      "Five-seat and fifteen-seat packs give managers a simple way to plan access for one hiring class or a larger onboarding group.",
+      "Six-seat and fifteen-seat packs give managers a simple way to plan access for one hiring class or a larger onboarding group.",
   },
   {
     title: "Local signoff stays local",

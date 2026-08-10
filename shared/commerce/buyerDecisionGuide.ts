@@ -40,7 +40,7 @@ export const individualLearnerDecisionGuide: BuyerDecisionGuide = {
   subtitle: "For career changers, medical assistants, and new techs",
   summary:
     "OptiTech Academy helps learners build beginner eye-care vocabulary, clinic-flow understanding, patient communication habits, knowledge checks, and supervised practice preparation.",
-  priceSummary: "Founding Learner Access is $199 for 12 months.",
+  priceSummary: "Founding Learner Access is $299 for 12 months.",
   goodFit: [
     "You are a medical assistant who wants to understand eye care better.",
     "You are a career changer exploring ophthalmic assisting.",
@@ -146,7 +146,7 @@ export const practiceManagerDecisionGuide: BuyerDecisionGuide = {
   summary:
     "OptiTech Academy gives new ophthalmic technicians and medical assistants a more consistent onboarding starting point before the practice teaches local workflow.",
   priceSummary:
-    "Practice options include five seats for $799, fifteen seats for $1,799, and custom conversations for larger rollouts.",
+    "Practice options include six seats for $999, fifteen seats for $1,799, and custom conversations for larger rollouts.",
   goodFit: [
     "Your practice trains new ophthalmic technicians or medical assistants.",
     "Supervisors repeat the same starter explanations often.",
@@ -186,7 +186,7 @@ export const practiceManagerDecisionGuide: BuyerDecisionGuide = {
     {
       question: "How many learners need access?",
       whyItMatters:
-        "The answer points to five seats, fifteen seats, or a custom conversation.",
+        "The answer points to six seats, fifteen seats, or a custom conversation.",
     },
     {
       question: "Who will be the practice contact?",
@@ -224,7 +224,8 @@ export const practiceManagerDecisionGuide: BuyerDecisionGuide = {
       concern: "Can we add our doctor-specific protocols?",
       safeAnswer:
         "Practice-specific workflows and doctor protocols should stay in the private Spindel/practice onboarding layer, not the national public course.",
-      nextStep: "Discuss private onboarding needs separately from public course checkout.",
+      nextStep:
+        "Discuss private onboarding needs separately from public course checkout.",
     },
   ],
   safeShareMessage:

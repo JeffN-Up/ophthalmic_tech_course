@@ -8,12 +8,12 @@ import type { VerifiedPurchaseRecord } from "./purchaseStore";
 const practicePurchase: VerifiedPurchaseRecord = {
   stripeEventId: "evt_practice",
   checkoutSessionId: "cs_test_practice",
-  offerId: "practice-five-seat-pack",
+  offerId: "practice-six-seat-pack",
   purchaserEmail: " Manager@Example.com ",
-  amountTotal: 79900,
+  amountTotal: 99900,
   currency: "usd",
   accessMonths: 12,
-  seatCount: 5,
+  seatCount: 6,
   recordedAt: "2026-06-26T14:00:00.000Z",
 };
 
@@ -22,9 +22,9 @@ describe("createPracticeSeatPackFromPurchase", () => {
     expect(createPracticeSeatPackFromPurchase(practicePurchase)).toEqual({
       seatPackId: "seatpack_cs_test_practice",
       checkoutSessionId: "cs_test_practice",
-      offerId: "practice-five-seat-pack",
+      offerId: "practice-six-seat-pack",
       purchaserEmail: "manager@example.com",
-      totalSeats: 5,
+      totalSeats: 6,
       assignedSeats: 0,
       status: "active",
       accessStartedAt: "2026-06-26T14:00:00.000Z",
@@ -169,7 +169,9 @@ describe("createInMemoryPracticeSeatPackStore", () => {
     if (!assignmentResult.assigned) throw new Error(assignmentResult.reason);
 
     expect(
-      store.revokePracticeSeatAssignment(assignmentResult.assignment.assignmentId)
+      store.revokePracticeSeatAssignment(
+        assignmentResult.assignment.assignmentId
+      )
     ).toMatchObject({
       revoked: true,
       assignment: {

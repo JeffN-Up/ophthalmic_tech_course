@@ -11,7 +11,7 @@ OptiTech Academy is a self-paced ophthalmic technician foundations course. It
 helps learners understand beginner eye-care vocabulary, clinic flow, patient
 communication, knowledge checks, and supervised practice preparation.
 
-Founding Learner Access is $199 for 12 months.
+Founding Learner Access is $299 for 12 months.
 
 This is education, not certification. It does not guarantee a job, promotion,
 exam success, income, or hands-on clinical competency. It is meant to help you
@@ -58,7 +58,7 @@ first, or whether they should pause before buying.
 | Do I understand this is not certification?                                          |            |
 | Do I have a supervisor, mentor, or future employer who can observe hands-on skills? |            |
 | Do I have a learning goal for the next 30 days?                                     |            |
-| Is $199 for 12 months reasonable for my learning goal?                              |            |
+| Is $299 for 12 months reasonable for my learning goal?                              |            |
 
 ## Safe Message To Send A Supervisor Or Mentor
 

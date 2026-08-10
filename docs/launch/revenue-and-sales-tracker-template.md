@@ -31,7 +31,7 @@ Use this table before someone buys.
 | Date Added | Lead Type  | Name Or Practice | Source   | Buyer Path        | Status | Next Follow-Up | Safe Notes                              |
 | ---------- | ---------- | ---------------- | -------- | ----------------- | ------ | -------------- | --------------------------------------- |
 | 2026-07-13 | Individual | Example Learner  | LinkedIn | Individual course | New    | 2026-07-16     | Wants beginner-friendly tech training.  |
-| 2026-07-13 | Practice   | Example Eye Care | Referral | Five-seat pack    | Warm   | 2026-07-17     | Asked about onboarding new technicians. |
+| 2026-07-13 | Practice   | Example Eye Care | Referral | Six-seat pack     | Warm   | 2026-07-17     | Asked about onboarding new technicians. |
 
 Status ideas:
 
@@ -47,10 +47,10 @@ Status ideas:
 
 Use this table after someone pays.
 
-| Purchase Date | Buyer Type | Buyer Name Or Practice | Buyer Email         | Offer                   | Amount | Stripe Checkout Session ID | Stripe Event ID  | Fulfillment Status | Sign-In Confirmed | Support Needed | Safe Notes                  |
-| ------------- | ---------- | ---------------------- | ------------------- | ----------------------- | -----: | -------------------------- | ---------------- | ------------------ | ----------------- | -------------- | --------------------------- |
-| 2026-07-13    | Individual | Example Learner        | learner@example.com | Individual learner      |    199 | cs_test_example            | evt_test_example | Access sent        | No                | No             | Send welcome email.         |
-| 2026-07-13    | Practice   | Example Eye Care       | admin@example.com   | Five-seat practice pack |    799 | cs_test_example            | evt_test_example | Seats created      | No                | Yes            | Needs seat assignment help. |
+| Purchase Date | Buyer Type | Buyer Name Or Practice | Buyer Email         | Offer                  | Amount | Stripe Checkout Session ID | Stripe Event ID  | Fulfillment Status | Sign-In Confirmed | Support Needed | Safe Notes                  |
+| ------------- | ---------- | ---------------------- | ------------------- | ---------------------- | -----: | -------------------------- | ---------------- | ------------------ | ----------------- | -------------- | --------------------------- |
+| 2026-07-13    | Individual | Example Learner        | learner@example.com | Individual learner     |    299 | cs_test_example            | evt_test_example | Access sent        | No                | No             | Send welcome email.         |
+| 2026-07-13    | Practice   | Example Eye Care       | admin@example.com   | Six-seat practice pack |    999 | cs_test_example            | evt_test_example | Seats created      | No                | Yes            | Needs seat assignment help. |
 
 Fulfillment status ideas:
 

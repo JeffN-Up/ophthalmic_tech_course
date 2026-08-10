@@ -4,7 +4,7 @@ import path from "node:path";
 
 const allowedOfferIds = new Set([
   "founding-learner",
-  "practice-five-seat-pack",
+  "practice-six-seat-pack",
   "practice-fifteen-seat-pack",
 ]);
 const recommendedReportPath =
