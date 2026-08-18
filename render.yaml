@@ -1,61 +1,34 @@
+# Payment-free Spindel Eye Associates onboarding release.
+# The deployable application is unpacked from the validated release package in /release.
 services:
   - type: web
-    name: optitech-academy
+    name: spindel-eye-onboarding
     runtime: node
     plan: starter
-    buildCommand: pnpm install --frozen-lockfile && pnpm run build
-    startCommand: pnpm start
+    region: ohio
+    buildCommand: rm -rf .render-release && mkdir -p .render-release && cat release/source.b64.part* | base64 --decode | tar -xz -C .render-release && cd .render-release && corepack enable && corepack prepare pnpm@10.4.1 --activate && pnpm install --frozen-lockfile && pnpm build
+    startCommand: cd .render-release && node dist/index.js
     healthCheckPath: /api/health
-    disk:
-      name: course-data
-      mountPath: /var/data
-      sizeGB: 1
+    autoDeployTrigger: "off"
     envVars:
+      - key: NODE_VERSION
+        value: "22"
       - key: NODE_ENV
         value: production
-      - key: DATA_FILE
-        value: /var/data/course-data.json
-      - key: BUSINESS_NAME
-        value: OptiTech Academy
-      - key: SESSION_SECRET
-        generateValue: true
       - key: PUBLIC_APP_URL
         fromService:
           type: web
-          name: optitech-academy
+          name: spindel-eye-onboarding
           envVarKey: RENDER_EXTERNAL_URL
-      - key: STRIPE_SECRET_KEY
-        sync: false
-      - key: STRIPE_STANDARD_PRICE_ID
-        sync: false
-      - key: STRIPE_PRACTICE_PRICE_ID
-        sync: false
-      - key: STRIPE_WEBHOOK_SECRET
-        sync: false
-      - key: STRIPE_ALLOW_PROMOTION_CODES
-        value: "true"
-      - key: STRIPE_AUTOMATIC_TAX
+      - key: ENABLE_PAID_ENROLLMENT
         value: "false"
-      - key: RESEND_API_KEY
+      - key: AUTH_SESSION_SECRET
+        generateValue: true
+      - key: SPINDEL_ACCESS_CODE
         sync: false
-      - key: EMAIL_FROM
-        sync: false
-      - key: SUPPORT_EMAIL
-        sync: false
-      - key: SALES_NOTIFICATION_EMAIL
-        sync: false
-      - key: BUSINESS_LEGAL_NAME
-        sync: false
-      - key: BUSINESS_ADDRESS
-        sync: false
-      - key: SPINDEL_MANAGER_EMAIL
-        sync: false
-      - key: SPINDEL_MANAGER_PASSWORD
-        sync: false
-      - key: SPINDEL_MANAGER_FIRST_NAME
-        value: Spindel
-      - key: SPINDEL_MANAGER_LAST_NAME
-        value: Administrator
-      - key: SPINDEL_SEAT_LIMIT
-        value: "100"
-
+      - key: DATA_FILE
+        value: /var/data/course-data.json
+    disk:
+      name: spindel-onboarding-data
+      mountPath: /var/data
+      sizeGB: 1
