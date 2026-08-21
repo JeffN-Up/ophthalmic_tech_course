@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { hashPassword } from "./auth";
+import { hashPassword, verifyPassword } from "./auth";
 
 export interface CourseProgress {
   day: number;
@@ -127,6 +127,9 @@ function applySpindelBootstrap(database: CourseDatabase): CourseDatabase {
     };
     database.users.push(manager);
   } else {
+    if (!verifyPassword(password, manager.passwordHash)) {
+      manager.passwordHash = hashPassword(password);
+    }
     manager.role = "manager";
     manager.organizationName = "Spindel Eye Associates";
     manager.seatLimit = Math.max(manager.seatLimit || 1, seatLimit);
