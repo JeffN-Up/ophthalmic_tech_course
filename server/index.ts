@@ -21,7 +21,9 @@ import {
 } from "./email";
 import {
   createOpaqueToken,
+  canAccessSpindelMedia,
   hashOpaqueToken,
+  parseProtectedMediaCatalog,
   rateLimit,
   requireSameOrigin,
   securityHeaders,
@@ -109,6 +111,7 @@ function requireProductionConfiguration(): void {
     "SUPPORT_EMAIL",
     "BUSINESS_LEGAL_NAME",
     "BUSINESS_ADDRESS",
+    "SPINDEL_MEDIA_CATALOG_JSON",
   ];
   const missing = required.filter((key) => !process.env[key]?.trim());
   if (missing.length > 0) {
@@ -765,6 +768,26 @@ async function startServer() {
     });
 
     return res.json({ user: publicUser(updatedUser) });
+  });
+
+  app.get("/api/course/spindel-media", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+    if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
+      return res.status(403).json({ error: "Spindel onboarding access is required." });
+    }
+
+    const configuredCatalog = process.env.SPINDEL_MEDIA_CATALOG_JSON?.trim();
+    if (!configuredCatalog) {
+      return res.status(503).json({ error: "Approved media is not configured." });
+    }
+
+    try {
+      return res.json({ media: parseProtectedMediaCatalog(configuredCatalog) });
+    } catch (catalogError) {
+      console.error("Protected media configuration error", catalogError);
+      return res.status(503).json({ error: "Approved media is temporarily unavailable." });
+    }
   });
 
   app.get("/api/practice/team", async (req, res) => {

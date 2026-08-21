@@ -22,6 +22,7 @@ BUSINESS_LEGAL_NAME=
 BUSINESS_ADDRESS=
 SPINDEL_MANAGER_EMAIL=
 SPINDEL_MANAGER_PASSWORD=
+SPINDEL_MEDIA_CATALOG_JSON=
 ```
 
 Render automatically generates `SESSION_SECRET`, assigns `PUBLIC_APP_URL`, and configures the persistent `DATA_FILE`. The manager name defaults to `Spindel Administrator`, and the seat limit defaults to `100` unless changed in Render.

@@ -6,13 +6,27 @@ import { getCourseContent } from "@/data/courseContent";
 import { getCourseQuizByDay } from "@/data/courseQuizzes";
 import { curriculumModules } from "@/data/curriculum";
 import {
+  getSpindelMediaForDay,
+  type SpindelApprovedMedia,
+} from "@/data/spindelMedia";
+import {
   getSpindelLesson,
   getSpindelQuiz,
   isSpindelOrganization,
   spindelOnboardingModules,
 } from "@/data/spindelOnboarding";
 import { ApiError, apiRequest, type CourseUser } from "@/lib/api";
-import { AlertTriangle, ArrowLeft, CheckCircle2, Clock, Loader2 } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  CheckCircle2,
+  Clock,
+  ExternalLink,
+  Headphones,
+  Image as ImageIcon,
+  Loader2,
+  PlayCircle,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRoute } from "wouter";
 
@@ -22,12 +36,28 @@ export default function CourseModule() {
   const [user, setUser] = useState<CourseUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [approvedMedia, setApprovedMedia] = useState<SpindelApprovedMedia[]>([]);
+  const [mediaError, setMediaError] = useState("");
 
   useEffect(() => {
     const load = async () => {
       try {
         const response = await apiRequest<{ user: CourseUser }>("/api/auth/me");
         setUser(response.user);
+        if (isSpindelOrganization(response.user.organizationName)) {
+          try {
+            const mediaResponse = await apiRequest<{ media: SpindelApprovedMedia[] }>(
+              "/api/course/spindel-media",
+            );
+            setApprovedMedia(getSpindelMediaForDay(mediaResponse.media, day));
+          } catch (mediaRequestError) {
+            setMediaError(
+              mediaRequestError instanceof Error
+                ? mediaRequestError.message
+                : "Approved media is temporarily unavailable.",
+            );
+          }
+        }
       } catch (requestError) {
         if (requestError instanceof ApiError && requestError.status === 401) {
           window.location.assign("/login");
@@ -39,7 +69,7 @@ export default function CourseModule() {
       }
     };
     void load();
-  }, []);
+  }, [day]);
 
   if (loading) {
     return (
@@ -130,6 +160,61 @@ export default function CourseModule() {
         <Card className="p-6 shadow-lg sm:p-8">
           <p className="text-lg leading-8 text-slate-700">{lesson.introduction}</p>
         </Card>
+
+        {approvedMedia.length > 0 && (
+          <Card className="overflow-hidden shadow-lg">
+            <div className="border-b border-slate-200 bg-gradient-to-r from-sky-950 via-blue-900 to-cyan-900 p-6 text-white sm:p-8">
+              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-200">Physician-approved media</p>
+              <h2 className="mt-2 text-2xl font-bold">Watch, listen, and review</h2>
+              <p className="mt-2 max-w-3xl text-blue-100">
+                These resources support the current Spindel onboarding lesson and reinforce supervised practice.
+              </p>
+            </div>
+            <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-2">
+              {approvedMedia.map((item) => {
+                const MediaIcon = item.type === "video"
+                  ? PlayCircle
+                  : item.type === "audio"
+                    ? Headphones
+                    : ImageIcon;
+
+                return (
+                  <article key={item.driveFileId} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                    <iframe
+                      src={item.embedUrl}
+                      title={item.title}
+                      className="aspect-video w-full border-0 bg-slate-950"
+                      loading="lazy"
+                      allow="autoplay"
+                      allowFullScreen
+                    />
+                    <div className="p-5">
+                      <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-blue-700">
+                        <MediaIcon className="h-4 w-4" /> {item.type}
+                      </div>
+                      <h3 className="mt-2 text-lg font-bold text-slate-900">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                      <a
+                        href={item.openUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-4 inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-900"
+                      >
+                        Open full media <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </Card>
+        )}
+
+        {spindel && mediaError && (
+          <div className="rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-950">
+            <strong>Media unavailable:</strong> {mediaError} Continue with the written lesson and notify a supervisor if access should be restored.
+          </div>
+        )}
 
         {lesson.sections.map((section) => (
           <Card key={section.title} className="p-6 shadow-lg sm:p-8">

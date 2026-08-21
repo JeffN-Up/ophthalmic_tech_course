@@ -58,4 +58,6 @@ services:
         value: Administrator
       - key: SPINDEL_SEAT_LIMIT
         value: "100"
+      - key: SPINDEL_MEDIA_CATALOG_JSON
+        sync: false
 

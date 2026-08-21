@@ -1,6 +1,76 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
 
+export interface ProtectedMediaItem {
+  driveFileId: string;
+  title: string;
+  description: string;
+  type: "video" | "audio" | "image";
+  moduleDays: number[];
+  embedUrl: string;
+  openUrl: string;
+}
+
+const DRIVE_FILE_ID_PATTERN = /^[A-Za-z0-9_-]{10,100}$/;
+const PROTECTED_MEDIA_TYPES = new Set<ProtectedMediaItem["type"]>([
+  "video",
+  "audio",
+  "image",
+]);
+
+export function canAccessSpindelMedia(organizationName?: string): boolean {
+  return organizationName?.trim().toLowerCase().includes("spindel eye") ?? false;
+}
+
+export function parseProtectedMediaCatalog(value: string): ProtectedMediaItem[] {
+  const parsed = JSON.parse(value) as unknown;
+  if (!Array.isArray(parsed) || parsed.length > 20) {
+    throw new Error("SPINDEL_MEDIA_CATALOG_JSON must be an array with at most 20 items.");
+  }
+
+  const seen = new Set<string>();
+  return parsed.map((rawItem, index) => {
+    if (!rawItem || typeof rawItem !== "object") {
+      throw new Error(`Protected media item ${index + 1} is invalid.`);
+    }
+
+    const item = rawItem as Record<string, unknown>;
+    const driveFileId = typeof item.driveFileId === "string" ? item.driveFileId.trim() : "";
+    const title = typeof item.title === "string" ? item.title.trim().slice(0, 160) : "";
+    const description = typeof item.description === "string"
+      ? item.description.trim().slice(0, 500)
+      : "";
+    const type = item.type;
+    const moduleDays = Array.isArray(item.moduleDays)
+      ? [...new Set(item.moduleDays.filter(
+        (day): day is number => Number.isInteger(day) && Number(day) >= 1 && Number(day) <= 10,
+      ))]
+      : [];
+
+    if (
+      !DRIVE_FILE_ID_PATTERN.test(driveFileId) ||
+      !title ||
+      !description ||
+      !PROTECTED_MEDIA_TYPES.has(type as ProtectedMediaItem["type"]) ||
+      moduleDays.length === 0 ||
+      seen.has(driveFileId)
+    ) {
+      throw new Error(`Protected media item ${index + 1} is incomplete or duplicated.`);
+    }
+
+    seen.add(driveFileId);
+    return {
+      driveFileId,
+      title,
+      description,
+      type: type as ProtectedMediaItem["type"],
+      moduleDays,
+      embedUrl: `https://drive.google.com/file/d/${driveFileId}/preview`,
+      openUrl: `https://drive.google.com/file/d/${driveFileId}/view`,
+    };
+  });
+}
+
 export function createOpaqueToken(): string {
   return randomBytes(32).toString("base64url");
 }
@@ -90,7 +160,7 @@ export function securityHeaders(req: Request, res: Response, next: NextFunction)
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(self)");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; img-src 'self' data:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self';",
+    "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; frame-src 'self' https://drive.google.com; form-action 'self' https://checkout.stripe.com; img-src 'self' data:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self';",
   );
   if (process.env.NODE_ENV === "production") {
     res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
