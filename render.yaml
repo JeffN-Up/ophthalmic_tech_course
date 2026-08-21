@@ -19,47 +19,14 @@ services:
         value: OptiTech Academy
       - key: SESSION_SECRET
         generateValue: true
-      - key: PUBLIC_APP_URL
-        fromService:
-          type: web
-          name: optitech-academy
-          envVarKey: RENDER_EXTERNAL_URL
-      - key: STRIPE_SECRET_KEY
-        sync: false
-      - key: STRIPE_STANDARD_PRICE_ID
-        sync: false
-      - key: STRIPE_PRACTICE_PRICE_ID
-        sync: false
-      - key: STRIPE_WEBHOOK_SECRET
-        sync: false
       - key: STRIPE_ALLOW_PROMOTION_CODES
         value: "true"
       - key: STRIPE_AUTOMATIC_TAX
         value: "false"
-      - key: RESEND_API_KEY
-        sync: false
-      - key: EMAIL_FROM
-        sync: false
-      - key: SUPPORT_EMAIL
-        sync: false
-      - key: SALES_NOTIFICATION_EMAIL
-        sync: false
-      - key: BUSINESS_LEGAL_NAME
-        sync: false
-      - key: BUSINESS_ADDRESS
-        sync: false
-      - key: SPINDEL_MANAGER_EMAIL
-        sync: false
-      - key: SPINDEL_MANAGER_PASSWORD
-        sync: false
       - key: SPINDEL_MANAGER_FIRST_NAME
         value: Spindel
       - key: SPINDEL_MANAGER_LAST_NAME
         value: Administrator
       - key: SPINDEL_SEAT_LIMIT
         value: "100"
-      - key: SPINDEL_MEDIA_CATALOG_JSON
-        sync: false
-      - key: COURSE_MEDIA_CATALOG_JSON
-        sync: false
 
