@@ -4,11 +4,11 @@ A full-stack, ten-module ophthalmic technician education platform built with Rea
 
 ## One-click Render deployment
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Down2pound/ophthalmic_tech_course)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/JeffN-Up/ophthalmic_tech_course)
 
 The repository includes a production `render.yaml` Blueprint. Select the button above, authorize Render to access the GitHub repository, review the Blueprint, enter the secret environment values requested by Render, and approve deployment.
 
-The current production configuration requires these secret values before the service can start:
+Add these private values in Render to enable enrollment, email, and protected media. The public site and health check can start before these optional integrations are configured:
 
 ```env
 STRIPE_SECRET_KEY=
