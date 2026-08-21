@@ -20,8 +20,11 @@ import {
   sendSupportMessage,
 } from "./email";
 import {
+  assertCompleteCourseMediaCoverage,
   createOpaqueToken,
+  canAccessSpindelMedia,
   hashOpaqueToken,
+  parseProtectedMediaCatalog,
   rateLimit,
   requireSameOrigin,
   securityHeaders,
@@ -96,23 +99,38 @@ function getBaseUrl(req?: express.Request): string {
 function requireProductionConfiguration(): void {
   if (process.env.NODE_ENV !== "production") return;
 
+  // Only fail startup for settings the server cannot operate safely without.
+  // Commerce, email, and protected media routes already return a clear 503 when
+  // their integrations are not configured, so they must not take the public
+  // course site and health check offline during an initial deployment.
   const required = [
     "PUBLIC_APP_URL",
+    "SESSION_SECRET",
+    "DATA_FILE",
+  ];
+  const missing = required.filter((key) => !process.env[key]?.trim());
+  if (missing.length > 0) {
+    throw new Error(`Missing required production environment variables: ${missing.join(", ")}`);
+  }
+
+  const optional = [
     "STRIPE_SECRET_KEY",
     "STRIPE_STANDARD_PRICE_ID",
     "STRIPE_PRACTICE_PRICE_ID",
     "STRIPE_WEBHOOK_SECRET",
-    "SESSION_SECRET",
-    "DATA_FILE",
     "RESEND_API_KEY",
     "EMAIL_FROM",
     "SUPPORT_EMAIL",
     "BUSINESS_LEGAL_NAME",
     "BUSINESS_ADDRESS",
+    "SPINDEL_MEDIA_CATALOG_JSON",
+    "COURSE_MEDIA_CATALOG_JSON",
   ];
-  const missing = required.filter((key) => !process.env[key]?.trim());
-  if (missing.length > 0) {
-    throw new Error(`Missing required production environment variables: ${missing.join(", ")}`);
+  const unavailable = optional.filter((key) => !process.env[key]?.trim());
+  if (unavailable.length > 0) {
+    console.warn(
+      `Optional production features are disabled until configured: ${unavailable.join(", ")}`,
+    );
   }
 }
 
@@ -765,6 +783,45 @@ async function startServer() {
     });
 
     return res.json({ user: publicUser(updatedUser) });
+  });
+
+  app.get("/api/course/spindel-media", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+    if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
+      return res.status(403).json({ error: "Spindel onboarding access is required." });
+    }
+
+    const configuredCatalog = process.env.SPINDEL_MEDIA_CATALOG_JSON?.trim();
+    if (!configuredCatalog) {
+      return res.status(503).json({ error: "Approved media is not configured." });
+    }
+
+    try {
+      return res.json({ media: parseProtectedMediaCatalog(configuredCatalog) });
+    } catch (catalogError) {
+      console.error("Protected media configuration error", catalogError);
+      return res.status(503).json({ error: "Approved media is temporarily unavailable." });
+    }
+  });
+
+  app.get("/api/course/media", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+
+    const configuredCatalog = process.env.COURSE_MEDIA_CATALOG_JSON?.trim();
+    if (!configuredCatalog) {
+      return res.status(503).json({ error: "Course media is not configured." });
+    }
+
+    try {
+      const media = parseProtectedMediaCatalog(configuredCatalog);
+      assertCompleteCourseMediaCoverage(media);
+      return res.json({ media });
+    } catch (catalogError) {
+      console.error("Course media configuration error", catalogError);
+      return res.status(503).json({ error: "Course media is temporarily unavailable." });
+    }
   });
 
   app.get("/api/practice/team", async (req, res) => {
