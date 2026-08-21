@@ -71,6 +71,21 @@ export function parseProtectedMediaCatalog(value: string): ProtectedMediaItem[] 
   });
 }
 
+export function assertCompleteCourseMediaCoverage(
+  media: Array<Pick<ProtectedMediaItem, "type" | "moduleDays">>,
+): void {
+  for (let day = 1; day <= 10; day += 1) {
+    for (const type of ["video", "audio"] as const) {
+      const hasOverview = media.some(
+        (item) => item.type === type && item.moduleDays.includes(day),
+      );
+      if (!hasOverview) {
+        throw new Error(`Course media is missing an ${type} overview for module ${day}.`);
+      }
+    }
+  }
+}
+
 export function createOpaqueToken(): string {
   return randomBytes(32).toString("base64url");
 }

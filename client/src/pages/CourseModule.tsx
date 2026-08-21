@@ -6,6 +6,7 @@ import { getCourseContent } from "@/data/courseContent";
 import { getCourseQuizByDay } from "@/data/courseQuizzes";
 import { curriculumModules } from "@/data/curriculum";
 import {
+  getApprovedMediaEndpoint,
   getSpindelMediaForDay,
   type SpindelApprovedMedia,
 } from "@/data/spindelMedia";
@@ -44,19 +45,17 @@ export default function CourseModule() {
       try {
         const response = await apiRequest<{ user: CourseUser }>("/api/auth/me");
         setUser(response.user);
-        if (isSpindelOrganization(response.user.organizationName)) {
-          try {
-            const mediaResponse = await apiRequest<{ media: SpindelApprovedMedia[] }>(
-              "/api/course/spindel-media",
-            );
-            setApprovedMedia(getSpindelMediaForDay(mediaResponse.media, day));
-          } catch (mediaRequestError) {
-            setMediaError(
-              mediaRequestError instanceof Error
-                ? mediaRequestError.message
-                : "Approved media is temporarily unavailable.",
-            );
-          }
+        try {
+          const mediaResponse = await apiRequest<{ media: SpindelApprovedMedia[] }>(
+            getApprovedMediaEndpoint(response.user.organizationName),
+          );
+          setApprovedMedia(getSpindelMediaForDay(mediaResponse.media, day));
+        } catch (mediaRequestError) {
+          setMediaError(
+            mediaRequestError instanceof Error
+              ? mediaRequestError.message
+              : "Approved media is temporarily unavailable.",
+          );
         }
       } catch (requestError) {
         if (requestError instanceof ApiError && requestError.status === 401) {
@@ -164,10 +163,12 @@ export default function CourseModule() {
         {approvedMedia.length > 0 && (
           <Card className="overflow-hidden shadow-lg">
             <div className="border-b border-slate-200 bg-gradient-to-r from-sky-950 via-blue-900 to-cyan-900 p-6 text-white sm:p-8">
-              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-200">Physician-approved media</p>
+              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-200">{spindel ? "Physician-approved media" : "Module media"}</p>
               <h2 className="mt-2 text-2xl font-bold">Watch, listen, and review</h2>
               <p className="mt-2 max-w-3xl text-blue-100">
-                These resources support the current Spindel onboarding lesson and reinforce supervised practice.
+                {spindel
+                  ? "These resources support the current Spindel onboarding lesson and reinforce supervised practice."
+                  : "Use the video and audio overviews to reinforce the written lesson before completing the assessment."}
               </p>
             </div>
             <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-2">
@@ -210,7 +211,7 @@ export default function CourseModule() {
           </Card>
         )}
 
-        {spindel && mediaError && (
+        {mediaError && (
           <div className="rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-950">
             <strong>Media unavailable:</strong> {mediaError} Continue with the written lesson and notify a supervisor if access should be restored.
           </div>

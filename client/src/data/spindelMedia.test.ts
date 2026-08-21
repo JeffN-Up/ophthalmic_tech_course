@@ -39,4 +39,17 @@ describe("approved Spindel media", () => {
       "server_supplied_media_01",
     ]);
   });
+
+  it("routes public learners to course media and Spindel learners to onboarding media", async () => {
+    const mediaModule = await import("./spindelMedia") as Record<string, unknown>;
+    const getEndpoint = mediaModule.getApprovedMediaEndpoint as
+      | ((organizationName?: string) => string)
+      | undefined;
+
+    expect(typeof getEndpoint).toBe("function");
+    if (!getEndpoint) return;
+
+    expect(getEndpoint("Independent Learner")).toBe("/api/course/media");
+    expect(getEndpoint("Spindel Eye Associates")).toBe("/api/course/spindel-media");
+  });
 });

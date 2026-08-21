@@ -100,4 +100,27 @@ describe("security helpers", () => {
     expect(canAccess?.("Spindel Eye Associates")).toBe(true);
     expect(canAccess?.("Another Practice")).toBe(false);
   });
+
+  it("requires at least one video and one audio overview for every public course module", async () => {
+    const security = await import("./security") as Record<string, unknown>;
+    const assertCoverage = security.assertCompleteCourseMediaCoverage as
+      | ((media: Array<{ type: "video" | "audio" | "image"; moduleDays: number[] }>) => void)
+      | undefined;
+
+    expect(typeof assertCoverage).toBe("function");
+    if (!assertCoverage) return;
+
+    const complete = Array.from({ length: 10 }, (_, index) => {
+      const day = index + 1;
+      return [
+        { type: "video" as const, moduleDays: [day] },
+        { type: "audio" as const, moduleDays: [day] },
+      ];
+    }).flat();
+
+    expect(() => assertCoverage(complete)).not.toThrow();
+    expect(() => assertCoverage(complete.slice(0, -1))).toThrow(
+      "Course media is missing an audio overview for module 10.",
+    );
+  });
 });

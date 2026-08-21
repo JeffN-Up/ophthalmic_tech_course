@@ -14,3 +14,9 @@ export function getSpindelMediaForDay(
 ): SpindelApprovedMedia[] {
   return media.filter((item) => item.moduleDays.includes(day));
 }
+
+export function getApprovedMediaEndpoint(organizationName?: string): string {
+  return organizationName?.trim().toLowerCase().includes("spindel eye")
+    ? "/api/course/spindel-media"
+    : "/api/course/media";
+}

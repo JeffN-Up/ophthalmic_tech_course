@@ -23,6 +23,7 @@ BUSINESS_ADDRESS=
 SPINDEL_MANAGER_EMAIL=
 SPINDEL_MANAGER_PASSWORD=
 SPINDEL_MEDIA_CATALOG_JSON=
+COURSE_MEDIA_CATALOG_JSON=
 ```
 
 Render automatically generates `SESSION_SECRET`, assigns `PUBLIC_APP_URL`, and configures the persistent `DATA_FILE`. The manager name defaults to `Spindel Administrator`, and the seat limit defaults to `100` unless changed in Render.
@@ -41,6 +42,7 @@ The internal portal is available at `/spindel` after a successful deployment. Se
 - Signed, HTTP-only login sessions
 - Protected student dashboard and lessons
 - Ten instructional modules with practice checklists and clinical safety notes
+- One protected video overview and one protected audio overview for every public module
 - End-of-module quizzes with saved scores
 - Practice-manager invitation links and team progress
 - Private Spindel Eye Associates employee onboarding portal
