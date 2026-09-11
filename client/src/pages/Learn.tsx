@@ -18,6 +18,7 @@ import {
 import { getCheckoutStatus } from "@/lib/checkoutStatus";
 import { createMailtoHref } from "@shared/commerce/offers";
 import { buyerSupportContact } from "@shared/commerce/policies";
+import { getModuleStudyMaterialBundle } from "@shared/course/moduleStudyMaterials";
 import {
   fetchModuleOneLessonProgress,
   markModuleOneLessonComplete,
@@ -33,8 +34,15 @@ import {
   ClipboardCheck,
   Compass,
   ExternalLink,
+  FileText,
+  Headphones,
+  HelpCircle,
+  ImageIcon,
   Mail,
   ShieldAlert,
+  Star,
+  Video,
+  type LucideIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -72,6 +80,15 @@ export default function Learn() {
 
   const completePercent = getProgressPercent(progress, lessonList.length);
   const moduleOne = protectedLessons?.module ?? optiTechCourse.modules[0];
+  const moduleStudyMaterials = getModuleStudyMaterialBundle(
+    moduleOne.moduleNumber
+  );
+  const materialKindIconMap: Record<string, LucideIcon> = {
+    audio: Headphones,
+    image: ImageIcon,
+    pdf: FileText,
+    video: Video,
+  };
   const checkoutStatus =
     typeof window === "undefined"
       ? null
@@ -557,6 +574,95 @@ export default function Learn() {
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 ))}
+              </div>
+            </Card>
+
+            <Card className="border-slate-200 bg-white p-6 text-slate-950 shadow-sm">
+              <h3 className="font-semibold">Module-linked extras</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                These optional reviewed materials support Module{" "}
+                {moduleOne.moduleNumber}, but they are separate from required
+                lesson completion. Use them when you want a quick reference, an
+                overview, or deeper bonus context.
+              </p>
+              <div className="mt-4 grid gap-4 lg:grid-cols-3">
+                {moduleStudyMaterials.groups.map(group => (
+                  <section
+                    key={group.category}
+                    className="rounded-md border border-slate-200 bg-slate-50 p-4"
+                  >
+                    <div className="flex items-start gap-2">
+                      <Star className="mt-1 h-4 w-4 flex-shrink-0 text-blue-700" />
+                      <div>
+                        <h4 className="text-sm font-semibold">{group.label}</h4>
+                        <p className="mt-1 text-xs leading-5 text-slate-600">
+                          {group.description}
+                        </p>
+                      </div>
+                    </div>
+                    <ul className="mt-3 space-y-2">
+                      {group.materials.map(material => {
+                        const MaterialIcon =
+                          materialKindIconMap[material.kind] ?? FileText;
+
+                        return (
+                          <li
+                            key={material.storageKey}
+                            className="rounded-md bg-white p-3 text-sm"
+                          >
+                            <div className="flex items-start gap-2">
+                              <MaterialIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-700" />
+                              <div>
+                                <p className="font-semibold text-slate-900">
+                                  {material.title}
+                                </p>
+                                <p className="mt-1 text-xs text-slate-500">
+                                  {material.kind.toUpperCase()} source:{" "}
+                                  {material.sourceFilename}
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            </Card>
+
+            <Card className="border-slate-200 bg-white p-6 text-slate-950 shadow-sm">
+              <h3 className="font-semibold">Notebook study prompts</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Source notebook: {moduleStudyMaterials.studyNotes.notebookTitle}
+              </p>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <section>
+                  <h4 className="text-sm font-semibold">Clinical pearls</h4>
+                  <ul className="mt-2 space-y-2">
+                    {moduleStudyMaterials.studyNotes.clinicalPearls.map(
+                      pearl => (
+                        <li key={pearl} className="flex gap-2 text-sm">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-700" />
+                          <span>{pearl}</span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </section>
+                <section>
+                  <h4 className="text-sm font-semibold">Review prompts</h4>
+                  <ul className="mt-2 space-y-2">
+                    {moduleStudyMaterials.studyNotes.reviewPrompts.map(
+                      prompt => (
+                        <li key={prompt} className="flex gap-2 text-sm">
+                          <HelpCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-700" />
+                          <span>{prompt}</span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </section>
               </div>
             </Card>
 
