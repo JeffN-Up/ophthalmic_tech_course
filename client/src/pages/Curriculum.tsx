@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Clock,
   Eye,
+  ExternalLink,
   FileText,
   Gauge,
   Glasses,
@@ -224,6 +225,23 @@ export default function Curriculum() {
                                           {material.kind.toUpperCase()} source:{" "}
                                           {material.sourceFilename}
                                         </p>
+                                        <div className="mt-3">
+                                          {material.sourceUrl ? (
+                                            <a
+                                              href={material.sourceUrl}
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="inline-flex items-center gap-1 rounded-md bg-blue-700 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-800"
+                                            >
+                                              Open material
+                                              <ExternalLink className="h-3 w-3" />
+                                            </a>
+                                          ) : (
+                                            <span className="inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
+                                              Drive link pending
+                                            </span>
+                                          )}
+                                        </div>
                                       </div>
                                     </div>
                                   </li>
@@ -353,6 +371,23 @@ export default function Curriculum() {
                               {material.kind.toUpperCase()} source:{" "}
                               {material.sourceFilename}
                             </p>
+                            <div className="mt-3">
+                              {material.sourceUrl ? (
+                                <a
+                                  href={material.sourceUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center gap-1 rounded-md bg-blue-700 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-800"
+                                >
+                                  Open material
+                                  <ExternalLink className="h-3 w-3" />
+                                </a>
+                              ) : (
+                                <span className="inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
+                                  Drive link pending
+                                </span>
+                              )}
+                            </div>
                             <div className="mt-3 flex flex-wrap gap-2">
                               {material.relatedModuleNumbers.length > 0 ? (
                                 material.relatedModuleNumbers.map(

@@ -620,6 +620,23 @@ export default function Learn() {
                                   {material.kind.toUpperCase()} source:{" "}
                                   {material.sourceFilename}
                                 </p>
+                                <div className="mt-3">
+                                  {material.sourceUrl ? (
+                                    <a
+                                      href={material.sourceUrl}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="inline-flex items-center gap-1 rounded-md bg-blue-700 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-800"
+                                    >
+                                      Open material
+                                      <ExternalLink className="h-3 w-3" />
+                                    </a>
+                                  ) : (
+                                    <span className="inline-flex rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-500">
+                                      Drive link pending
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </li>

@@ -1,5 +1,6 @@
 import {
   bootcampSourceDays,
+  getBootcampDriveAssetUrl,
   type BootcampSourceAsset,
 } from "./bootcampSourceMap";
 
@@ -13,6 +14,7 @@ export interface ModuleStudyMaterial {
   kind: BootcampSourceAsset["kind"];
   sourceFilename: string;
   storageKey: string;
+  sourceUrl?: string;
   category: ModuleStudyMaterialCategory;
   freePreview: boolean;
 }
@@ -95,6 +97,7 @@ export const moduleStudyMaterialBundles: ModuleStudyMaterialBundle[] =
       kind: asset.kind,
       sourceFilename: asset.sourceFilename,
       storageKey: asset.storageKey,
+      sourceUrl: getBootcampDriveAssetUrl(asset.sourceFilename),
       category: categorizeAsset(asset),
       freePreview: Boolean(asset.freePreview),
     }));

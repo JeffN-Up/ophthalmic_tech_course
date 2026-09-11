@@ -36,6 +36,79 @@ export const legacyBootcampNotebookLmUrl =
 export const bootcampSiteCourseDataUrl =
   "https://drive.google.com/file/d/1TudG-Dq6Fgdl3-TFTQSeMKHahAe5leuI";
 
+export const bootcampDriveAssetUrlsByFilename: Record<string, string> = {
+  "Ophthalmic_Tech_Foundations.mp4":
+    "https://drive.google.com/file/d/14Y-TfuF5TEgmUaJy6_XmCKqqfxgJ6gPr/view?usp=drivesdk",
+  "Intro-Demystifying_the_Eye_Exam.mp4":
+    "https://drive.google.com/file/d/1xQs-q7zdmpGQGHMSdwwwszblhySHXS98/view?usp=drivesdk",
+  "The_Biological_Camera.pdf":
+    "https://drive.google.com/file/d/1eOjJtoMa6OjBVU2tV6lyziyIqNob-rVd/view?usp=drivesdk",
+  "Dutie overview infographic.png":
+    "https://drive.google.com/file/d/1vvE8GonNYrjIFnCUvypEgY2m2KlO_WpL/view?usp=drivesdk",
+  "Mod_2_Video_Overiew_Anatomy.mp4":
+    "https://drive.google.com/file/d/1ioMTQG1VCXtOlZhjyoh2CubdwjfZ--4R/view?usp=drivesdk",
+  "Mod_1_audio_overview.m4a":
+    "https://drive.google.com/file/d/1bb4Y-wvKriX5exuL4xnzbXJxiZP-28OW/view?usp=drivesdk",
+  "Ophthalmic_Technician_Blueprint.pdf":
+    "https://drive.google.com/file/d/16jsqgMRaPwn5GS6r6aFfHMcY35UPFzsl/view?usp=drivesdk",
+  "Day_3-_Diagnostics.mp4":
+    "https://drive.google.com/file/d/1sNIlCT9jm8CQ-0-ID0Q9reoJuhReTb8c/view?usp=drivesdk",
+  "Day_3-Diagnostic_slide_deck_(2).pdf":
+    "https://drive.google.com/file/d/1MQb8WaF-X_jeFvBaw4jdJR0RdU9863AD/view?usp=drivesdk",
+  "Mastering_Ophthalmic_Diagnostics_(2).pdf":
+    "https://drive.google.com/file/d/1pGaICipwBsBzgZuhZ1HklKxr4jxCQMGO/view?usp=drivesdk",
+  "Advanced_Ocular_Diagnostic_Masterclass.pdf":
+    "https://drive.google.com/file/d/1LgDnbIWf08gdPMHTAA6FDU1zBzsaabKq/view?usp=drivesdk",
+  "Diagnostics infographic.png":
+    "https://drive.google.com/file/d/1E8nQkUobIj8yZSF3LClNqJoAJisnTFsu/view?usp=drivesdk",
+  "Day_4-Common_Eye_Diseases.mp4":
+    "https://drive.google.com/file/d/1YeZ21NeTEoaslUZrOaruOZP-JbWub-O0/view?usp=drivesdk",
+  "Clinical Pattern Recognition & HPI Cheat Sheet.pdf":
+    "https://drive.google.com/file/d/1z8WK7J8tWCZMphR7rAU0IIFf6676OiPI/view?usp=drivesdk",
+  "Keratoconus image Jeff.png":
+    "https://drive.google.com/file/d/1sf7Er-VydQoOuquKEtnWS6xNwR8vigh1/view?usp=drivesdk",
+  "Lensometry__A_Practical_Guide.mp4":
+    "https://drive.google.com/file/d/1qSqRYXOq8fW0_ZcijX19vFULezKvoBE9/view?usp=drivesdk",
+  "Mastering_Manual_Lensometry.pdf":
+    "https://drive.google.com/file/d/1ti9jf0wxmY894VVXJwwS4MQzyV4aGo9p/view?usp=drivesdk",
+  "Lensometry_Blueprint_(3).pdf":
+    "https://drive.google.com/file/d/1VkavmW_6F3aJ_jCvZ3bYFk9CKjsdkGYj/view?usp=drivesdk",
+  "Clinical Guide_ Manual Lensometry Standards and Procedures.pdf":
+    "https://drive.google.com/file/d/1mbyhMQlhD6aU1rVagpNE7XLgVNd1FfF_/view?usp=drivesdk",
+  "Precision_Lens_Topography.pdf":
+    "https://drive.google.com/file/d/1ZPMCeUtJsOrRumrJBvxXzyZC0FqSJmlu/view?usp=drivesdk",
+  "Mastering_Tonometry.mp4":
+    "https://drive.google.com/file/d/1O2zLy0mrA2lsq-Wzwl0ojkM2aqfVqjIb/view?usp=drivesdk",
+  "Guide to Tonometry Infographic.png":
+    "https://drive.google.com/file/d/1yunBZUEjPZQmuSI2LgRGTMfMEbvY3UFn/view?usp=drivesdk",
+  "Goldmann jeff.png":
+    "https://drive.google.com/file/d/1tzPmtpQ18mEnyZ1UVwASxWAQ6UMAqioI/view?usp=drivesdk",
+  "Refraction_Troubleshooting.mp4":
+    "https://drive.google.com/file/d/1TVeyDDm_tRkcsWiCSGnXkE-2HtabM8dH/view?usp=drivesdk",
+  "Ocular_Diagnostic_Mapping.pdf":
+    "https://drive.google.com/file/d/1Sx_3bs1maOg0mxlfuGcSR7FQyj7MFiXn/view?usp=drivesdk",
+  "Day_5-Exam_Room_Skills_&_Pharma.mp4":
+    "https://drive.google.com/file/d/12LLtfU7FWeRZ2u6ta0i4h6GpDPyDe96y/view?usp=drivesdk",
+  "Clinical Guide_ Soft Skills and Patient Care for Ophthalmic Professionals.pdf":
+    "https://drive.google.com/file/d/1mORkc-KtbikRBdbxcuFHcjmZ-3z83Kjx/view?usp=drivesdk",
+  "Day_6-Professional_Skills_&_EMR.mp4":
+    "https://drive.google.com/file/d/1d1dSPBVRx_cMvoxEwzaG2HtQn3wmuQ9d/view?usp=drivesdk",
+  "Clinical_Simulation_Capstone_(2).pdf":
+    "https://drive.google.com/file/d/15MoE6g3JPcaZzOj11JybxsbPbT_r9cin/view?usp=drivesdk",
+  "COA_Certification_Guide.mp4":
+    "https://drive.google.com/file/d/16z4WLmIV3HMZzfDmqV58RhxS15GJbFBa/view?usp=drivesdk",
+  "COA_Certification_Roadmap.mp4":
+    "https://drive.google.com/file/d/1iVFwJo0AS_B72ulcjUddermBpJxkVjyE/view?usp=drivesdk",
+  "Career paths infographic.png":
+    "https://drive.google.com/file/d/1VsqsOIQa5FFQAIbnJzs72jvlMnYuvqT3/view?usp=drivesdk",
+};
+
+export function getBootcampDriveAssetUrl(
+  sourceFilename: string
+): string | undefined {
+  return bootcampDriveAssetUrlsByFilename[sourceFilename];
+}
+
 export const bootcampSourceDays: BootcampSourceDay[] = [
   {
     day: 1,

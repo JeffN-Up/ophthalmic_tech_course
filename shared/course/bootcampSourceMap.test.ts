@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  bootcampDriveAssetUrlsByFilename,
   bootcampNotebookLmUrl,
   bootcampSiteCourseDataUrl,
   bootcampSourceDays,
   bootcampSourceFolderUrl,
+  getBootcampDriveAssetUrl,
   getBootcampSourceAssetCount,
   getBootcampSourceDay,
 } from "./bootcampSourceMap";
@@ -98,5 +100,36 @@ describe("bootcampSourceMap", () => {
         day.assets.map(asset => asset.sourceFilename)
       )
     ).not.toContain("Project Detailing.pdf");
+  });
+
+  it("connects reviewed source filenames to known Drive files when exact matches exist", () => {
+    const filenames = bootcampSourceDays.flatMap(day =>
+      day.assets.map(asset => asset.sourceFilename)
+    );
+    const linkedFilenames = filenames.filter(filename =>
+      getBootcampDriveAssetUrl(filename)
+    );
+    const pendingFilenames = filenames.filter(
+      filename => !getBootcampDriveAssetUrl(filename)
+    );
+
+    expect(linkedFilenames.length).toBeGreaterThanOrEqual(30);
+    expect(bootcampDriveAssetUrlsByFilename).toMatchObject({
+      "Ophthalmic_Tech_Foundations.mp4": expect.stringContaining(
+        "drive.google.com/file/d/"
+      ),
+      "The_Biological_Camera.pdf": expect.stringContaining(
+        "drive.google.com/file/d/"
+      ),
+      "Advanced_Ocular_Diagnostic_Masterclass.pdf": expect.stringContaining(
+        "drive.google.com/file/d/"
+      ),
+    });
+    expect(pendingFilenames).toEqual([
+      "Common_Eye_Diseases.mp4",
+      "Ocular_Diagnostic_Mapping edit.pdf",
+      "unnamed.png",
+      "Ophthalmic_Tech_Final_Test.mp4",
+    ]);
   });
 });

@@ -10,6 +10,7 @@ export interface SupplementalStudyMaterial {
   kind: "video" | "pdf" | "audio" | "image" | "link" | "document";
   sourceFilename: string;
   storageKey: string;
+  sourceUrl?: string;
   category: ModuleStudyMaterialCategory;
   placement: SupplementalStudyPlacement;
   relatedModuleNumbers: number[];
@@ -57,6 +58,7 @@ const mappedModuleMaterials: SupplementalStudyMaterial[] =
         kind: material.kind,
         sourceFilename: material.sourceFilename,
         storageKey: material.storageKey,
+        sourceUrl: material.sourceUrl,
         category: group.category,
         placement: "module-related" as const,
         relatedModuleNumbers: [bundle.moduleNumber],
