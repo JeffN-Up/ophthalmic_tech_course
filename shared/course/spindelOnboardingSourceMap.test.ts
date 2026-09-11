@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   getSpindelOnboardingLane,
+  seaTechAlleyUrl,
   spindelOnboardingCourseTitle,
   spindelOnboardingLanes,
   spindelOnboardingStorageRoot,
@@ -20,6 +21,15 @@ describe("spindelOnboardingSourceMap", () => {
       "spindel-onboarding/doctor-protocols"
     );
     expect(doctorProtocols.assetKinds).toContain("doctor-protocol");
+    expect(doctorProtocols.sourceReferences).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          title: "SEA Tech Alley: Clinical Workup Protocol",
+          url: `${seaTechAlleyUrl}/clinical-workup-protocol`,
+          notes: expect.stringContaining("Farahani"),
+        }),
+      ])
+    );
     expect(doctorProtocols.requiredReview).toEqual(
       expect.arrayContaining([
         expect.stringContaining("Spindel-only"),
@@ -34,8 +44,24 @@ describe("spindelOnboardingSourceMap", () => {
     for (const lane of spindelOnboardingLanes) {
       expect(lane.storageRoot).toMatch(/^spindel-onboarding\//);
       expect(lane.examples.length).toBeGreaterThan(0);
+      expect(lane.sourceReferences.length).toBeGreaterThan(0);
       expect(lane.requiredReview.length).toBeGreaterThan(0);
     }
+  });
+
+  it("keeps SEA Tech Alley protocol gathering private to Spindel onboarding", () => {
+    expect(seaTechAlleyUrl).toBe("https://sites.google.com/view/seatechalley");
+    expect(
+      spindelOnboardingLanes.flatMap(lane =>
+        lane.sourceReferences.map(source => source.url)
+      )
+    ).toEqual(
+      expect.arrayContaining([
+        "https://sites.google.com/view/seatechalley/clinical-workup-protocol",
+        "https://sites.google.com/view/seatechalley/the-repository",
+        "https://sites.google.com/view/seatechalley/minor-procedures",
+      ])
+    );
   });
 
   it("rejects unknown private onboarding lanes", () => {

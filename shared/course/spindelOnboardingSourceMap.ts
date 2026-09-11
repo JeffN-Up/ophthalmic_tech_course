@@ -11,12 +11,21 @@ export interface SpindelOnboardingLane {
   storageRoot: string;
   assetKinds: SpindelOnboardingAssetKind[];
   examples: string[];
+  sourceReferences: SpindelOnboardingSourceReference[];
   requiredReview: string[];
+}
+
+export interface SpindelOnboardingSourceReference {
+  title: string;
+  url: string;
+  notes: string;
 }
 
 export const spindelOnboardingCourseTitle = "Spindel Eye Technician Onboarding";
 
 export const spindelOnboardingStorageRoot = "spindel-onboarding";
+
+export const seaTechAlleyUrl = "https://sites.google.com/view/seatechalley";
 
 export const spindelOnboardingLanes: SpindelOnboardingLane[] = [
   {
@@ -30,6 +39,20 @@ export const spindelOnboardingLanes: SpindelOnboardingLane[] = [
       "Dr. Ramsey retina workup preferences",
       "Dr. Farahani post-op cataract workflow",
       "Provider-specific dry-eye workup notes",
+    ],
+    sourceReferences: [
+      {
+        title: "SEA Tech Alley: Clinical Workup Protocol",
+        url: `${seaTechAlleyUrl}/clinical-workup-protocol`,
+        notes:
+          "Source queue for provider workup links including Spindel, Vazan, Guenena, Slentz, Farahani, Wood, O'Block, Nguyen, Leo, and Prendergast.",
+      },
+      {
+        title: "SEA Tech Alley: Repository",
+        url: `${seaTechAlleyUrl}/the-repository`,
+        notes:
+          "Source queue for doctor-specific post-op sheets, consent forms, B&L assistance forms, training resources, and master copies.",
+      },
     ],
     requiredReview: [
       "Provider or clinical lead confirms the protocol is current.",
@@ -50,6 +73,20 @@ export const spindelOnboardingLanes: SpindelOnboardingLane[] = [
       "Practice-specific testing handoff checklist",
       "Internal escalation and communication workflow",
     ],
+    sourceReferences: [
+      {
+        title: "SEA Tech Alley: Home",
+        url: seaTechAlleyUrl,
+        notes:
+          "Source queue for technician expectations, clinic behavior standards, and leadership expectations.",
+      },
+      {
+        title: "SEA Tech Alley: Clinical Workup Protocol",
+        url: `${seaTechAlleyUrl}/clinical-workup-protocol`,
+        notes:
+          "Source queue for clinic-wide reminders, refraction guidance, Optomap guidance, OCT reporting, and post-op IOL workflows.",
+      },
+    ],
     requiredReview: [
       "Practice manager or training lead confirms this is appropriate for internal onboarding.",
       "No passwords, private links, patient information, or staff performance details are present.",
@@ -67,6 +104,20 @@ export const spindelOnboardingLanes: SpindelOnboardingLane[] = [
       "New technician supervised practice checklist",
       "SEA onboarding milestone review",
       "Doctor-protocol readiness signoff",
+    ],
+    sourceReferences: [
+      {
+        title: "SEA Tech Alley: Minor Procedures",
+        url: `${seaTechAlleyUrl}/minor-procedures`,
+        notes:
+          "Source queue for minor procedure and laser protocol references that need clinical-owner review before onboarding use.",
+      },
+      {
+        title: "SEA Tech Alley: Repository Training Resources",
+        url: `${seaTechAlleyUrl}/the-repository`,
+        notes:
+          "Source queue for training survival guide, training checklist, closing tasks, and related internal study materials.",
+      },
     ],
     requiredReview: [
       "Supervisor confirms the assessment matches current local expectations.",

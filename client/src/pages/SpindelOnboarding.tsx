@@ -179,6 +179,27 @@ export default function SpindelOnboarding() {
                       </span>
                     ))}
                   </div>
+                  <div className="mt-4 space-y-2 border-t border-slate-200 pt-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Source gathering queue
+                    </p>
+                    {lane.sourceReferences.map(source => (
+                      <a
+                        key={`${lane.id}-${source.title}`}
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block rounded-md bg-white p-3 text-sm transition hover:bg-blue-50"
+                      >
+                        <span className="font-semibold text-blue-700">
+                          {source.title}
+                        </span>
+                        <span className="mt-1 block text-xs leading-5 text-slate-500">
+                          {source.notes}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
                 </section>
               ))}
             </div>
