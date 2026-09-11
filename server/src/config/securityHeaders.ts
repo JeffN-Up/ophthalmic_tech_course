@@ -9,12 +9,21 @@ export const securityHeaders = {
   "Cross-Origin-Opener-Policy": "same-origin",
 } as const;
 
+const previewFriendlyAssetPrefixes = ["/course-assets/"] as const;
+
 export function applySecurityHeaders(
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {
   Object.entries(securityHeaders).forEach(([headerName, headerValue]) => {
+    if (
+      headerName === "X-Frame-Options" &&
+      previewFriendlyAssetPrefixes.some(prefix => req.path.startsWith(prefix))
+    ) {
+      return;
+    }
+
     res.setHeader(headerName, headerValue);
   });
 
