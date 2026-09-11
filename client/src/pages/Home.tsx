@@ -111,6 +111,13 @@ export default function Home() {
 
   const supportResources = [
     {
+      href: "/spindel-onboarding",
+      icon: Building2,
+      title: "Spindel Onboarding",
+      description:
+        "Create an internal Spindel employee account that opens the course and tracks onboarding progress by employee email.",
+    },
+    {
       href: "/skills-passport",
       icon: CheckCircle2,
       title: "Skills Passport",
@@ -187,6 +194,12 @@ export default function Home() {
               className="text-sm text-gray-300 hover:text-blue-400 transition-colors"
             >
               Practice Packs
+            </a>
+            <a
+              href="/spindel-onboarding"
+              className="text-sm text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              Spindel Onboarding
             </a>
             <a
               href="/policies"

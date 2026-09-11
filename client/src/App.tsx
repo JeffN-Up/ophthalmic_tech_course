@@ -16,6 +16,7 @@ const Policies = lazy(() => import("./pages/Policies"));
 const SkillsPassport = lazy(() => import("./pages/SkillsPassport"));
 const CareerToolkit = lazy(() => import("./pages/CareerToolkit"));
 const OnboardingAssessment = lazy(() => import("./pages/OnboardingAssessment"));
+const SpindelOnboarding = lazy(() => import("./pages/SpindelOnboarding"));
 const PracticePacks = lazy(() => import("./pages/PracticePacks"));
 const PracticeSeatAdmin = lazy(() => import("./pages/PracticeSeatAdmin"));
 const CertificatePreview = lazy(() => import("./pages/CertificatePreview"));
@@ -48,6 +49,7 @@ function Router() {
       <Route path={"/skills-passport"} component={SkillsPassport} />
       <Route path={"/career-toolkit"} component={CareerToolkit} />
       <Route path={"/onboarding"} component={OnboardingAssessment} />
+      <Route path={"/spindel-onboarding"} component={SpindelOnboarding} />
       <Route path={"/practice-packs"} component={PracticePacks} />
       <Route path={"/practice-seat-admin"} component={PracticeSeatAdmin} />
       <Route path={"/certificate-preview"} component={CertificatePreview} />

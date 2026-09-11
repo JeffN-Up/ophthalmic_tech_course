@@ -24,6 +24,11 @@ import {
   type AuthSessionStore,
 } from "../auth/sessionStore";
 import {
+  createSpindelOnboardingEnrollment,
+  isSpindelOnboardingPasswordValid,
+  validateSpindelOnboardingAccountInput,
+} from "../auth/spindelOnboardingAccess";
+import {
   revokeAccess,
   type AccessRevocationTarget,
 } from "../commerce/accessRevocation";
@@ -47,6 +52,12 @@ import { getLearnerInterestStore, getPracticeInquiryStore } from "./checkout";
 
 interface PasswordlessStartRequestBody {
   email?: string;
+}
+
+interface SpindelOnboardingSessionRequestBody {
+  employeeName?: string;
+  email?: string;
+  password?: string;
 }
 
 const passwordlessStartRateLimit = createRateLimitMiddleware({
@@ -184,6 +195,66 @@ function isLeadStatus(
 }
 
 export function setupAuthRoutes(router: Router) {
+  router.post(
+    "/spindel-onboarding/sessions",
+    async (req: Request, res: Response) => {
+      const {
+        employeeName = "",
+        email = "",
+        password = "",
+      } = (req.body ?? {}) as SpindelOnboardingSessionRequestBody;
+
+      if (!isSpindelOnboardingPasswordValid(password)) {
+        res.status(403).json({
+          error: "The Spindel onboarding password was not accepted.",
+        });
+        return;
+      }
+
+      const validationError = validateSpindelOnboardingAccountInput({
+        employeeName,
+        email,
+      });
+
+      if (validationError) {
+        res.status(400).json({ error: validationError });
+        return;
+      }
+
+      const now = new Date().toISOString();
+      const rawSessionToken = createRawSessionToken();
+      const enrollment = createSpindelOnboardingEnrollment({
+        employeeName,
+        email,
+        now,
+      });
+      const session = createAuthSession({
+        email: enrollment.learnerEmail,
+        rawSessionToken,
+        id: `spindel_onboarding_session_${randomUUID()}`,
+        createdAt: now,
+        expiresInDays: 90,
+      });
+
+      await getEnrollmentStore().provisionEnrollment(enrollment);
+      await sessionStore.storeSession(session);
+
+      res.cookie(COOKIE_NAME, rawSessionToken, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 90,
+        sameSite: "lax",
+        secure: req.secure,
+        path: "/",
+      });
+      res.status(201).json({
+        employeeName: employeeName.trim(),
+        email: enrollment.learnerEmail,
+        accessExpiresAt: enrollment.accessExpiresAt,
+        nextUrl: "/learn",
+      });
+    }
+  );
+
   router.get("/dev/demo-learner/start", async (req: Request, res: Response) => {
     if (
       !isLocalDemoAccessAllowed({
