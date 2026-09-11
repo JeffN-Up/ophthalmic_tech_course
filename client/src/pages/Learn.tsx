@@ -237,7 +237,10 @@ export default function Learn() {
               OptiTech Academy
             </p>
             <h1 className="mt-2 text-3xl font-bold">{moduleOne.title}</h1>
-            <p className="mt-2 max-w-3xl text-slate-600">{moduleOne.outcome}</p>
+            <p className="mt-2 max-w-3xl text-slate-600">
+              Start here for the basic language, habits, and patient-flow
+              awareness used in an ophthalmic clinic.
+            </p>
           </div>
           <a href="/">
             <Button variant="outline">Back to course home</Button>
@@ -506,9 +509,6 @@ export default function Learn() {
               <h2 className="mt-2 text-3xl font-bold">
                 {selectedLesson.title}
               </h2>
-              <p className="mt-3 text-lg text-slate-700">
-                {selectedLesson.outcome}
-              </p>
               <div className="mt-6 space-y-4">
                 {selectedLesson.body.map(paragraph => (
                   <p key={paragraph} className="leading-7 text-slate-700">
