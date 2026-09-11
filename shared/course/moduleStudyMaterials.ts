@@ -1,6 +1,6 @@
 import {
   bootcampSourceDays,
-  getBootcampDriveAssetUrl,
+  getBootcampAssetPublicPath,
   type BootcampSourceAsset,
 } from "./bootcampSourceMap";
 
@@ -97,7 +97,7 @@ export const moduleStudyMaterialBundles: ModuleStudyMaterialBundle[] =
       kind: asset.kind,
       sourceFilename: asset.sourceFilename,
       storageKey: asset.storageKey,
-      sourceUrl: getBootcampDriveAssetUrl(asset.sourceFilename),
+      sourceUrl: getBootcampAssetPublicPath(asset),
       category: categorizeAsset(asset),
       freePreview: Boolean(asset.freePreview),
     }));

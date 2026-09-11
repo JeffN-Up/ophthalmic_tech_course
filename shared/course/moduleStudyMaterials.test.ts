@@ -62,4 +62,23 @@ describe("moduleStudyMaterialBundles", () => {
         ?.materials.length
     ).toBeGreaterThan(0);
   });
+
+  it("uses app-hosted course asset URLs instead of Drive redirects", () => {
+    const materials = moduleStudyMaterialBundles.flatMap(bundle =>
+      bundle.groups.flatMap(group => group.materials)
+    );
+    const linkedMaterials = materials.filter(material => material.sourceUrl);
+
+    expect(linkedMaterials.length).toBeGreaterThanOrEqual(30);
+    expect(
+      linkedMaterials.every(material =>
+        material.sourceUrl?.startsWith("/course-assets/")
+      )
+    ).toBe(true);
+    expect(
+      linkedMaterials.some(material =>
+        material.sourceUrl?.includes("drive.google.com")
+      )
+    ).toBe(false);
+  });
 });

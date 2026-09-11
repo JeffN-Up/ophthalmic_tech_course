@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
-  bootcampDriveAssetUrlsByFilename,
+  bootcampImportedAssetFilenames,
+  getBootcampAssetPublicPath,
   bootcampNotebookLmUrl,
   bootcampSiteCourseDataUrl,
   bootcampSourceDays,
   bootcampSourceFolderUrl,
-  getBootcampDriveAssetUrl,
   getBootcampSourceAssetCount,
   getBootcampSourceDay,
 } from "./bootcampSourceMap";
@@ -102,28 +102,22 @@ describe("bootcampSourceMap", () => {
     ).not.toContain("Project Detailing.pdf");
   });
 
-  it("connects reviewed source filenames to known Drive files when exact matches exist", () => {
+  it("connects reviewed source filenames to imported app assets when exact matches exist", () => {
     const filenames = bootcampSourceDays.flatMap(day =>
       day.assets.map(asset => asset.sourceFilename)
     );
     const linkedFilenames = filenames.filter(filename =>
-      getBootcampDriveAssetUrl(filename)
+      Boolean(bootcampImportedAssetFilenames[filename])
     );
     const pendingFilenames = filenames.filter(
-      filename => !getBootcampDriveAssetUrl(filename)
+      filename => !bootcampImportedAssetFilenames[filename]
     );
 
     expect(linkedFilenames.length).toBeGreaterThanOrEqual(30);
-    expect(bootcampDriveAssetUrlsByFilename).toMatchObject({
-      "Ophthalmic_Tech_Foundations.mp4": expect.stringContaining(
-        "drive.google.com/file/d/"
-      ),
-      "The_Biological_Camera.pdf": expect.stringContaining(
-        "drive.google.com/file/d/"
-      ),
-      "Advanced_Ocular_Diagnostic_Masterclass.pdf": expect.stringContaining(
-        "drive.google.com/file/d/"
-      ),
+    expect(bootcampImportedAssetFilenames).toMatchObject({
+      "Ophthalmic_Tech_Foundations.mp4": true,
+      "The_Biological_Camera.pdf": true,
+      "Advanced_Ocular_Diagnostic_Masterclass.pdf": true,
     });
     expect(pendingFilenames).toEqual([
       "Common_Eye_Diseases.mp4",
@@ -131,5 +125,22 @@ describe("bootcampSourceMap", () => {
       "unnamed.png",
       "Ophthalmic_Tech_Final_Test.mp4",
     ]);
+  });
+
+  it("uses local course-asset paths for learner-facing materials", () => {
+    const biologicalCamera = getBootcampSourceDay(
+      "foundations-first-patient-encounter"
+    ).assets.find(
+      asset => asset.sourceFilename === "The_Biological_Camera.pdf"
+    );
+    const pendingAsset = getBootcampSourceDay(
+      "common-eye-diseases"
+    ).assets.find(asset => asset.sourceFilename === "Common_Eye_Diseases.mp4");
+
+    expect(biologicalCamera).toBeDefined();
+    expect(getBootcampAssetPublicPath(biologicalCamera!)).toBe(
+      "/course-assets/pdfs/day-01/the-biological-camera.pdf"
+    );
+    expect(getBootcampAssetPublicPath(pendingAsset!)).toBeUndefined();
   });
 });
