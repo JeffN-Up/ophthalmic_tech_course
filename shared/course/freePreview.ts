@@ -23,7 +23,7 @@ export const freePreviewLesson: FreePreviewLesson = {
     "Career changers, medical assistants, new technicians, and practice managers previewing the teaching style.",
   durationMinutes: 8,
   outcome:
-    "Understand the technician role without pretending the learner is ready to diagnose or work independently.",
+    "A practical first look at how ophthalmic technicians support accurate, safe eye-care visits.",
   lessonBody: [
     "Ophthalmic technicians help the eye-care team collect accurate information before the provider examines the patient.",
     "Common beginner tasks include confirming history, checking vision, preparing rooms, helping with diagnostic testing, documenting carefully, and telling the provider when something needs attention.",

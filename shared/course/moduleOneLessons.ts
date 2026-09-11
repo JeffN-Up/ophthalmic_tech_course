@@ -16,7 +16,8 @@ export const moduleOneLessons: Lesson[] = [
     title: "What Ophthalmic Technicians Do",
     durationMinutes: 12,
     status: "published",
-    outcome: "Describe the technician role without overstating medical authority.",
+    outcome:
+      "A practical first look at how ophthalmic technicians support accurate, safe eye-care visits.",
     body: [
       "Ophthalmic technicians help the eye-care team collect accurate information before the provider examines the patient.",
       "Common beginner tasks include confirming history, checking vision, preparing rooms, helping with diagnostic testing, documenting carefully, and telling the provider when something needs attention.",

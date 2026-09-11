@@ -74,9 +74,6 @@ export default function FreePreview() {
                 <h2 className="mt-1 text-2xl font-bold">
                   {freePreviewLesson.title}
                 </h2>
-                <p className="mt-3 leading-7 text-slate-600">
-                  {freePreviewLesson.outcome}
-                </p>
               </div>
             </div>
             <div className="mt-6 space-y-4">
