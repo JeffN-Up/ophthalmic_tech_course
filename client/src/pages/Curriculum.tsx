@@ -221,10 +221,6 @@ export default function Curriculum() {
                                         <p className="font-semibold text-gray-900">
                                           {material.title}
                                         </p>
-                                        <p className="mt-1 text-xs text-gray-500">
-                                          {material.kind.toUpperCase()} source:{" "}
-                                          {material.sourceFilename}
-                                        </p>
                                         <div className="mt-3">
                                           {material.sourceUrl ? (
                                             <a
@@ -238,7 +234,7 @@ export default function Curriculum() {
                                             </a>
                                           ) : (
                                             <span className="inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
-                                              Drive link pending
+                                              Coming soon
                                             </span>
                                           )}
                                         </div>
@@ -253,19 +249,20 @@ export default function Curriculum() {
                       </div>
                     </div>
 
-                    {/* Notebook Study Notes */}
+                    {/* Guided Study Notes */}
                     <div className="rounded-lg border border-indigo-100 bg-white p-4">
                       <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                         <BookOpen className="w-5 h-5 text-indigo-600" />
-                        Notebook Study Prompts
+                        Study Guide
                       </h4>
                       <p className="text-sm leading-6 text-gray-600">
-                        Source notebook: {module.studyNotes.notebookTitle}
+                        Use these quick notes to review the most important ideas
+                        from this module.
                       </p>
                       <div className="mt-4 grid gap-4 md:grid-cols-2">
                         <section>
                           <h5 className="text-sm font-semibold text-gray-900">
-                            Clinical pearls
+                            Key takeaways
                           </h5>
                           <ul className="mt-2 space-y-2">
                             {module.studyNotes.clinicalPearls.map(pearl => (
@@ -281,7 +278,7 @@ export default function Curriculum() {
                         </section>
                         <section>
                           <h5 className="text-sm font-semibold text-gray-900">
-                            Review prompts
+                            Check your understanding
                           </h5>
                           <ul className="mt-2 space-y-2">
                             {module.studyNotes.reviewPrompts.map(prompt => (
@@ -367,10 +364,6 @@ export default function Curriculum() {
                             <h5 className="font-semibold text-gray-900">
                               {material.title}
                             </h5>
-                            <p className="mt-1 text-xs leading-5 text-gray-500">
-                              {material.kind.toUpperCase()} source:{" "}
-                              {material.sourceFilename}
-                            </p>
                             <div className="mt-3">
                               {material.sourceUrl ? (
                                 <a
@@ -384,7 +377,7 @@ export default function Curriculum() {
                                 </a>
                               ) : (
                                 <span className="inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
-                                  Drive link pending
+                                  Coming soon
                                 </span>
                               )}
                             </div>

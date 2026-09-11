@@ -410,8 +410,8 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              A planned foundations path built from Bootcamp source materials,
-              with published content released as review gates are completed
+              A practical foundations path for new ophthalmic technicians,
+              medical assistants, and career changers entering eye care
             </p>
           </div>
 

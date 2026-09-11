@@ -556,28 +556,6 @@ export default function Learn() {
             </Card>
 
             <Card className="border-slate-200 bg-white p-6 text-slate-950 shadow-sm">
-              <h3 className="font-semibold">Sources and review status</h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Review: {selectedLesson.review.reviewStatus}. Reviewer:{" "}
-                {selectedLesson.review.clinicalReviewer}.
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {selectedLesson.sources.map(source => (
-                  <a
-                    key={source.id}
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 rounded-md border px-3 py-1 text-sm text-blue-700 hover:bg-blue-50"
-                  >
-                    {source.title}
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                ))}
-              </div>
-            </Card>
-
-            <Card className="border-slate-200 bg-white p-6 text-slate-950 shadow-sm">
               <h3 className="font-semibold">Module-linked extras</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 These optional reviewed materials support Module{" "}
@@ -616,10 +594,6 @@ export default function Learn() {
                                 <p className="font-semibold text-slate-900">
                                   {material.title}
                                 </p>
-                                <p className="mt-1 text-xs text-slate-500">
-                                  {material.kind.toUpperCase()} source:{" "}
-                                  {material.sourceFilename}
-                                </p>
                                 <div className="mt-3">
                                   {material.sourceUrl ? (
                                     <a
@@ -633,7 +607,7 @@ export default function Learn() {
                                     </a>
                                   ) : (
                                     <span className="inline-flex rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-500">
-                                      Drive link pending
+                                      Coming soon
                                     </span>
                                   )}
                                 </div>
@@ -649,13 +623,14 @@ export default function Learn() {
             </Card>
 
             <Card className="border-slate-200 bg-white p-6 text-slate-950 shadow-sm">
-              <h3 className="font-semibold">Notebook study prompts</h3>
+              <h3 className="font-semibold">Study guide</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Source notebook: {moduleStudyMaterials.studyNotes.notebookTitle}
+                Use these quick notes to review the most important ideas from
+                this module.
               </p>
               <div className="mt-4 grid gap-4 md:grid-cols-2">
                 <section>
-                  <h4 className="text-sm font-semibold">Clinical pearls</h4>
+                  <h4 className="text-sm font-semibold">Key takeaways</h4>
                   <ul className="mt-2 space-y-2">
                     {moduleStudyMaterials.studyNotes.clinicalPearls.map(
                       pearl => (
@@ -668,7 +643,9 @@ export default function Learn() {
                   </ul>
                 </section>
                 <section>
-                  <h4 className="text-sm font-semibold">Review prompts</h4>
+                  <h4 className="text-sm font-semibold">
+                    Check your understanding
+                  </h4>
                   <ul className="mt-2 space-y-2">
                     {moduleStudyMaterials.studyNotes.reviewPrompts.map(
                       prompt => (
