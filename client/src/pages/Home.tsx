@@ -104,9 +104,9 @@ export default function Home() {
 
   const stats = [
     { number: "10", label: "Planned modules" },
-    { number: "3", label: "Module 1 starter lessons" },
-    { number: "80%", label: "Target passing score" },
-    { number: "12 mo", label: "Founding learner access" },
+    { number: "Module 1", label: "Starter lessons available now" },
+    { number: "80%", label: "Knowledge check passing goal" },
+    { number: "12 months", label: "Founding learner access" },
   ];
 
   const supportResources = [
@@ -390,7 +390,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, idx) => (
               <div key={idx} className="glass-card p-6 text-center">
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+                <div className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
                   {stat.number}
                 </div>
                 <p className="text-gray-300 text-sm">{stat.label}</p>
