@@ -60,7 +60,7 @@ export default function CourseQuiz({ quiz, onComplete, onContinue }: CourseQuizP
           <div className="flex items-center gap-3">
             {passed ? <CheckCircle2 className="h-8 w-8 text-green-600" /> : <XCircle className="h-8 w-8 text-amber-600" />}
             <div>
-              <h3 className="text-xl font-bold text-slate-900">{passed ? "Nicely focusedâ€”knowledge check passed" : "Take another look, then try again"}</h3>
+              <h3 className="text-xl font-bold text-slate-900">{passed ? "Nicely focused—knowledge check passed" : "Take another look, then try again"}</h3>
               <p className="text-slate-700">Score: {score}%</p>
             </div>
           </div>
