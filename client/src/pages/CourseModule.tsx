@@ -138,12 +138,6 @@ export default function CourseModule() {
       </header>
 
       <main className="mx-auto max-w-5xl space-y-8 px-4 py-10">
-        {spindel && (
-          <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 text-sm leading-6 text-blue-950">
-            <strong>Internal onboarding:</strong> Use fictional examples only. Current Spindel policies, physician instructions, and supervisor direction take priority over this lesson.
-          </div>
-        )}
-
         <Card className="p-6 shadow-lg sm:p-8">
           <h2 className="text-2xl font-bold text-slate-900">{spindel ? "What you’ll be able to do" : "Learning Objectives"}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
