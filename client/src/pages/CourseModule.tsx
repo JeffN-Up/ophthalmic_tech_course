@@ -125,7 +125,7 @@ export default function CourseModule() {
               <h1 className="mt-2 text-4xl font-bold sm:text-5xl">{module.title}</h1>
               <p className="mt-4 max-w-3xl text-lg text-blue-100">{module.description}</p>
               <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-blue-100">
-                <span className="inline-flex items-center"><Clock className="mr-2 h-4 w-4" /> {module.duration}</span>
+                {!spindel && <span className="inline-flex items-center"><Clock className="mr-2 h-4 w-4" /> {module.duration}</span>}
                 {priorProgress?.passed && (
                   <span className="inline-flex items-center rounded-full bg-green-500/20 px-3 py-1 text-green-100">
                     <CheckCircle2 className="mr-2 h-4 w-4" /> Passed with {priorProgress.score}%
