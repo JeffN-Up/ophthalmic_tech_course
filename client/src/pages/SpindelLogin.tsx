@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SpindelLogo } from "@/components/SpindelLogo";
 import { apiRequest, type CourseUser } from "@/lib/api";
-import { isSpindelOrganization } from "@/data/spindelOnboarding";
 import { AlertCircle, Loader2, LogIn } from "lucide-react";
 import { useState } from "react";
 
@@ -18,14 +17,10 @@ export default function SpindelLogin() {
     setIsSubmitting(true);
 
     try {
-      const response = await apiRequest<{ user: CourseUser }>("/api/auth/login", {
+      await apiRequest<{ user: CourseUser }>("/api/auth/spindel-staff", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
-      if (!isSpindelOrganization(response.user.organizationName)) {
-        await apiRequest("/api/auth/logout", { method: "POST" });
-        throw new Error("This account is not assigned to the Spindel Eye Associates onboarding program.");
-      }
       window.location.assign("/course");
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "Unable to sign in.");
@@ -40,7 +35,7 @@ export default function SpindelLogin() {
           <SpindelLogo variant="stacked" className="mx-auto h-32 w-32 border border-blue-100 shadow-lg" />
           <p className="mt-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-700">Employee Onboarding</p>
           <h1 className="mt-2 text-3xl font-bold text-slate-900">Employee Onboarding Sign In</h1>
-          <p className="mt-2 text-slate-600">Use the account created from your manager's private invitation link.</p>
+          <p className="mt-2 text-slate-600">Enter your @spindeleye.com email and staff access password. Your course opens automatically.</p>
         </div>
 
         <form onSubmit={submit} className="space-y-5">
@@ -64,7 +59,8 @@ export default function SpindelLogin() {
         </form>
 
         <div className="mt-7 space-y-2 text-center text-sm text-slate-500">
-          <p>New employee? Open the private invitation link sent by your manager.</p>
+          <p>First time here? Your staff learner account will be created when you sign in.</p>
+          <p><a href="/login" className="font-semibold text-blue-700 hover:underline">Manager or personal account sign in</a></p>
           <p><a href="/spindel" className="font-semibold text-blue-700 hover:underline">Return to the onboarding portal</a></p>
         </div>
       </Card>
