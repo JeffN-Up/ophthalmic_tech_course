@@ -121,7 +121,7 @@ export default function CourseModule() {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
             <div className="text-6xl">{module.icon}</div>
             <div>
-              <p className="font-semibold uppercase tracking-wider text-cyan-200">{spindel ? "Module" : "Day"} {module.day} Â· {module.difficulty}</p>
+              <p className="font-semibold uppercase tracking-wider text-cyan-200">{spindel ? "Module" : "Day"} {module.day} · {module.difficulty}</p>
               <h1 className="mt-2 text-4xl font-bold sm:text-5xl">{module.title}</h1>
               <p className="mt-4 max-w-3xl text-lg text-blue-100">{module.description}</p>
               <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-blue-100">
@@ -145,7 +145,7 @@ export default function CourseModule() {
         )}
 
         <Card className="p-6 shadow-lg sm:p-8">
-          <h2 className="text-2xl font-bold text-slate-900">{spindel ? "What youâ€™ll be able to do" : "Learning Objectives"}</h2>
+          <h2 className="text-2xl font-bold text-slate-900">{spindel ? "What you’ll be able to do" : "Learning Objectives"}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {module.objectives.map((objective) => (
               <div key={objective} className="flex items-start gap-3 rounded-lg bg-blue-50 p-4 text-slate-700">
@@ -229,7 +229,7 @@ export default function CourseModule() {
                 <ul className="mt-3 space-y-2 text-slate-700">
                   {section.keyPoints.map((point) => (
                     <li key={point} className="flex items-start gap-2">
-                      <span className="font-bold text-blue-700">â€¢</span> {point}
+                      <span className="font-bold text-blue-700">•</span> {point}
                     </li>
                   ))}
                 </ul>
@@ -240,7 +240,7 @@ export default function CourseModule() {
 
         <Card className="p-6 shadow-lg sm:p-8">
           <h2 className="text-2xl font-bold text-slate-900">{spindel ? "From screen to supervised practice" : "Skills Practice Checklist"}</h2>
-          <p className="mt-2 text-slate-600">Use this checklist with a qualified supervisor and the practiceâ€™s current approved protocol. Checking a box here records your review; it does not replace competency validation.</p>
+          <p className="mt-2 text-slate-600">Use this checklist with a qualified supervisor and the practice’s current approved protocol. Checking a box here records your review; it does not replace competency validation.</p>
           <div className="mt-5 space-y-3">
             {lesson.practiceChecklist.map((item) => (
               <label key={item} className="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
