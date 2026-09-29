@@ -44,9 +44,6 @@ export default function SpindelWelcome() {
                   <li key={item} className="flex items-start gap-3"><CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-200" /> {item}</li>
                 ))}
               </ul>
-              <div className="mt-7 rounded-xl border border-amber-200/30 bg-amber-100/10 p-4 text-sm leading-6 text-amber-50">
-                Do not enter patient information into quizzes or practice examples. Current written policies and supervisor direction always take priority.
-              </div>
             </Card>
           </div>
         </section>
