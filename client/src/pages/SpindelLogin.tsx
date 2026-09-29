@@ -40,15 +40,15 @@ export default function SpindelLogin() {
 
         <form onSubmit={submit} className="space-y-5">
           <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">Email Address</label>
-            <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" />
+            <label htmlFor="spindel-email" className="mb-2 block text-sm font-semibold text-slate-700">Email Address</label>
+            <input id="spindel-email" name="email" type="email" placeholder="you@spindeleye.com" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" />
           </div>
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <label className="block text-sm font-semibold text-slate-700">Password</label>
+              <label htmlFor="spindel-password" className="block text-sm font-semibold text-slate-700">Password</label>
               <a href="/forgot-password" className="text-sm font-semibold text-blue-700 hover:underline">Forgot password?</a>
             </div>
-            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" />
+            <input id="spindel-password" name="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" />
           </div>
 
           {error && <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700"><AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" /><span>{error}</span></div>}
