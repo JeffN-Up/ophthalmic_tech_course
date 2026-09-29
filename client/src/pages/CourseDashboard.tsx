@@ -171,8 +171,8 @@ export default function CourseDashboard() {
                       </div>
                       <h3 className="mt-1 text-xl font-bold">{module.title}</h3>
                       <p className="mt-2 text-sm text-slate-600">{module.description}</p>
-                      <div className="mt-4 flex items-center justify-between text-sm text-slate-500">
-                        <span>{module.duration}</span>
+                      <div className="mt-4 flex items-center justify-end text-sm text-slate-500">
+                        {!spindel && <span className="mr-auto">{module.duration}</span>}
                         <span>{module.difficulty}</span>
                       </div>
                       <a href={`/course/module/${module.day}`} className="mt-5 block">
