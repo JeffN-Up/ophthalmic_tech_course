@@ -145,12 +145,6 @@ export default function CourseDashboard() {
           </Card>
         </section>
 
-        {spindel && (
-          <section className="rounded-2xl border border-cyan-200/20 bg-cyan-100/10 p-6 text-sm leading-7 text-cyan-50">
-            <strong>Keep the learning lens clear:</strong> Use fictional examples only—never patient information. Current written policies, physician instructions, and supervisor direction always take priority over course examples.
-          </section>
-        )}
-
         <section>
           <div className="mb-5 flex items-end justify-between">
             <div>
