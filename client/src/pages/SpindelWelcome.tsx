@@ -81,7 +81,7 @@ export default function SpindelWelcome() {
       </main>
 
       <footer className="border-t border-white/10 px-4 py-8 text-center text-sm text-blue-100">
-        Spindel Eye Associates Employee Onboarding Â· Internal education and supervised training support
+        Spindel Eye Associates Employee Onboarding · Internal education and supervised training support
       </footer>
     </div>
   );
