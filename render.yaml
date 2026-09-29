@@ -33,4 +33,6 @@ services:
         value: "100"
       - key: SPINDEL_STAFF_ACCESS_CODE
         sync: false
+      - key: SPINDEL_MEDIA_CATALOG_JSON
+        sync: false
 
