@@ -23,7 +23,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Mission and culture", "Office locations", "Professional conduct", "Team communication"],
     assets: ["Welcome Guide", "Location Overview", "New-Hire Checklist"],
-    icon: "ðŸ‘‹",
+    icon: "👋",
     duration: "45 minutes",
     difficulty: "Beginner",
   },
@@ -40,7 +40,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["HIPAA basics", "Screen and document security", "Passwords", "Incident reporting"],
     assets: ["Privacy Checklist", "Security Scenarios", "Acknowledgement"],
-    icon: "ðŸ”’",
+    icon: "🔒",
     duration: "60 minutes",
     difficulty: "Beginner",
   },
@@ -57,7 +57,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Identity confirmation", "Arrival acknowledgement", "No-show prevention", "Handoffs"],
     assets: ["Arrival Workflow", "Veradigm Checklist", "Scenario Quiz"],
-    icon: "âœ…",
+    icon: "✅",
     duration: "45 minutes",
     difficulty: "Beginner",
   },
@@ -74,7 +74,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["HPI structure", "Medication reconciliation", "Testing workflow", "Clinical escalation"],
     assets: ["HPI Guide", "Documentation Examples", "Skills Checklist"],
-    icon: "ðŸ“",
+    icon: "📝",
     duration: "90 minutes",
     difficulty: "Intermediate",
   },
@@ -91,7 +91,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Hand hygiene", "Surface disinfection", "Room readiness", "Equipment reporting"],
     assets: ["Room Turnover Checklist", "Equipment Safety Guide", "Incident Scenarios"],
-    icon: "ðŸ§¼",
+    icon: "🧼",
     duration: "60 minutes",
     difficulty: "Beginner",
   },
@@ -99,7 +99,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     id: "spindel-06-communication",
     day: 6,
     title: "Patient Communication & Service Recovery",
-    description: "Make every interaction clearer, calmer, and more humanâ€”even when the schedule has other ideas.",
+    description: "Make every interaction clearer, calmer, and more human—even when the schedule has other ideas.",
     objectives: [
       "Use respectful and understandable language",
       "Acknowledge delays and patient concerns",
@@ -108,7 +108,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Empathy", "Delay communication", "Difficult interactions", "Service recovery"],
     assets: ["Communication Phrases", "Escalation Guide", "Role-Play Scenarios"],
-    icon: "ðŸ’¬",
+    icon: "💬",
     duration: "60 minutes",
     difficulty: "Beginner",
   },
@@ -125,7 +125,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Retina referrals", "Oculoplastic referrals", "Patient handouts", "Care coordination"],
     assets: ["Referral Checklist", "Handout Inventory", "Handoff Scenarios"],
-    icon: "ðŸ“„",
+    icon: "📄",
     duration: "45 minutes",
     difficulty: "Beginner",
   },
@@ -142,7 +142,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Red-flag symptoms", "Telephone documentation", "Late-day workflow", "Provider escalation"],
     assets: ["Urgent Call Template", "Red-Flag Guide", "Escalation Scenarios"],
-    icon: "â˜Žï¸",
+    icon: "☎️",
     duration: "60 minutes",
     difficulty: "Intermediate",
   },
@@ -159,7 +159,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Documentation integrity", "Coding support", "Audit readiness", "Team accountability"],
     assets: ["Quality Checklist", "Documentation Scenarios", "Audit Awareness"],
-    icon: "ðŸŽ¯",
+    icon: "🎯",
     duration: "60 minutes",
     difficulty: "Intermediate",
   },
@@ -176,7 +176,7 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     ],
     topics: ["Final review", "Competency validation", "Ongoing education", "Employee acknowledgement"],
     assets: ["Final Assessment", "Supervisor Sign-Off", "Completion Certificate"],
-    icon: "ðŸ",
+    icon: "🏁",
     duration: "60 minutes",
     difficulty: "Intermediate",
   },
@@ -207,7 +207,7 @@ export const spindelOnboardingLessons: LessonContent[] = [
       "Identify your primary office, supervisor, and department contacts",
       "Locate the current employee handbook and clinical protocol resources",
       "Review attendance, call-out, break, and communication expectations",
-      "Tour patient areas, staff areas, emergency exits, and supply locationsâ€”because the best time to find the tonometer covers is before you need them",
+      "Tour patient areas, staff areas, emergency exits, and supply locations—because the best time to find the tonometer covers is before you need them",
     ],
     safetyNote: "This onboarding course supports orientation but does not replace direct training, competency validation, the employee handbook, or current written practice policy.",
   },
@@ -269,7 +269,7 @@ export const spindelOnboardingLessons: LessonContent[] = [
   },
   {
     day: 4,
-    introduction: "Excellent technician documentation turns a busy visit into a clear clinical story: why the patient is here, what changed, what was measured, and what needs attention. The goal is useful precisionâ€”not a novel, and definitely not creative fiction.",
+    introduction: "Excellent technician documentation turns a busy visit into a clear clinical story: why the patient is here, what changed, what was measured, and what needs attention. The goal is useful precision—not a novel, and definitely not creative fiction.",
     sections: [
       {
         title: "Build the Clinical Story",
@@ -325,7 +325,7 @@ export const spindelOnboardingLessons: LessonContent[] = [
   },
   {
     day: 6,
-    introduction: "Patients remember how we made a complicated day feel. Clear expectations, a calm tone, and a reliable next step can lower the temperature of an interactionâ€”even when the schedule refuses to behave like a perfectly aligned eye chart.",
+    introduction: "Patients remember how we made a complicated day feel. Clear expectations, a calm tone, and a reliable next step can lower the temperature of an interaction—even when the schedule refuses to behave like a perfectly aligned eye chart.",
     sections: [
       {
         title: "Clarity Is a Form of Care",
@@ -353,7 +353,7 @@ export const spindelOnboardingLessons: LessonContent[] = [
   },
   {
     day: 7,
-    introduction: "A referral is more than a destination. It is a handoff that should leave the patient knowing where to go, what to bring, and what happens nextâ€”without sending them on an administrative scavenger hunt.",
+    introduction: "A referral is more than a destination. It is a handoff that should leave the patient knowing where to go, what to bring, and what happens next—without sending them on an administrative scavenger hunt.",
     sections: [
       {
         title: "Approved Patient Information",
@@ -381,7 +381,7 @@ export const spindelOnboardingLessons: LessonContent[] = [
   },
   {
     day: 8,
-    introduction: "Urgent calls require calm, structured information gathering and prompt clinical review. Your role is to capture essential facts, document accurately, and connect the caller with the approved clinical pathwayâ€”not to diagnose or decide independently that concerning symptoms can wait.",
+    introduction: "Urgent calls require calm, structured information gathering and prompt clinical review. Your role is to capture essential facts, document accurately, and connect the caller with the approved clinical pathway—not to diagnose or decide independently that concerning symptoms can wait.",
     sections: [
       {
         title: "Collect the Essentials",
@@ -409,7 +409,7 @@ export const spindelOnboardingLessons: LessonContent[] = [
   },
   {
     day: 9,
-    introduction: "High-quality documentation helps the next person understand what happened without guesswork. It supports continuity, accountability, coding, audits, and patient trustâ€”and it should hold up when viewed through more than one lens.",
+    introduction: "High-quality documentation helps the next person understand what happened without guesswork. It supports continuity, accountability, coding, audits, and patient trust—and it should hold up when viewed through more than one lens.",
     sections: [
       {
         title: "Documentation Integrity",
