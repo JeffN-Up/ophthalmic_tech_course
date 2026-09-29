@@ -37,6 +37,7 @@ import {
   type CourseUser,
   type PracticeInvite,
 } from "./store";
+import { isSpindelStaffEmail, staffNameFromEmail, verifySpindelStaffCode } from "./spindelStaffAccess";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -646,6 +647,55 @@ async function startServer() {
 
     setSessionCookie(res, user.id);
     return res.json({ user: publicUser(user) });
+  });
+
+  app.post("/api/auth/spindel-staff", loginLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const email = readString(body.email, 254).toLowerCase();
+    const password = readString(body.password, 200);
+    const configuredCode = process.env.SPINDEL_STAFF_ACCESS_CODE;
+    if (!configuredCode?.trim()) {
+      return res.status(503).json({ error: "Spindel staff access is not configured yet." });
+    }
+    if (!isSpindelStaffEmail(email) || !verifySpindelStaffCode(password, configuredCode)) {
+      return res.status(401).json({ error: "Spindel email or staff password is incorrect." });
+    }
+
+    try {
+      const user = await mutateDatabase((database) => {
+        const existing = database.users.find((candidate) => candidate.email.toLowerCase() === email);
+        if (existing) {
+          if (existing.role !== "student" || existing.organizationName !== "Spindel Eye Associates" || existing.accessRevoked) {
+            throw new HttpError(403, "This account cannot use Spindel staff sign-in. Contact your manager.");
+          }
+          return existing;
+        }
+        const manager = database.users.find((candidate) =>
+          candidate.role === "manager" && candidate.organizationName === "Spindel Eye Associates" && !candidate.accessRevoked,
+        );
+        const name = staffNameFromEmail(email);
+        const newUser: CourseUser = {
+          id: randomUUID(),
+          email,
+          ...name,
+          passwordHash: hashPassword(randomBytes(32).toString("base64url")),
+          role: "student",
+          organizationName: "Spindel Eye Associates",
+          managerId: manager?.id,
+          seatLimit: 1,
+          createdAt: new Date().toISOString(),
+          progress: [],
+        };
+        database.users.push(newUser);
+        return newUser;
+      });
+      setSessionCookie(res, user.id);
+      return res.json({ user: publicUser(user) });
+    } catch (error) {
+      if (error instanceof HttpError) return res.status(error.status).json({ error: error.message });
+      console.error("Spindel staff sign-in error", error);
+      return res.status(500).json({ error: "Unable to open staff onboarding." });
+    }
   });
 
   app.post("/api/auth/logout", (_req, res) => {
