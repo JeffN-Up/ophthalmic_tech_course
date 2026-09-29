@@ -147,7 +147,7 @@ export default function CourseDashboard() {
 
         {spindel && (
           <section className="rounded-2xl border border-cyan-200/20 bg-cyan-100/10 p-6 text-sm leading-7 text-cyan-50">
-            <strong>Keep the learning lens clear:</strong> Use fictional examples onlyâ€”never patient information. Current written policies, physician instructions, and supervisor direction always take priority over course examples.
+            <strong>Keep the learning lens clear:</strong> Use fictional examples only—never patient information. Current written policies, physician instructions, and supervisor direction always take priority over course examples.
           </section>
         )}
 
@@ -242,7 +242,7 @@ export default function CourseDashboard() {
       </main>
 
       <footer className="border-t border-white/10 px-4 py-7 text-center text-sm text-slate-300">
-        {spindel ? `${brandName} Â· ${programName} Â· Internal use` : `${brandName} Â· ${programName}`}
+        {spindel ? `${brandName} · ${programName} · Internal use` : `${brandName} · ${programName}`}
       </footer>
     </div>
   );
