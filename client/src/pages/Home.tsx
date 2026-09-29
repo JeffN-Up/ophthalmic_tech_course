@@ -138,7 +138,7 @@ export default function Home() {
               </div>
               <div className="mt-7">
                 <span className="text-5xl font-bold text-blue-700">$699</span>
-                <p className="text-sm text-slate-500">one-time Â· one seat</p>
+                <p className="text-sm text-slate-500">one-time · one seat</p>
               </div>
               <div className="mt-7 space-y-3">
                 {["All ten modules", "Knowledge checks and explanations", "Saved progress", "Completion certificate"].map((item) => (
@@ -157,7 +157,7 @@ export default function Home() {
               </div>
               <div className="mt-7">
                 <span className="text-5xl font-bold text-blue-700">$1,200</span>
-                <p className="text-sm text-slate-500">one-time Â· five seats ($240 each)</p>
+                <p className="text-sm text-slate-500">one-time · five seats ($240 each)</p>
               </div>
               <div className="mt-7 space-y-3">
                 {["Five complete course seats", "Manager progress dashboard", "Private employee invitations", "Five completion certificates"].map((item) => (
