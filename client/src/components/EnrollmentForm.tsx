@@ -106,7 +106,7 @@ export function EnrollmentForm({ tier, defaultType = "individual", onClose }: En
             <label className="block text-sm font-medium text-slate-700">
               Experience Level *
               <select name="experience" value={formData.experience} onChange={handleChange} className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3">
-                <option value="beginner">Beginner â€” no ophthalmic experience</option>
+                <option value="beginner">Beginner — no ophthalmic experience</option>
                 <option value="some">Some experience in eye care</option>
                 <option value="experienced">Experienced technician seeking additional training</option>
               </select>
@@ -156,7 +156,7 @@ export function EnrollmentForm({ tier, defaultType = "individual", onClose }: En
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button type="submit" disabled={isSubmitting} className="flex-1 bg-blue-600 py-6 text-white hover:bg-blue-700">
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-              {isSubmitting ? "Opening Secure Checkout" : `Continue to Stripe â€” $${total.toLocaleString()}`}
+              {isSubmitting ? "Opening Secure Checkout" : `Continue to Stripe — $${total.toLocaleString()}`}
             </Button>
             <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="flex-1 py-6">Cancel</Button>
           </div>
