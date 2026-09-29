@@ -53,7 +53,7 @@ export default function Curriculum() {
                     <h2 className="mt-2 text-xl font-bold text-slate-900">{module.title}</h2>
                     <p className="mt-2 text-slate-600">{module.description}</p>
                   </div>
-                  <span className="text-2xl font-light text-blue-600">{expanded ? "âˆ’" : "+"}</span>
+                  <span className="text-2xl font-light text-blue-600">{expanded ? "−" : "+"}</span>
                 </button>
 
                 {expanded && (
