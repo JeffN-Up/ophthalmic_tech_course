@@ -22,7 +22,7 @@ export function SpindelLogo({
         alt="Spindel Eye Associates"
         className={cn(
           "h-full w-full",
-          variant === "horizontal" ? "object-cover" : "object-contain",
+          variant === "horizontal" ? "object-cover object-[center_57%]" : "object-contain",
           imageClassName,
         )}
       />
