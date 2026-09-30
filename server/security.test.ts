@@ -109,7 +109,7 @@ describe("security helpers", () => {
     expect(canAccess?.("Another Practice")).toBe(false);
   });
 
-  it("requires at least one video and one audio overview for every public course module", async () => {
+  it("requires at least two videos and one audio overview for every course module", async () => {
     const security = await import("./security") as Record<string, unknown>;
     const assertCoverage = security.assertCompleteCourseMediaCoverage as
       | ((media: Array<{ type: "video" | "audio" | "image"; moduleDays: number[] }>) => void)
@@ -122,6 +122,7 @@ describe("security helpers", () => {
       const day = index + 1;
       return [
         { type: "video" as const, moduleDays: [day] },
+        { type: "video" as const, moduleDays: [day] },
         { type: "audio" as const, moduleDays: [day] },
       ];
     }).flat();
@@ -129,6 +130,9 @@ describe("security helpers", () => {
     expect(() => assertCoverage(complete)).not.toThrow();
     expect(() => assertCoverage(complete.slice(0, -1))).toThrow(
       "Course media is missing an audio overview for module 10.",
+    );
+    expect(() => assertCoverage(complete.filter((_, index) => index !== 28))).toThrow(
+      "Course media is missing a second video overview for module 10.",
     );
   });
 
@@ -156,5 +160,28 @@ describe("security helpers", () => {
     }));
     expect(() => parseProtectedMediaCatalog(JSON.stringify(tooMany))).toThrow("at most 100 items");
     expect(() => parseProtectedMediaCatalog(JSON.stringify([{ ...catalog[0], learningTier: "featured" }]))).toThrow();
+  });
+
+  it("rejects internal onboarding media from the public paid course catalog", async () => {
+    const { assertPublicCourseCatalogIsGeneric } = await import("./security");
+    const genericItem = {
+      driveFileId: "public_course_media_01",
+      title: "Ocular Anatomy Overview",
+      description: "A general anatomy review for technician students.",
+      type: "video" as const,
+      moduleDays: [1],
+      embedUrl: "https://drive.google.com/file/d/public_course_media_01/preview",
+      openUrl: "https://drive.google.com/file/d/public_course_media_01/view",
+      aiGenerated: false,
+      learningTier: "core" as const,
+      sourceLabel: "OptiTech media library",
+      learningObjective: "Identify the main ocular structures.",
+    };
+
+    expect(() => assertPublicCourseCatalogIsGeneric([genericItem])).not.toThrow();
+    expect(() => assertPublicCourseCatalogIsGeneric([{
+      ...genericItem,
+      title: "Spindel precision workup",
+    }])).toThrow("Public course media cannot include internal onboarding material");
   });
 });

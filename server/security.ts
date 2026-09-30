@@ -5,7 +5,7 @@ export interface ProtectedMediaItem {
   driveFileId: string;
   title: string;
   description: string;
-  type: "video" | "audio" | "image";
+  type: "video" | "audio" | "document" | "slide" | "image";
   moduleDays: number[];
   embedUrl: string;
   openUrl: string;
@@ -19,6 +19,8 @@ const DRIVE_FILE_ID_PATTERN = /^[A-Za-z0-9_-]{10,100}$/;
 const PROTECTED_MEDIA_TYPES = new Set<ProtectedMediaItem["type"]>([
   "video",
   "audio",
+  "document",
+  "slide",
   "image",
 ]);
 
@@ -92,13 +94,43 @@ export function assertCompleteCourseMediaCoverage(
   media: Array<Pick<ProtectedMediaItem, "type" | "moduleDays">>,
 ): void {
   for (let day = 1; day <= 10; day += 1) {
-    for (const type of ["video", "audio"] as const) {
-      const hasOverview = media.some(
-        (item) => item.type === type && item.moduleDays.includes(day),
+    const videoCount = media.filter(
+      (item) => item.type === "video" && item.moduleDays.includes(day),
+    ).length;
+    const audioCount = media.filter(
+      (item) => item.type === "audio" && item.moduleDays.includes(day),
+    ).length;
+
+    if (videoCount < 2) {
+      throw new Error(`Course media is missing a second video overview for module ${day}.`);
+    }
+    if (audioCount < 1) {
+      throw new Error(`Course media is missing an audio overview for module ${day}.`);
+    }
+  }
+}
+
+const INTERNAL_ONBOARDING_TERMS = [
+  "spindel",
+  "veradigm",
+  "physician-specific",
+  "internal use",
+];
+
+export function assertPublicCourseCatalogIsGeneric(media: ProtectedMediaItem[]): void {
+  for (const item of media) {
+    const searchableText = [
+      item.title,
+      item.description,
+      item.sourceLabel,
+      item.learningObjective,
+    ].join(" ").toLowerCase();
+
+    const internalTerm = INTERNAL_ONBOARDING_TERMS.find((term) => searchableText.includes(term));
+    if (internalTerm) {
+      throw new Error(
+        `Public course media cannot include internal onboarding material (found "${internalTerm}").`,
       );
-      if (!hasOverview) {
-        throw new Error(`Course media is missing an ${type} overview for module ${day}.`);
-      }
     }
   }
 }

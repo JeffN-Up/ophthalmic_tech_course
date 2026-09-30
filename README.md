@@ -26,7 +26,9 @@ SPINDEL_MEDIA_CATALOG_JSON=
 COURSE_MEDIA_CATALOG_JSON=
 ```
 
-`SPINDEL_MEDIA_CATALOG_JSON` is a protected JSON array. Each item uses `driveFileId`, `title`, `description`, `type`, `moduleDays`, `aiGenerated`, `learningTier` (`core` or `extended`), `sourceLabel`, and `learningObjective`. Keep real Drive IDs in the environment value rather than in the browser bundle. A single item can list multiple module days when it directly supports more than one lesson.
+`SPINDEL_MEDIA_CATALOG_JSON` is a protected JSON array. Each item uses `driveFileId`, `title`, `description`, `type`, `moduleDays`, `aiGenerated`, `learningTier` (`core` or `extended`), `sourceLabel`, and `learningObjective`. Keep real Drive IDs in the environment value rather than in the browser bundle. Every module requires at least two videos and one audio item; `.m4a` files are entered as `"type": "audio"`. A single item can list multiple module days when it directly supports more than one lesson.
+
+`COURSE_MEDIA_CATALOG_JSON` is a separate catalog for paid OptiTech learners. It must use general ophthalmic-training content only. Do not copy Spindel names, internal workup protocols, office procedures, or other onboarding material into this catalog; the server rejects those items automatically.
 
 Render automatically generates `SESSION_SECRET`, assigns `PUBLIC_APP_URL`, and configures the persistent `DATA_FILE`. The manager name defaults to `Spindel Administrator`, and the seat limit defaults to `100` unless changed in Render.
 

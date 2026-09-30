@@ -23,10 +23,12 @@ import {
   CheckCircle2,
   Clock,
   ExternalLink,
+  FileText,
   Headphones,
   Image as ImageIcon,
   Loader2,
   PlayCircle,
+  Presentation,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRoute } from "wouter";
@@ -171,6 +173,10 @@ export default function CourseModule() {
                   ? PlayCircle
                   : item.type === "audio"
                     ? Headphones
+                    : item.type === "document"
+                      ? FileText
+                      : item.type === "slide"
+                        ? Presentation
                     : ImageIcon;
 
                 return (
@@ -178,7 +184,11 @@ export default function CourseModule() {
                     <iframe
                       src={item.embedUrl}
                       title={item.title}
-                      className="aspect-video w-full border-0 bg-slate-950"
+                      className={item.type === "audio"
+                        ? "h-32 w-full border-0 bg-slate-950"
+                        : item.type === "document" || item.type === "slide"
+                          ? "h-96 w-full border-0 bg-slate-950"
+                        : "aspect-video w-full border-0 bg-slate-950"}
                       loading="lazy"
                       allow="autoplay"
                       allowFullScreen
@@ -189,6 +199,10 @@ export default function CourseModule() {
                       </div>
                       <h3 className="mt-2 text-lg font-bold text-slate-900">{item.title}</h3>
                       <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                      <div className="mt-4 rounded-lg bg-blue-50 p-3 text-sm leading-6 text-slate-700">
+                        <span className="font-semibold text-slate-900">What this helps with: </span>
+                        {item.learningObjective}
+                      </div>
                       {item.aiGenerated && (
                         <div className="mt-4 flex gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm leading-6 text-amber-950">
                           <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0" />
@@ -201,7 +215,11 @@ export default function CourseModule() {
                         rel="noreferrer"
                         className="mt-4 inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-900"
                       >
-                        Open full media <ExternalLink className="ml-2 h-4 w-4" />
+                        {item.type === "slide"
+                          ? "Open slide deck"
+                          : item.type === "document"
+                            ? "Open full document"
+                            : "Open full media"} <ExternalLink className="ml-2 h-4 w-4" />
                       </a>
                     </div>
                   </article>

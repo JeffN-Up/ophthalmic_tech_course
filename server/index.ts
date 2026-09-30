@@ -21,6 +21,7 @@ import {
 } from "./email";
 import {
   assertCompleteCourseMediaCoverage,
+  assertPublicCourseCatalogIsGeneric,
   createOpaqueToken,
   canAccessSpindelMedia,
   hashOpaqueToken,
@@ -848,7 +849,9 @@ async function startServer() {
     }
 
     try {
-      return res.json({ media: parseProtectedMediaCatalog(configuredCatalog) });
+      const media = parseProtectedMediaCatalog(configuredCatalog);
+      assertCompleteCourseMediaCoverage(media);
+      return res.json({ media });
     } catch (catalogError) {
       console.error("Protected media configuration error", catalogError);
       return res.status(503).json({ error: "Approved media is temporarily unavailable." });
@@ -867,6 +870,7 @@ async function startServer() {
     try {
       const media = parseProtectedMediaCatalog(configuredCatalog);
       assertCompleteCourseMediaCoverage(media);
+      assertPublicCourseCatalogIsGeneric(media);
       return res.json({ media });
     } catch (catalogError) {
       console.error("Course media configuration error", catalogError);

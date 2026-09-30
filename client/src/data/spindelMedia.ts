@@ -2,7 +2,7 @@ export interface SpindelApprovedMedia {
   driveFileId: string;
   title: string;
   description: string;
-  type: "video" | "audio" | "image";
+  type: "video" | "audio" | "document" | "slide" | "image";
   moduleDays: number[];
   embedUrl: string;
   openUrl: string;
