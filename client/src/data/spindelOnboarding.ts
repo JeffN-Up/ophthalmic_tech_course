@@ -1,6 +1,7 @@
 import type { QuizData } from "@/components/ModuleQuiz";
 import type { LessonContent } from "@/data/courseContent";
 import type { CurriculumModule } from "@/data/curriculum";
+import { spindelTechnicianModules } from "@/data/spindelTechnicianModules";
 
 export const SPINDEL_ORGANIZATION = "Spindel Eye Associates";
 export const SPINDEL_PASSING_SCORE = 80;
@@ -9,7 +10,7 @@ export function isSpindelOrganization(organizationName?: string): boolean {
   return organizationName?.trim().toLowerCase().includes("spindel eye") ?? false;
 }
 
-export const spindelOnboardingModules: CurriculumModule[] = [
+const legacySpindelOnboardingModules: CurriculumModule[] = [
   {
     id: "spindel-01-welcome",
     day: 1,
@@ -181,6 +182,9 @@ export const spindelOnboardingModules: CurriculumModule[] = [
     difficulty: "Intermediate",
   },
 ];
+
+void legacySpindelOnboardingModules;
+export const spindelOnboardingModules = spindelTechnicianModules;
 
 export const spindelOnboardingLessons: LessonContent[] = [
   {
