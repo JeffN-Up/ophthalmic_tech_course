@@ -185,10 +185,10 @@ export default function CourseModule() {
                       src={item.embedUrl}
                       title={item.title}
                       className={item.type === "audio"
-                        ? "h-32 w-full border-0 bg-slate-950"
+                        ? "h-56 w-full border-0 bg-slate-950 sm:h-60"
                         : item.type === "document" || item.type === "slide"
                           ? "h-96 w-full border-0 bg-slate-950"
-                        : "aspect-video w-full border-0 bg-slate-950"}
+                        : "aspect-[16/10] min-h-64 w-full border-0 bg-slate-950"}
                       loading="lazy"
                       allow="autoplay"
                       allowFullScreen
