@@ -189,6 +189,12 @@ export default function CourseModule() {
                       </div>
                       <h3 className="mt-2 text-lg font-bold text-slate-900">{item.title}</h3>
                       <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                      {item.aiGenerated && (
+                        <div className="mt-4 flex gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm leading-6 text-amber-950">
+                          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                          <p><strong>Optional AI visual aid:</strong> This video can make the topic easier to picture, but AI visuals may simplify or inaccurately represent anatomy. Use the written lesson, current practice protocols, and supervised training as the source of truth.</p>
+                        </div>
+                      )}
                       <a
                         href={item.openUrl}
                         target="_blank"
