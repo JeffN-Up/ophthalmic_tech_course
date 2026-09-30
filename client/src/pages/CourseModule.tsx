@@ -140,7 +140,7 @@ export default function CourseModule() {
       </header>
 
       <main className="mx-auto max-w-5xl space-y-8 px-4 py-10">
-        <Card className="p-6 shadow-lg sm:p-8">
+        <Card className="bg-white text-slate-900 p-6 shadow-lg sm:p-8">
           <h2 className="text-2xl font-bold text-slate-900">{spindel ? "What you’ll be able to do" : "Learning Objectives"}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {module.objectives.map((objective) => (
@@ -152,12 +152,12 @@ export default function CourseModule() {
           </div>
         </Card>
 
-        <Card className="p-6 shadow-lg sm:p-8">
+        <Card className="bg-white text-slate-900 p-6 shadow-lg sm:p-8">
           <p className="text-lg leading-8 text-slate-700">{lesson.introduction}</p>
         </Card>
 
         {approvedMedia.length > 0 && (
-          <Card className="overflow-hidden shadow-lg">
+          <Card className="bg-white text-slate-900 overflow-hidden shadow-lg">
             <div className="border-b border-slate-200 bg-gradient-to-r from-sky-950 via-blue-900 to-cyan-900 p-6 text-white sm:p-8">
               <p className="text-sm font-semibold uppercase tracking-wider text-cyan-200">{spindel ? "Physician-approved media" : "Module media"}</p>
               <h2 className="mt-2 text-2xl font-bold">Watch, listen, and review</h2>
@@ -236,7 +236,7 @@ export default function CourseModule() {
         )}
 
         {lesson.sections.map((section) => (
-          <Card key={section.title} className="p-6 shadow-lg sm:p-8">
+          <Card key={section.title} className="bg-white text-slate-900 p-6 shadow-lg sm:p-8">
             <h2 className="text-2xl font-bold text-slate-900">{section.title}</h2>
             <div className="mt-4 space-y-4 text-base leading-7 text-slate-700">
               {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -256,7 +256,7 @@ export default function CourseModule() {
           </Card>
         ))}
 
-        <Card className="p-6 shadow-lg sm:p-8">
+        <Card className="bg-white text-slate-900 p-6 shadow-lg sm:p-8">
           <h2 className="text-2xl font-bold text-slate-900">{spindel ? "From screen to supervised practice" : "Skills Practice Checklist"}</h2>
           <p className="mt-2 text-slate-600">Use this checklist with a qualified supervisor and the practice’s current approved protocol. Checking a box here records your review; it does not replace competency validation.</p>
           <div className="mt-5 space-y-3">
