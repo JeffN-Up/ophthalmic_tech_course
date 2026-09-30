@@ -65,11 +65,11 @@ export default function SpindelWelcome() {
             </div>
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
               {spindelOnboardingModules.map((module) => (
-                <Card key={module.id} className="premium-card border-blue-100 p-5 shadow-md">
+                <Card key={module.id} className="premium-card border-slate-700 bg-slate-950 p-5 text-white shadow-md">
                   <div className="text-4xl">{module.icon}</div>
-                  <p className="mt-4 text-sm font-bold text-blue-700">Module {module.day}</p>
+                  <p className="mt-4 text-sm font-bold text-cyan-200">Module {module.day}</p>
                   <h3 className="mt-1 font-bold">{module.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{module.description}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-100">{module.description}</p>
                 </Card>
               ))}
             </div>

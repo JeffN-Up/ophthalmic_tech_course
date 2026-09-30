@@ -47,7 +47,7 @@ export default function CourseQuiz({ quiz, onComplete, onContinue }: CourseQuizP
   };
 
   return (
-    <Card className="p-6 shadow-lg sm:p-8">
+    <Card className="bg-white text-slate-900 p-6 shadow-lg sm:p-8">
       <div className="mb-6">
         <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Knowledge Check</p>
         <h2 className="mt-1 text-3xl font-bold text-slate-900">{quiz.title}</h2>
