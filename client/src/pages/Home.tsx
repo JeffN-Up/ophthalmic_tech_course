@@ -70,7 +70,7 @@ export default function Home() {
             <Card className="premium-glass premium-card border-white/10 p-8 text-white">
               <Eye className="mb-5 h-14 w-14 text-cyan-400" />
               <h2 className="text-2xl font-bold">What is included</h2>
-              <ul className="mt-5 space-y-4 text-slate-200">
+              <ul className="mt-5 space-y-4 text-white">
                 {[
                   "Ten structured instructional modules",
                   "Clinical workflow and safety guidance",
@@ -97,7 +97,7 @@ export default function Home() {
               ["1", "Completion Certificate"],
             ].map(([value, label]) => (
               <div key={label}>
-                <p className="text-4xl font-bold text-cyan-300">{value}</p>
+                <p className="text-4xl font-bold text-cyan-100">{value}</p>
                 <p className="mt-1 text-sm text-slate-100">{label}</p>
               </div>
             ))}
@@ -107,14 +107,14 @@ export default function Home() {
         <section id="curriculum" className="px-4 py-20">
           <div className="mx-auto max-w-7xl">
             <div className="mb-12 text-center">
-              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">Curriculum</p>
+              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-100">Curriculum</p>
               <h2 className="mt-2 text-4xl font-bold">A practical ten-day learning path</h2>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
               {curriculumModules.map((module) => (
                 <Card key={module.id} className="premium-glass premium-card border-white/10 p-5 text-white">
                   <div className="text-3xl">{module.icon}</div>
-                  <p className="mt-4 text-sm font-bold text-cyan-300">Day {module.day}</p>
+                  <p className="mt-4 text-sm font-bold text-cyan-100">Day {module.day}</p>
                   <h3 className="mt-1 font-bold">{module.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-100">{module.description}</p>
                 </Card>
@@ -126,7 +126,7 @@ export default function Home() {
 
         <section id="pricing" className="bg-slate-950/40 px-4 py-20">
           <div className="mx-auto max-w-7xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">Pricing</p>
+            <p className="text-sm font-semibold uppercase tracking-wider text-cyan-100">Pricing</p>
             <h2 className="mt-2 text-4xl font-bold">Choose the path that fits.</h2>
             <p className="mx-auto mt-4 max-w-2xl text-slate-100">Learn independently, enroll a five-person practice team, or enter the private employee-onboarding portal.</p>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -176,11 +176,11 @@ export default function Home() {
               </div>
               <div className="mt-7">
                 <span className="text-3xl font-bold text-white">Manager-issued access</span>
-                <p className="mt-2 text-sm text-blue-200">No public purchase required</p>
+                <p className="mt-2 text-sm text-blue-100">No public purchase required</p>
               </div>
               <div className="mt-7 space-y-3">
                 {["Ten Spindel onboarding modules", "80% knowledge-check standard", "Employee progress tracking", "Supervisor validation reminders"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-blue-50"><CheckCircle2 className="h-4 w-4 text-cyan-300" /> {item}</div>
+                  <div key={item} className="flex items-center gap-2 text-white"><CheckCircle2 className="h-4 w-4 text-cyan-100" /> {item}</div>
                 ))}
               </div>
               <a href="/spindel" className="mt-8 block">
