@@ -24,9 +24,9 @@ export default function Home() {
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">OptiTech Academy</span>
           </a>
           <div className="hidden items-center gap-7 md:flex">
-            <a href="#curriculum" className="text-sm text-slate-300 hover:text-cyan-300">Curriculum</a>
-            <a href="#pricing" className="text-sm text-slate-300 hover:text-cyan-300">Pricing</a>
-            <a href="#standards" className="text-sm text-slate-300 hover:text-cyan-300">Course Standards</a>
+            <a href="#curriculum" className="text-sm text-slate-100 hover:text-cyan-200">Curriculum</a>
+            <a href="#pricing" className="text-sm text-slate-100 hover:text-cyan-200">Pricing</a>
+            <a href="#standards" className="text-sm text-slate-100 hover:text-cyan-200">Course Standards</a>
           </div>
           <div className="flex items-center gap-2">
             <a href="/login">
@@ -55,7 +55,7 @@ export default function Home() {
               <h1 className="text-5xl font-bold leading-tight sm:text-7xl">
                 Build the skills behind a dependable ophthalmic examination.
               </h1>
-              <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-300">
+              <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-100">
                 Learn core anatomy, history taking, lensometry, tonometry, slit lamp workflow, imaging, visual fields, documentation, communication, and professional development.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -64,7 +64,7 @@ export default function Home() {
                 </Button>
                 <a href="/curriculum"><Button size="lg" variant="outline" className="border-white/20 bg-transparent text-white hover:bg-white/10">Preview Curriculum</Button></a>
               </div>
-              <p className="mt-4 text-sm text-slate-400">One-time price per student seat. Secure checkout is processed by Stripe.</p>
+              <p className="mt-4 text-sm text-slate-200">One-time price per student seat. Secure checkout is processed by Stripe.</p>
             </div>
 
             <Card className="premium-glass premium-card border-white/10 p-8 text-white">
@@ -98,7 +98,7 @@ export default function Home() {
             ].map(([value, label]) => (
               <div key={label}>
                 <p className="text-4xl font-bold text-cyan-300">{value}</p>
-                <p className="mt-1 text-sm text-slate-300">{label}</p>
+                <p className="mt-1 text-sm text-slate-100">{label}</p>
               </div>
             ))}
           </div>
@@ -116,7 +116,7 @@ export default function Home() {
                   <div className="text-3xl">{module.icon}</div>
                   <p className="mt-4 text-sm font-bold text-cyan-300">Day {module.day}</p>
                   <h3 className="mt-1 font-bold">{module.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-300">{module.description}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-100">{module.description}</p>
                 </Card>
               ))}
             </div>
@@ -128,7 +128,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">Pricing</p>
             <h2 className="mt-2 text-4xl font-bold">Choose the path that fits.</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-slate-300">Learn independently, enroll a five-person practice team, or enter the private employee-onboarding portal.</p>
+            <p className="mx-auto mt-4 max-w-2xl text-slate-100">Learn independently, enroll a five-person practice team, or enter the private employee-onboarding portal.</p>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
             <Card className="premium-card flex flex-col border-2 border-cyan-400/40 bg-white p-8 text-left text-slate-900 shadow-2xl">
               <div>
@@ -201,14 +201,14 @@ export default function Home() {
               <Card key={item.title} className="premium-glass premium-card border-white/10 p-7 text-white">
                 <item.icon className="h-10 w-10 text-cyan-400" />
                 <h3 className="mt-4 text-xl font-bold">{item.title}</h3>
-                <p className="mt-2 leading-7 text-slate-300">{item.text}</p>
+                <p className="mt-2 leading-7 text-slate-100">{item.text}</p>
               </Card>
             ))}
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 px-4 py-8 text-center text-sm text-slate-400">
+      <footer className="border-t border-white/10 px-4 py-8 text-center text-sm text-slate-200">
         OptiTech Academy is an independent educational course. It does not award licensure or JCAHPO certification.
       </footer>
 

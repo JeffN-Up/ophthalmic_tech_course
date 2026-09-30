@@ -12,7 +12,7 @@ export default function SiteFooter() {
             <Eye className="h-5 w-5 text-cyan-400" />
             {config.businessName}
           </div>
-          <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">
+          <p className="mt-3 max-w-sm text-sm leading-6 text-slate-200">
             Self-paced ophthalmic technician education for individuals and clinical teams.
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-8 max-w-6xl border-t border-white/10 pt-6 text-xs text-slate-500">
+      <div className="mx-auto mt-8 max-w-6xl border-t border-white/10 pt-6 text-xs text-slate-300">
         © {new Date().getFullYear()} {config.businessLegalName}. Certificate of completion only; not professional certification or licensure.
       </div>
     </footer>
