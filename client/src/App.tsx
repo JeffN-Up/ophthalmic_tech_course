@@ -1,4 +1,5 @@
 import SiteFooter from "@/components/SiteFooter";
+import { AmbientPointerGlow } from "@/components/AmbientPointerGlow";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ActivateEnrollment from "@/pages/ActivateEnrollment";
@@ -56,6 +57,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
+          <AmbientPointerGlow />
           <Router />
           {showPublicFooter ? <SiteFooter /> : null}
         </TooltipProvider>

@@ -43,6 +43,8 @@
 }
 
 :root {
+  --pointer-x: -20rem;
+  --pointer-y: -20rem;
   --primary: oklch(0.623 0.214 259.815);
   --primary-foreground: oklch(1 0 0);
   --sidebar-primary: oklch(0.623 0.214 259.815);
@@ -195,4 +197,48 @@
 
 .glow-effect {
   @apply shadow-lg shadow-blue-500/20;
+}
+
+/* Quiet, premium motion: visible only for mouse/trackpad users who allow motion. */
+.ambient-pointer-glow {
+  pointer-events: none;
+  position: fixed;
+  z-index: 40;
+  left: var(--pointer-x);
+  top: var(--pointer-y);
+  width: 28rem;
+  height: 28rem;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(103 232 249 / 10%), transparent 66%);
+  filter: blur(8px);
+  transition: left 180ms ease-out, top 180ms ease-out;
+}
+
+.premium-glass {
+  border: 1px solid rgb(255 255 255 / 18%);
+  background: linear-gradient(135deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 6%));
+  box-shadow: 0 24px 70px rgb(2 6 23 / 24%), inset 0 1px 0 rgb(255 255 255 / 18%);
+  backdrop-filter: blur(22px) saturate(135%);
+}
+
+.premium-card {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+@media (hover: hover) {
+  .premium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 60px rgb(2 6 23 / 28%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .ambient-pointer-glow {
+    display: none;
+  }
+
+  .premium-card {
+    transition: none;
+  }
 }

@@ -36,7 +36,7 @@ export default function SpindelWelcome() {
               </div>
             </div>
 
-            <Card className="border-white/15 bg-white/10 p-8 text-white shadow-2xl backdrop-blur">
+            <Card className="premium-glass premium-card border-white/15 p-8 text-white">
               <SpindelLogo variant="stacked" className="h-32 w-32 shadow-xl" />
               <h2 className="mt-5 text-3xl font-bold">Everything you need to get oriented</h2>
               <ul className="mt-6 space-y-4 text-blue-50">
@@ -50,9 +50,9 @@ export default function SpindelWelcome() {
 
         <section className="border-y border-white/10 bg-white/5 px-4 py-12">
           <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
-            <div className="rounded-2xl bg-white/10 p-6"><Users className="h-9 w-9 text-cyan-200" /><h2 className="mt-4 text-xl font-bold">Patient-First Culture</h2><p className="mt-2 text-blue-100">Respectful communication, reliable handoffs, accountability, and safe escalation.</p></div>
-            <div className="rounded-2xl bg-white/10 p-6"><LockKeyhole className="h-9 w-9 text-cyan-200" /><h2 className="mt-4 text-xl font-bold">Protected Information</h2><p className="mt-2 text-blue-100">HIPAA, minimum-necessary access, secure systems, and immediate incident reporting.</p></div>
-            <div className="rounded-2xl bg-white/10 p-6"><MapPin className="h-9 w-9 text-cyan-200" /><h2 className="mt-4 text-xl font-bold">One Multi-Office Team</h2><p className="mt-2 text-blue-100">Shared standards across {locations.join(", ")}.</p></div>
+            <div className="premium-glass premium-card rounded-2xl p-6"><Users className="h-9 w-9 text-cyan-200" /><h2 className="mt-4 text-xl font-bold">Patient-First Culture</h2><p className="mt-2 text-blue-100">Respectful communication, reliable handoffs, accountability, and safe escalation.</p></div>
+            <div className="premium-glass premium-card rounded-2xl p-6"><LockKeyhole className="h-9 w-9 text-cyan-200" /><h2 className="mt-4 text-xl font-bold">Protected Information</h2><p className="mt-2 text-blue-100">HIPAA, minimum-necessary access, secure systems, and immediate incident reporting.</p></div>
+            <div className="premium-glass premium-card rounded-2xl p-6"><MapPin className="h-9 w-9 text-cyan-200" /><h2 className="mt-4 text-xl font-bold">One Multi-Office Team</h2><p className="mt-2 text-blue-100">Shared standards across {locations.join(", ")}.</p></div>
           </div>
         </section>
 
@@ -65,7 +65,7 @@ export default function SpindelWelcome() {
             </div>
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
               {spindelOnboardingModules.map((module) => (
-                <Card key={module.id} className="border-blue-100 p-5 shadow-md">
+                <Card key={module.id} className="premium-card border-blue-100 p-5 shadow-md">
                   <div className="text-4xl">{module.icon}</div>
                   <p className="mt-4 text-sm font-bold text-blue-700">Module {module.day}</p>
                   <h3 className="mt-1 font-bold">{module.title}</h3>

@@ -67,7 +67,7 @@ export default function Home() {
               <p className="mt-4 text-sm text-slate-400">One-time price per student seat. Secure checkout is processed by Stripe.</p>
             </div>
 
-            <Card className="border-white/10 bg-white/10 p-8 text-white backdrop-blur">
+            <Card className="premium-glass premium-card border-white/10 p-8 text-white">
               <Eye className="mb-5 h-14 w-14 text-cyan-400" />
               <h2 className="text-2xl font-bold">What is included</h2>
               <ul className="mt-5 space-y-4 text-slate-200">
@@ -112,7 +112,7 @@ export default function Home() {
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
               {curriculumModules.map((module) => (
-                <Card key={module.id} className="border-white/10 bg-white/10 p-5 text-white backdrop-blur">
+                <Card key={module.id} className="premium-glass premium-card border-white/10 p-5 text-white">
                   <div className="text-3xl">{module.icon}</div>
                   <p className="mt-4 text-sm font-bold text-cyan-300">Day {module.day}</p>
                   <h3 className="mt-1 font-bold">{module.title}</h3>
@@ -130,7 +130,7 @@ export default function Home() {
             <h2 className="mt-2 text-4xl font-bold">Choose the path that fits.</h2>
             <p className="mx-auto mt-4 max-w-2xl text-slate-300">Learn independently, enroll a five-person practice team, or enter the private employee-onboarding portal.</p>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            <Card className="flex flex-col border-2 border-cyan-400/40 bg-white p-8 text-left text-slate-900 shadow-2xl">
+            <Card className="premium-card flex flex-col border-2 border-cyan-400/40 bg-white p-8 text-left text-slate-900 shadow-2xl">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-700">For individuals</p>
                 <h3 className="mt-3 text-2xl font-bold">Ophthalmic Technician Foundations</h3>
@@ -148,7 +148,7 @@ export default function Home() {
               <Button onClick={() => openEnrollment("individual")} className="mt-8 w-full bg-blue-600 py-6 text-white hover:bg-blue-700">Enroll as an Individual</Button>
             </Card>
 
-            <Card className="relative flex flex-col border-2 border-amber-400 bg-white p-8 text-left text-slate-900 shadow-2xl">
+            <Card className="premium-card relative flex flex-col border-2 border-amber-400 bg-white p-8 text-left text-slate-900 shadow-2xl">
               <span className="absolute right-5 top-5 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">Save $2,295</span>
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-700">For practices</p>
@@ -167,7 +167,7 @@ export default function Home() {
               <Button onClick={() => openEnrollment("practice")} className="mt-8 w-full bg-amber-500 py-6 text-slate-950 hover:bg-amber-400">Enroll a Practice Team</Button>
             </Card>
 
-            <Card className="flex flex-col border border-white/10 bg-gradient-to-br from-blue-950 to-cyan-900 p-8 text-left text-white shadow-2xl">
+            <Card className="premium-card flex flex-col border border-white/10 bg-gradient-to-br from-blue-950 to-cyan-900 p-8 text-left text-white shadow-2xl">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-200">For onboarding employees</p>
                 <SpindelLogo variant="stacked" className="mt-5 h-28 w-28 shadow-xl" />
@@ -198,7 +198,7 @@ export default function Home() {
               { icon: Users, title: "Team Enrollment", text: "Practice managers receive private seat invitation links and can view team completion progress." },
               { icon: Award, title: "Accurate Certificate", text: "The certificate confirms course completion and does not claim licensure or professional certification." },
             ].map((item) => (
-              <Card key={item.title} className="border-white/10 bg-white/10 p-7 text-white backdrop-blur">
+              <Card key={item.title} className="premium-glass premium-card border-white/10 p-7 text-white">
                 <item.icon className="h-10 w-10 text-cyan-400" />
                 <h3 className="mt-4 text-xl font-bold">{item.title}</h3>
                 <p className="mt-2 leading-7 text-slate-300">{item.text}</p>
