@@ -9,6 +9,10 @@ export interface ProtectedMediaItem {
   moduleDays: number[];
   embedUrl: string;
   openUrl: string;
+  aiGenerated: boolean;
+  learningTier: "core" | "extended";
+  sourceLabel: string;
+  learningObjective: string;
 }
 
 const DRIVE_FILE_ID_PATTERN = /^[A-Za-z0-9_-]{10,100}$/;
@@ -24,8 +28,8 @@ export function canAccessSpindelMedia(organizationName?: string): boolean {
 
 export function parseProtectedMediaCatalog(value: string): ProtectedMediaItem[] {
   const parsed = JSON.parse(value) as unknown;
-  if (!Array.isArray(parsed) || parsed.length > 20) {
-    throw new Error("SPINDEL_MEDIA_CATALOG_JSON must be an array with at most 20 items.");
+  if (!Array.isArray(parsed) || parsed.length > 100) {
+    throw new Error("SPINDEL_MEDIA_CATALOG_JSON must be an array with at most 100 items.");
   }
 
   const seen = new Set<string>();
@@ -41,6 +45,12 @@ export function parseProtectedMediaCatalog(value: string): ProtectedMediaItem[] 
       ? item.description.trim().slice(0, 500)
       : "";
     const type = item.type;
+    const aiGenerated = item.aiGenerated === true;
+    const learningTier = item.learningTier;
+    const sourceLabel = typeof item.sourceLabel === "string" ? item.sourceLabel.trim().slice(0, 160) : "";
+    const learningObjective = typeof item.learningObjective === "string"
+      ? item.learningObjective.trim().slice(0, 500)
+      : "";
     const moduleDays = Array.isArray(item.moduleDays)
       ? [...new Set(item.moduleDays.filter(
         (day): day is number => Number.isInteger(day) && Number(day) >= 1 && Number(day) <= 10,
@@ -52,6 +62,9 @@ export function parseProtectedMediaCatalog(value: string): ProtectedMediaItem[] 
       !title ||
       !description ||
       !PROTECTED_MEDIA_TYPES.has(type as ProtectedMediaItem["type"]) ||
+      (learningTier !== "core" && learningTier !== "extended") ||
+      !sourceLabel ||
+      !learningObjective ||
       moduleDays.length === 0 ||
       seen.has(driveFileId)
     ) {
@@ -67,6 +80,10 @@ export function parseProtectedMediaCatalog(value: string): ProtectedMediaItem[] 
       moduleDays,
       embedUrl: `https://drive.google.com/file/d/${driveFileId}/preview`,
       openUrl: `https://drive.google.com/file/d/${driveFileId}/view`,
+      aiGenerated,
+      learningTier,
+      sourceLabel,
+      learningObjective,
     };
   });
 }

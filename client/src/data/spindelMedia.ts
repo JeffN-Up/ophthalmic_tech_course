@@ -6,13 +6,28 @@ export interface SpindelApprovedMedia {
   moduleDays: number[];
   embedUrl: string;
   openUrl: string;
+  aiGenerated: boolean;
+  learningTier: "core" | "extended";
+  sourceLabel: string;
+  learningObjective: string;
 }
 
 export function getSpindelMediaForDay(
   media: SpindelApprovedMedia[],
   day: number,
+  tier?: SpindelApprovedMedia["learningTier"],
 ): SpindelApprovedMedia[] {
-  return media.filter((item) => item.moduleDays.includes(day));
+  return media.filter((item) => item.moduleDays.includes(day) && (!tier || item.learningTier === tier));
+}
+
+export function groupSpindelMediaForDay(
+  media: SpindelApprovedMedia[],
+  day: number,
+): { core: SpindelApprovedMedia[]; extended: SpindelApprovedMedia[] } {
+  return {
+    core: getSpindelMediaForDay(media, day, "core"),
+    extended: getSpindelMediaForDay(media, day, "extended"),
+  };
 }
 
 export function getApprovedMediaEndpoint(organizationName?: string): string {

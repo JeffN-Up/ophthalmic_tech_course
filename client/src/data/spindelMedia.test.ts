@@ -18,6 +18,10 @@ describe("approved Spindel media", () => {
         moduleDays: [4],
         embedUrl: "https://drive.google.com/file/d/server_supplied_media_01/preview",
         openUrl: "https://drive.google.com/file/d/server_supplied_media_01/view",
+        aiGenerated: true,
+        learningTier: "core",
+        sourceLabel: "Bootcamp folder",
+        learningObjective: "Review the workup sequence.",
       },
       {
         driveFileId: "server_supplied_media_02",
@@ -27,6 +31,10 @@ describe("approved Spindel media", () => {
         moduleDays: [5],
         embedUrl: "https://drive.google.com/file/d/server_supplied_media_02/preview",
         openUrl: "https://drive.google.com/file/d/server_supplied_media_02/view",
+        aiGenerated: false,
+        learningTier: "extended",
+        sourceLabel: "Bootcamp folder",
+        learningObjective: "Reinforce safe equipment handling.",
       },
     ] as Array<{
       driveFileId: string;

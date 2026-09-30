@@ -26,6 +26,8 @@ SPINDEL_MEDIA_CATALOG_JSON=
 COURSE_MEDIA_CATALOG_JSON=
 ```
 
+`SPINDEL_MEDIA_CATALOG_JSON` is a protected JSON array. Each item uses `driveFileId`, `title`, `description`, `type`, `moduleDays`, `aiGenerated`, `learningTier` (`core` or `extended`), `sourceLabel`, and `learningObjective`. Keep real Drive IDs in the environment value rather than in the browser bundle. A single item can list multiple module days when it directly supports more than one lesson.
+
 Render automatically generates `SESSION_SECRET`, assigns `PUBLIC_APP_URL`, and configures the persistent `DATA_FILE`. The manager name defaults to `Spindel Administrator`, and the seat limit defaults to `100` unless changed in Render.
 
 The manager password should be unique, at least 12 characters long, and must not be committed to GitHub or sent through ordinary email or chat.

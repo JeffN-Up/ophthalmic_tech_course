@@ -35,4 +35,5 @@ services:
         sync: false
       - key: SPINDEL_MEDIA_CATALOG_JSON
         sync: false
+        # Protected JSON array with Core/Extended tier, source attribution, and lesson-day mappings.
 

@@ -67,7 +67,7 @@ describe("security helpers", () => {
   it("keeps the protected media catalog server-side and limits access to Spindel accounts", async () => {
     const security = await import("./security") as Record<string, unknown>;
     const parseCatalog = security.parseProtectedMediaCatalog as
-      | ((value: string) => Array<{ driveFileId: string; embedUrl: string; moduleDays: number[] }>)
+      | ((value: string) => Array<{ driveFileId: string; embedUrl: string; moduleDays: number[]; aiGenerated: boolean }>)
       | undefined;
     const canAccess = security.canAccessSpindelMedia as
       | ((organizationName?: string) => boolean)
@@ -83,6 +83,10 @@ describe("security helpers", () => {
         description: "A safe test record.",
         type: "video",
         moduleDays: [1, 4],
+        aiGenerated: true,
+        learningTier: "core",
+        sourceLabel: "Bootcamp folder",
+        learningObjective: "Explain the approved workup sequence.",
       },
     ]));
 
@@ -95,6 +99,10 @@ describe("security helpers", () => {
         moduleDays: [1, 4],
         embedUrl: "https://drive.google.com/file/d/approved_test_file_01/preview",
         openUrl: "https://drive.google.com/file/d/approved_test_file_01/view",
+        aiGenerated: true,
+        learningTier: "core",
+        sourceLabel: "Bootcamp folder",
+        learningObjective: "Explain the approved workup sequence.",
       },
     ]);
     expect(canAccess?.("Spindel Eye Associates")).toBe(true);
@@ -122,5 +130,31 @@ describe("security helpers", () => {
     expect(() => assertCoverage(complete.slice(0, -1))).toThrow(
       "Course media is missing an audio overview for module 10.",
     );
+  });
+
+  it("accepts the full Bootcamp inventory and rejects unsafe catalog boundaries", async () => {
+    const { parseProtectedMediaCatalog } = await import("./security");
+    const catalog = Array.from({ length: 42 }, (_, index) => ({
+      driveFileId: `bootcamp_media_${String(index + 1).padStart(3, "0")}`,
+      title: `Training item ${index + 1}`,
+      description: "Approved technician training media.",
+      type: "video",
+      moduleDays: [1, 2, 99],
+      aiGenerated: index % 2 === 0,
+      learningTier: index < 10 ? "core" : "extended",
+      sourceLabel: "Bootcamp folder",
+      learningObjective: "Connect the visual to the written lesson.",
+    }));
+
+    const parsed = parseProtectedMediaCatalog(JSON.stringify(catalog));
+    expect(parsed).toHaveLength(42);
+    expect(parsed[0]).toMatchObject({ moduleDays: [1, 2], learningTier: "core", sourceLabel: "Bootcamp folder" });
+
+    const tooMany = Array.from({ length: 101 }, (_, index) => ({
+      ...catalog[0],
+      driveFileId: `overflow_media_${String(index + 1).padStart(3, "0")}`,
+    }));
+    expect(() => parseProtectedMediaCatalog(JSON.stringify(tooMany))).toThrow("at most 100 items");
+    expect(() => parseProtectedMediaCatalog(JSON.stringify([{ ...catalog[0], learningTier: "featured" }]))).toThrow();
   });
 });
