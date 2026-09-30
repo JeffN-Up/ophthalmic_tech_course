@@ -159,6 +159,8 @@ Prefer one canonical content record with references from multiple lessons so cor
 
 ## Bootcamp media rules
 
+- Every module must contain at least one video overview and at least one audio overview.
+- A module may contain multiple video and audio files when each item supports a lesson objective.
 - Place media beside the lesson concept it demonstrates.
 - Use the clearest and most accurate item as Core.
 - Put alternate explanations, repeated anatomy views, and deeper surgical context in Extended Learning.
@@ -193,6 +195,7 @@ Before completion:
 - Every included doctor must have a required lesson.
 - Dr. Prendergast must not appear in course content or assessments.
 - Every Bootcamp item used must have an intentional module placement.
+- All ten modules must have one or more working video overviews and one or more working audio overviews.
 - No broken media should be presented as available.
 - All clinical instructions must trace back to an approved source.
 - Existing sign-in, progress, quiz, and completion behavior must still work.

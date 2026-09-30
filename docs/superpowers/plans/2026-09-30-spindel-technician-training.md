@@ -19,6 +19,7 @@
 - Mark the inaccessible day-to-day OCT document unavailable; do not reconstruct its content.
 - Use one canonical media record that may reference multiple module days.
 - Label every media record `core` or `extended`, retain attribution, and visibly warn on AI-generated or simulated visuals.
+- Require at least one working video overview and at least one working audio overview in each of the ten modules; allow multiple of either type when they support the lesson.
 - Keep Spindel branding, staff authentication, quiz scoring, progress, and certificate behavior working.
 - Do not require payment or Stripe configuration for Spindel staff training.
 - Preserve the five pre-existing uncommitted files unless a planned task intentionally modifies them; inspect their diffs before every commit.
@@ -99,6 +100,8 @@ Test that one media object with `moduleDays: [1, 2]` is returned for both days, 
 - [ ] **Step 2: Write failing server tests for the expanded protected schema**
 
 Test acceptance of 42 unique items, rejection at 101 items, rejection of invalid tiers, preservation of `aiGenerated`, and filtering of module days outside `1..10`.
+
+Also test a Spindel media coverage validator that rejects any module day missing either a video overview or an audio overview.
 
 - [ ] **Step 3: Run client and server media tests to verify failure**
 
@@ -348,6 +351,8 @@ Use the same local staff-access environment already used for port 3001. Do not p
 - [ ] **Step 3: Verify desktop learner flow in the browser**
 
 Confirm the Spindel logo and technician-training language, all ten modules in order, Core and Extended media labels, modules 8–9 containing exactly ten required doctor lessons with no Dr. Prendergast, source/review notes, quizzes, progress saving, and certificate eligibility only after all ten passed days.
+
+Confirm every module contains at least one playable video overview and at least one playable audio overview; verify modules with multiple relevant media items render all of them.
 
 - [ ] **Step 4: Verify failure and fallback states**
 
