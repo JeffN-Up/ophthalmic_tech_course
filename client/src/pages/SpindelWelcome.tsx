@@ -26,7 +26,7 @@ export default function SpindelWelcome() {
               <p className="inline-flex items-center rounded-full border border-cyan-200/30 bg-cyan-100/10 px-4 py-2 text-sm font-semibold text-cyan-100">
                 <ShieldCheck className="mr-2 h-4 w-4" /> Private staff education portal
               </p>
-              <h1 className="mt-6 text-5xl font-bold leading-tight sm:text-7xl">A clearer start to your Spindel career.</h1>
+              <h1 className="mt-6 text-5xl font-bold leading-tight sm:text-7xl">Jump start your career in eye care</h1>
               <p className="mt-6 max-w-3xl text-xl leading-8 text-blue-100">
                 Ten focused modules. One shared standard. Build the judgment, habits, and team connections that help every patient experience feel safe, respectful, and unmistakably Spindel.
               </p>
