@@ -141,7 +141,7 @@ export default function CourseModule() {
 
       <main className="mx-auto max-w-5xl space-y-8 px-4 py-10">
         <Card className="p-6 shadow-lg sm:p-8">
-          <h2 className="text-2xl font-bold text-slate-900">{spindel ? "What you’ll be able to do" : "Learning Objectives"}</h2>
+          <h2 className="text-2xl font-bold" style={{ color: "#ffffff" }}>{spindel ? "What you’ll be able to do" : "Learning Objectives"}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {module.objectives.map((objective) => (
               <div key={objective} className="flex items-start gap-3 rounded-lg bg-blue-50 p-4 text-slate-700">
@@ -152,8 +152,8 @@ export default function CourseModule() {
           </div>
         </Card>
 
-        <Card className="p-6 shadow-lg sm:p-8">
-          <p className="text-lg leading-8 text-slate-700">{lesson.introduction}</p>
+        <Card className="p-6 text-slate-100 shadow-lg sm:p-8">
+          <p className="text-lg leading-8 text-slate-200">{lesson.introduction}</p>
         </Card>
 
         {approvedMedia.length > 0 && (
@@ -236,18 +236,18 @@ export default function CourseModule() {
         )}
 
         {lesson.sections.map((section) => (
-          <Card key={section.title} className="p-6 shadow-lg sm:p-8">
-            <h2 className="text-2xl font-bold text-slate-900">{section.title}</h2>
-            <div className="mt-4 space-y-4 text-base leading-7 text-slate-700">
+          <Card key={section.title} className="p-6 text-slate-100 shadow-lg sm:p-8">
+            <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+            <div className="mt-4 space-y-4 text-base leading-7 text-slate-200">
               {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
             {section.keyPoints && (
-              <div className="mt-6 rounded-xl bg-slate-50 p-5">
-                <h3 className="font-bold text-slate-900">{spindel ? "Keep these in focus" : "Key Points"}</h3>
-                <ul className="mt-3 space-y-2 text-slate-700">
+              <div className="mt-6 rounded-xl bg-slate-900 p-5">
+                <h3 className="font-bold text-white">{spindel ? "Keep these in focus" : "Key Points"}</h3>
+                <ul className="mt-3 space-y-2 text-slate-200">
                   {section.keyPoints.map((point) => (
                     <li key={point} className="flex items-start gap-2">
-                      <span className="font-bold text-blue-700">•</span> {point}
+                      <span className="font-bold text-blue-300">•</span> {point}
                     </li>
                   ))}
                 </ul>
@@ -256,14 +256,14 @@ export default function CourseModule() {
           </Card>
         ))}
 
-        <Card className="p-6 shadow-lg sm:p-8">
-          <h2 className="text-2xl font-bold text-slate-900">{spindel ? "From screen to supervised practice" : "Skills Practice Checklist"}</h2>
-          <p className="mt-2 text-slate-600">Use this checklist with a qualified supervisor and the practice’s current approved protocol. Checking a box here records your review; it does not replace competency validation.</p>
+        <Card className="p-6 text-slate-100 shadow-lg sm:p-8">
+          <h2 className="text-2xl font-bold text-white">{spindel ? "From screen to supervised practice" : "Skills Practice Checklist"}</h2>
+          <p className="mt-2 text-slate-200">Use this checklist with a qualified supervisor and the practice’s current approved protocol. Checking a box here records your review; it does not replace competency validation.</p>
           <div className="mt-5 space-y-3">
             {lesson.practiceChecklist.map((item) => (
-              <label key={item} className="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
+              <label key={item} className="flex items-start gap-3 rounded-lg border border-white/20 p-4">
                 <input type="checkbox" className="mt-1 h-4 w-4" />
-                <span className="text-slate-700">{item}</span>
+                <span className="text-slate-100">{item}</span>
               </label>
             ))}
           </div>
