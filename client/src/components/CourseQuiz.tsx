@@ -47,12 +47,12 @@ export default function CourseQuiz({ quiz, onComplete, onContinue }: CourseQuizP
   };
 
   return (
-    <Card className="p-6 shadow-lg sm:p-8">
+    <Card className="p-6 text-slate-100 shadow-lg sm:p-8">
       <div className="mb-6">
-        <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Knowledge Check</p>
-        <h2 className="mt-1 text-3xl font-bold text-slate-900">{quiz.title}</h2>
-        <p className="mt-2 text-slate-600">{quiz.description}</p>
-        <p className="mt-2 text-sm font-medium text-slate-500">Passing score: {quiz.passingScore}%</p>
+        <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">Knowledge Check</p>
+        <h2 className="mt-1 text-3xl font-bold text-white">{quiz.title}</h2>
+        <p className="mt-2 text-slate-200">{quiz.description}</p>
+        <p className="mt-2 text-sm font-medium text-slate-300">Passing score: {quiz.passingScore}%</p>
       </div>
 
       {score !== null && (
@@ -74,13 +74,13 @@ export default function CourseQuiz({ quiz, onComplete, onContinue }: CourseQuizP
           const correct = reviewed && isCorrect(question, answer);
 
           return (
-            <fieldset key={question.id} className="rounded-xl border border-slate-200 p-5">
-              <legend className="px-2 font-bold text-slate-900">{index + 1}. {question.question}</legend>
+            <fieldset key={question.id} className="rounded-xl border border-white/20 p-5">
+              <legend className="px-2 font-bold text-white">{index + 1}. {question.question}</legend>
 
               {question.type === "multiple-choice" && question.options && (
                 <div className="mt-4 space-y-3">
                   {question.options.map((option) => (
-                    <label key={option} className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 p-3 hover:border-blue-400">
+                    <label key={option} className="flex cursor-pointer items-start gap-3 rounded-lg border border-white/20 p-3 hover:border-cyan-300">
                       <input
                         type="radio"
                         name={question.id}
@@ -99,7 +99,7 @@ export default function CourseQuiz({ quiz, onComplete, onContinue }: CourseQuizP
               {question.type === "true-false" && (
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {["True", "False"].map((option) => (
-                    <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 p-3 hover:border-blue-400">
+                    <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/20 p-3 hover:border-cyan-300">
                       <input
                         type="radio"
                         name={question.id}
