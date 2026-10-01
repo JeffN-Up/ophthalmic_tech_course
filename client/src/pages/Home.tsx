@@ -19,10 +19,20 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
       <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-          <a href="/" className="flex items-center gap-2 font-bold">
-            <Eye className="h-6 w-6 text-cyan-400" />
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">OptiTech Academy</span>
-          </a>
+          <div className="flex items-center gap-3">
+            <a href="/" className="flex items-center gap-2 font-bold">
+              <Eye className="h-6 w-6 text-cyan-400" />
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">OptiTech Academy</span>
+            </a>
+            <span className="h-7 w-px bg-white/20" aria-hidden="true" />
+            <a
+              href="/spindel"
+              className="rounded-lg transition-opacity hover:opacity-85"
+              aria-label="Open Spindel Employee Onboarding"
+            >
+              <SpindelLogo variant="horizontal" className="h-8 w-20 sm:h-9 sm:w-24" />
+            </a>
+          </div>
           <div className="hidden items-center gap-7 md:flex">
             <a href="#curriculum" className="text-sm text-slate-100 hover:text-cyan-200">Curriculum</a>
             <a href="#pricing" className="text-sm text-slate-100 hover:text-cyan-200">Pricing</a>
@@ -129,7 +139,7 @@ export default function Home() {
             <p className="text-sm font-semibold uppercase tracking-wider text-cyan-100">Pricing</p>
             <h2 className="mt-2 text-4xl font-bold">Choose the path that fits.</h2>
             <p className="mx-auto mt-4 max-w-2xl text-slate-100">Learn independently, enroll a five-person practice team, or enter the private employee-onboarding portal.</p>
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="mx-auto mt-10 grid max-w-4xl gap-6 lg:grid-cols-2">
             <Card className="premium-card flex flex-col border-2 border-cyan-400/40 bg-white p-8 text-left text-slate-900 shadow-2xl">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-700">For individuals</p>
@@ -167,26 +177,6 @@ export default function Home() {
               <Button onClick={() => openEnrollment("practice")} className="mt-8 w-full bg-amber-500 py-6 text-slate-950 hover:bg-amber-400">Enroll a Practice Team</Button>
             </Card>
 
-            <Card className="premium-card flex flex-col border border-white/10 bg-gradient-to-br from-blue-950 to-cyan-900 p-8 text-left text-white shadow-2xl">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-200">For onboarding employees</p>
-                <SpindelLogo variant="stacked" className="mt-5 h-28 w-28 shadow-xl" />
-                <h3 className="mt-3 text-2xl font-bold">Spindel Employee Onboarding</h3>
-                <p className="mt-2 text-blue-100">Private staff education covering culture, privacy, workflows, safety, and readiness.</p>
-              </div>
-              <div className="mt-7">
-                <span className="text-3xl font-bold text-white">Manager-issued access</span>
-                <p className="mt-2 text-sm text-blue-100">No public purchase required</p>
-              </div>
-              <div className="mt-7 space-y-3">
-                {["Ten Spindel onboarding modules", "80% knowledge-check standard", "Employee progress tracking", "Supervisor validation reminders"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-white"><CheckCircle2 className="h-4 w-4 text-cyan-100" /> {item}</div>
-                ))}
-              </div>
-              <a href="/spindel" className="mt-8 block">
-                <Button className="w-full bg-white py-6 text-blue-950 hover:bg-cyan-50">Open Employee Onboarding</Button>
-              </a>
-            </Card>
             </div>
           </div>
         </section>
