@@ -28,7 +28,7 @@ export default function SpindelWelcome() {
               </p>
               <h1 className="mt-6 text-5xl font-bold leading-tight sm:text-7xl">Jump start your career in eye care</h1>
               <p className="mt-6 max-w-3xl text-xl leading-8 text-blue-100">
-                Ten focused modules. One shared standard. Build the judgment, habits, and team connections that help every patient experience feel safe, respectful, and unmistakably Spindel.
+                Ten focused modules. One shared standard. Build the judgment, habits, and team connections that help every patient experience feel safe, respectful, and uniquely Spindel.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a href="/spindel/login"><Button size="lg" className="bg-white px-7 text-blue-900 hover:bg-cyan-50">Continue Onboarding <ArrowRight className="ml-2 h-4 w-4" /></Button></a>
