@@ -13,8 +13,8 @@ const expectedTitles = [
   "Tonometry & Pressure Testing",
   "Diagnostic Imaging & Equipment",
   "Visit-Type Workups",
-  "Doctor Workups: Spindel through Farahani",
-  "Doctor Workups: Wood through Noall",
+  "MD (Ophthalmologists) Workups",
+  "OD (Optometrists) Workups",
   "Safety, Urgency & Final Readiness",
 ];
 
