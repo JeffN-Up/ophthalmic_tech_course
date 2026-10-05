@@ -51,7 +51,15 @@ export default function CourseModule() {
           const mediaResponse = await apiRequest<{ media: SpindelApprovedMedia[] }>(
             getApprovedMediaEndpoint(response.user.organizationName),
           );
-          setApprovedMedia(getSpindelMediaForDay(mediaResponse.media, day));
+          const moduleMedia = getSpindelMediaForDay(mediaResponse.media, day);
+          const hasProfessionalSkillsVideo = moduleMedia.some(
+            (item) => item.type === "video" && item.title === "Professional skills and EMR",
+          );
+          setApprovedMedia(moduleMedia.filter((item) => !(
+            isSpindelOrganization(response.user.organizationName) &&
+            day === 9 && hasProfessionalSkillsVideo &&
+            item.type === "video" && item.title === "Workup quality"
+          )));
         } catch (mediaRequestError) {
           setMediaError(
             mediaRequestError instanceof Error
