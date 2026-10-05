@@ -8,8 +8,8 @@ export const spindelTechnicianModules: CurriculumModule[] = [
   ["spindel-05-tonometry", "Tonometry & Pressure Testing", "Learn why pressure measurements differ and when results need confirmation or escalation.", "🎯", "Intermediate"],
   ["spindel-06-diagnostics", "Diagnostic Imaging & Equipment", "Capture dependable OCT, Optomap, field, and corneal test results while spotting artifacts.", "📷", "Intermediate"],
   ["spindel-07-visit-workups", "Visit-Type Workups", "Practice the shared sequence for routine, medical, urgent, pressure, contact-lens, and muscle visits.", "📋", "Intermediate"],
-  ["spindel-08-doctor-workups-a", "Doctor Workups: Spindel through Farahani", "Learn the required workup differences for Spindel, Vazan, Guenena, Slentz, and Farahani.", "🧭", "Advanced"],
-  ["spindel-09-doctor-workups-b", "Doctor Workups: Wood through Noall", "Learn the required workup differences for Wood, O'Block, Nguyen, Leo, and Noall.", "🗂️", "Advanced"],
+  ["spindel-08-doctor-workups-a", "MD (Ophthalmologists) Workups", "Learn the required workup differences for Spindel, Vazan, Guenena, Slentz, and Farahani.", "🧭", "Advanced"],
+  ["spindel-09-doctor-workups-b", "OD (Optometrists) Workups", "Learn the required workup differences for Wood, O'Block, Nguyen, Leo, and Noall.", "🗂️", "Advanced"],
   ["spindel-10-readiness", "Safety, Urgency & Final Readiness", "Bring anatomy, testing, workups, safety, and escalation together for supervised practice.", "🏁", "Advanced"],
 ].map(([id, title, description, icon, difficulty], index) => ({
   id,
