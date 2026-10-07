@@ -74,6 +74,12 @@ Configure the canonical Bootcamp media in `SPINDEL_MEDIA_CATALOG_JSON`; keep Dri
 
 Use the current ten-module topics when assigning `moduleDays`; the earlier Bootcamp day numbers differ. File playback also depends on each staff member’s existing Drive access. Do not expand file sharing merely to fix an embed.
 
+## Optional Ocular Education library
+
+The dashboard links to `/course/ocular-education`, a separate, optional video library. Viewing does not change module progress or certificate eligibility. The authenticated `/api/course/ocular-education` endpoint requires Spindel access.
+
+Configure `SPINDEL_OCULAR_EDUCATION_JSON` as a JSON array of `driveFileId`, `thumbnailFileId`, `title`, `category`, `creator`, and `sourceUrl`. Categories are `Anatomy & vision`, `Everyday eye care`, `Procedures`, or `Eye curiosities`. Sources must be canonical Instagram reel URLs. Keep this private catalog out of the public repository. Duplicate video IDs, including IDs in the required course catalog, are rejected. Existing Drive access is still required for thumbnails and playback.
+
 ## Important operational review
 
 Before assigning the program to employees, a Spindel manager should review the lessons against the current:

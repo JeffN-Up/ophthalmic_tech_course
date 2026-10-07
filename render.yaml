@@ -36,4 +36,7 @@ services:
       - key: SPINDEL_MEDIA_CATALOG_JSON
         sync: false
         # Protected JSON array with Core/Extended tier, source attribution, and lesson-day mappings.
+      - key: SPINDEL_OCULAR_EDUCATION_JSON
+        sync: false
+        # Optional staff-only video library; never assign these videos to required modules.
 
