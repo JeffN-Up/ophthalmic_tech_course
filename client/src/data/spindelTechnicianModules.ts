@@ -1,5 +1,18 @@
 import type { CurriculumModule } from "@/data/curriculum";
 
+const objectives = [
+  ['Identify anterior and posterior structures', 'Trace light and the visual pathway', 'Connect anatomy with clinical testing'],
+  ['Explain refractive error and prescription components', 'Compare objective and subjective testing', 'Recognize measurement setup errors'],
+  ['Obtain a focused HPI and reconcile drops', 'Perform ordered entrance tests under supervision', 'Document observations and escalate abnormal findings'],
+  ['Measure acuity and pinhole accurately', 'Measure and document glasses with lensometry', 'Support supervised refraction and BCVA'],
+  ['Explain factors influencing IOP', 'Demonstrate supervised Goldmann technique', 'Document method, quality, and escalation'],
+  ['Select ordered imaging and field protocols', 'Recognize artifacts and reliability problems', 'Verify saved images and reports'],
+  ['Adapt workup to the visit type', 'Apply contact-lens and postoperative instructions', 'Resolve conflicts with the current doctor order'],
+  ['Review all five ophthalmologist protocols', 'Preserve conditional testing differences', 'Demonstrate physician-specific workup handoffs'],
+  ['Review all five optometrist protocols', 'Apply age and visit-specific testing differences', 'Demonstrate physician-specific workup handoffs'],
+  ['Recognize urgent symptoms and escalate', 'Demonstrate infection control and procedure safety', 'Complete a supervised mock workup and competency plan'],
+];
+
 export const spindelTechnicianModules: CurriculumModule[] = [
   ["spindel-01-anatomy", "Eye Anatomy & Visual Pathways", "Learn the eye's structures and follow light from the cornea to the brain.", "👁️", "Beginner"],
   ["spindel-02-optics", "Optics & Testing Physics", "Understand how light, lenses, focus, and measurement create the results technicians record.", "🔬", "Beginner"],
@@ -16,7 +29,7 @@ export const spindelTechnicianModules: CurriculumModule[] = [
   day: index + 1,
   title,
   description,
-  objectives: [],
+  objectives: objectives[index],
   topics: [],
   assets: [],
   icon,

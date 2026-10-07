@@ -55,16 +55,24 @@ Each invitation works once. Increase `SPINDEL_SEAT_LIMIT` when more links are ne
 
 ## Curriculum
 
-1. Welcome to Spindel Eye Associates
-2. HIPAA, Privacy & Information Security
-3. Patient Arrival & Veradigm Acknowledgement
-4. Technician Workflow & Documentation
-5. Clinical Safety, Infection Control & Equipment
-6. Patient Communication & Service Recovery
-7. Referrals, Patient Handouts & Care Coordination
-8. Urgent Calls, Same-Day Requests & Escalation
-9. Quality, Coding Support & Accountability
-10. Onboarding Readiness & Final Acknowledgement
+1. Eye Anatomy & Visual Pathways
+2. Optics & Testing Physics
+3. Core Examination Skills
+4. Visual Acuity, Lensometry & Refraction
+5. Tonometry & Pressure Testing
+6. Diagnostic Imaging & Equipment
+7. Visit-Type Workups
+8. MD (Ophthalmologists) Workups
+9. OD (Optometrists) Workups
+10. Safety, Urgency & Final Readiness
+
+Each module includes clinical learning objectives, a written lesson, supervised practice tasks, and a matching 80% knowledge check. Modules 8 and 9 display every required doctor’s visit sequences, reminders, and current-source links.
+
+## Protected media
+
+Configure the canonical Bootcamp media in `SPINDEL_MEDIA_CATALOG_JSON`; keep Drive identifiers out of the client bundle. The authenticated endpoint validates all entries and returns available media plus a per-module list of missing video/audio overviews. An incomplete module does not hide the rest of the course’s media. A malformed catalog still fails validation.
+
+Use the current ten-module topics when assigning `moduleDays`; the earlier Bootcamp day numbers differ. File playback also depends on each staff member’s existing Drive access. Do not expand file sharing merely to fix an embed.
 
 ## Important operational review
 

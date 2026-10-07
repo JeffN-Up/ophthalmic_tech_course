@@ -1,3 +1,4 @@
+import { buildSpindelMediaResponse } from "./spindelMedia";
 import express from "express";
 import { randomBytes, randomUUID } from "node:crypto";
 import { createServer } from "http";
@@ -849,9 +850,7 @@ async function startServer() {
     }
 
     try {
-      const media = parseProtectedMediaCatalog(configuredCatalog);
-      assertCompleteCourseMediaCoverage(media);
-      return res.json({ media });
+      return res.json(buildSpindelMediaResponse(configuredCatalog));
     } catch (catalogError) {
       console.error("Protected media configuration error", catalogError);
       return res.status(503).json({ error: "Approved media is temporarily unavailable." });

@@ -1,3 +1,4 @@
+import { ProtocolLesson } from "@/components/ProtocolLesson";
 import CourseQuiz from "@/components/CourseQuiz";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -41,17 +42,23 @@ export default function CourseModule() {
   const [error, setError] = useState("");
   const [approvedMedia, setApprovedMedia] = useState<SpindelApprovedMedia[]>([]);
   const [mediaError, setMediaError] = useState("");
+  const [missingMedia, setMissingMedia] = useState<string[]>([]);
 
   useEffect(() => {
     const load = async () => {
+      setLoading(true);
+      setApprovedMedia([]);
+      setMediaError("");
+      setMissingMedia([]);
       try {
         const response = await apiRequest<{ user: CourseUser }>("/api/auth/me");
         setUser(response.user);
         try {
-          const mediaResponse = await apiRequest<{ media: SpindelApprovedMedia[] }>(
+          const mediaResponse = await apiRequest<{ media: SpindelApprovedMedia[]; missingMedia?: { day: number; types: string[] }[] }>(
             getApprovedMediaEndpoint(response.user.organizationName),
           );
           const moduleMedia = getSpindelMediaForDay(mediaResponse.media, day);
+          setMissingMedia(mediaResponse.missingMedia?.find(item => item.day === day)?.types ?? []);
           const hasProfessionalSkillsVideo = moduleMedia.some(
             (item) => item.type === "video" && item.title === "Professional skills and EMR",
           );
@@ -203,10 +210,11 @@ export default function CourseModule() {
                     />
                     <div className="p-5">
                       <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-blue-700">
-                        <MediaIcon className="h-4 w-4" /> {item.type}
+                        <MediaIcon className="h-4 w-4" /> {item.type} · {item.learningTier === "core" ? "Core learning" : "Extended learning"}
                       </div>
                       <h3 className="mt-2 text-lg font-bold text-slate-900">{item.title}</h3>
                       <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                      <p className="mt-2 text-xs text-slate-500">Source: {item.sourceLabel}</p>
                       <div className="mt-4 rounded-lg bg-blue-50 p-3 text-sm leading-6 text-slate-700">
                         <span className="font-semibold text-slate-900">What this helps with: </span>
                         {item.learningObjective}
@@ -237,11 +245,19 @@ export default function CourseModule() {
           </Card>
         )}
 
+        {missingMedia.length > 0 && (
+          <div className="rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-950">
+            <strong>Overview pending:</strong> This module’s {missingMedia.join(" and ")} overview is not connected yet. The available resources, written lesson, and knowledge check remain usable.
+          </div>
+        )}
+
         {mediaError && (
           <div className="rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-950">
             <strong>Media unavailable:</strong> {mediaError} Continue with the written lesson and notify a supervisor if access should be restored.
           </div>
         )}
+
+        {spindel && <ProtocolLesson day={day} />}
 
         {lesson.sections.map((section) => (
           <Card key={section.title} className="p-6 text-slate-100 shadow-lg sm:p-8">
