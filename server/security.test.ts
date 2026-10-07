@@ -62,6 +62,11 @@ describe("security helpers", () => {
       "frame-src 'self' https://drive.google.com;",
     );
     expect(headers.get("Content-Security-Policy")).not.toContain("frame-src *");
+    const imageSources = headers.get("Content-Security-Policy")!.split(";").find(directive => directive.trim().startsWith("img-src"))!.trim().split(/\s+/).slice(1);
+    expect(imageSources).toContain("https://drive.google.com");
+    expect(imageSources).toContain("https://lh3.googleusercontent.com");
+    expect(imageSources).not.toContain("*");
+    expect(imageSources).not.toContain("https:");
   });
 
   it("keeps the protected media catalog server-side and limits access to Spindel accounts", async () => {

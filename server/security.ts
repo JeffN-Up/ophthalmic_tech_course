@@ -224,7 +224,7 @@ export function securityHeaders(req: Request, res: Response, next: NextFunction)
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(self)");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; frame-src 'self' https://drive.google.com; form-action 'self' https://checkout.stripe.com; img-src 'self' data:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self';",
+    "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; frame-src 'self' https://drive.google.com; form-action 'self' https://checkout.stripe.com; img-src 'self' data: https://drive.google.com https://lh3.googleusercontent.com; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self';",
   );
   if (process.env.NODE_ENV === "production") {
     res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
