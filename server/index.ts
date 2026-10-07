@@ -1,4 +1,5 @@
 import { buildSpindelMediaResponse } from "./spindelMedia";
+import { parseOcularEducationCatalog } from "./ocularEducation";
 import express from "express";
 import { randomBytes, randomUUID } from "node:crypto";
 import { createServer } from "http";
@@ -835,6 +836,23 @@ async function startServer() {
     });
 
     return res.json({ user: publicUser(updatedUser) });
+  });
+
+  app.get("/api/course/ocular-education", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+    if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
+      return res.status(403).json({ error: "Spindel onboarding access is required." });
+    }
+    const catalog = process.env.SPINDEL_OCULAR_EDUCATION_JSON?.trim();
+    if (!catalog) return res.status(503).json({ error: "Ocular Education is not configured yet." });
+    try {
+      const existing = parseProtectedMediaCatalog(process.env.SPINDEL_MEDIA_CATALOG_JSON || "[]");
+      return res.json({ videos: parseOcularEducationCatalog(catalog, existing.map(item => item.driveFileId)) });
+    } catch (error) {
+      console.error("Ocular education configuration error", error);
+      return res.status(503).json({ error: "Ocular Education is temporarily unavailable." });
+    }
   });
 
   app.get("/api/course/spindel-media", async (req, res) => {

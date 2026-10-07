@@ -189,6 +189,18 @@ export default function CourseDashboard() {
           </div>
         </section>
 
+        {spindel && (
+          <section>
+            <Card className="border-cyan-200/30 bg-slate-950/40 p-8 text-white">
+              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-200">Optional exploration</p>
+              <h2 className="mt-2 text-3xl font-bold">Ocular Education — Explore & Enjoy</h2>
+              <p className="mt-3 max-w-2xl text-slate-100">Take a curiosity break with short eye animations, intriguing procedures, and everyday eye care. Pick a topic and watch at your own pace.</p>
+              <p className="mt-2 text-sm text-slate-200">For entertainment and general education. No quiz or completion requirement.</p>
+              <a href="/course/ocular-education" className="mt-5 inline-block"><Button className="bg-cyan-200 text-slate-950 hover:bg-cyan-100"><PlayCircle className="mr-2 h-4 w-4" /> Explore the video library</Button></a>
+            </Card>
+          </section>
+        )}
+
         {user.role === "manager" && team && (
           <section className="space-y-5">
             <div>

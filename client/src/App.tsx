@@ -5,6 +5,7 @@ import ActivateEnrollment from "@/pages/ActivateEnrollment";
 import Certificate from "@/pages/Certificate";
 import CourseDashboard from "@/pages/CourseDashboard";
 import CourseModule from "@/pages/CourseModule";
+import OcularEducation from "@/pages/OcularEducation";
 import ForgotPassword from "@/pages/ForgotPassword";
 import JoinPractice from "@/pages/JoinPractice";
 import Login from "@/pages/Login";
@@ -40,6 +41,7 @@ function Router() {
       <Route path="/disclaimer" component={Disclaimer} />
       <Route path="/join/:code" component={JoinPractice} />
       <Route path="/course/module/:day" component={CourseModule} />
+      <Route path="/course/ocular-education" component={OcularEducation} />
       <Route path="/course/certificate" component={Certificate} />
       <Route path="/course" component={CourseDashboard} />
       <Route path="/404" component={NotFound} />
