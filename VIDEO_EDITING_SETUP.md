@@ -4,7 +4,7 @@ Owner-authorized editors can open `/course/admin/videos`, also linked as **Edit 
 
 ## Deployment settings
 
-- `OPTITECH_EDITOR_EMAILS`: comma-separated emails of existing accounts permitted to edit OptiTech.
+- `OPTITECH_EDITOR_EMAILS`: comma-separated exact emails and optional `@domain` entries for existing accounts permitted to edit OptiTech. For example, `@spindeleye.com,dtechalley1@gmail.com,jefchapin@gmail.com` permits any `@spindeleye.com` account plus those two Gmail accounts.
 - `SPINDEL_EDITOR_EMAILS`: separate comma-separated emails permitted to edit Spindel.
 - `GOOGLE_DRIVE_API_KEY`: server-only API key for a Google Cloud project with Drive API enabled. Restrict it to the Drive API and appropriate server addresses. Do not use an HTTP-referrer restricted browser key.
 - Continue using the existing persistent `DATA_FILE` volume and back it up before release. Video locations, drafts and history are added to the same database without replacing users, enrollment or progress.
