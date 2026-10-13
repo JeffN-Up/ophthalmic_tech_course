@@ -53,12 +53,22 @@ describe("video editing", () => {
     ])
       expect(() => extractVideoId(value)).toThrow();
   });
-  it("requires explicit authorization per workspace", () => {
-    vi.stubEnv("OPTITECH_EDITOR_EMAILS", "owner@example.com");
+  it("supports exact email admins and configured email domains per workspace", () => {
+    vi.stubEnv(
+      "OPTITECH_EDITOR_EMAILS",
+      "owner@example.com, @spindeleye.com, dtechalley1@gmail.com, jefchapin@gmail.com"
+    );
     vi.stubEnv("SPINDEL_EDITOR_EMAILS", "");
     expect(canEditVideo("OWNER@example.com", "optitech")).toBe(true);
+    expect(canEditVideo("JCHAPIN@SPINDELEYE.COM", "optitech")).toBe(true);
+    expect(canEditVideo("staff@spindeleye.com", "optitech")).toBe(true);
+    expect(canEditVideo("staff@spindeleye.com.evil.test", "optitech")).toBe(
+      false
+    );
+    expect(canEditVideo("dtechalley1@gmail.com", "optitech")).toBe(true);
+    expect(canEditVideo("jefchapin@gmail.com", "optitech")).toBe(true);
+    expect(canEditVideo("other@gmail.com", "optitech")).toBe(false);
     expect(canEditVideo("owner@example.com", "spindel")).toBe(false);
-    expect(canEditVideo("manager@example.com", "optitech")).toBe(false);
   });
   it("keeps drafts private, preserves position and separates shared locations and workspaces", () => {
     const db = database();
