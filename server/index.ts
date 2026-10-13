@@ -414,7 +414,564 @@ async function startServer() {
 
   const checkoutLimiter = rateLimit({ windowMs: 10 * 60 * 1000, max: 10 });
   const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 12 });
-  const recoveryLimiter = rateLimit({ …6785 tokens truncated…
+  const recoveryLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 6 });
+  const supportLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5 });
+
+  app.get("/api/health", async (_req, res) => {
+    try {
+      await readDatabase();
+      res.json({
+        status: "ok",
+        courseId: COURSE_ID,
+        emailConfigured: emailConfigured(),
+        webhookConfigured: Boolean(process.env.STRIPE_WEBHOOK_SECRET?.trim()),
+      });
+    } catch (error) {
+      console.error("Health check failed", error);
+      res.status(503).json({ status: "error" });
+    }
+  });
+
+  app.get("/api/public/config", (_req, res) => {
+    res.json({
+      businessName: process.env.BUSINESS_NAME?.trim() || "OptiTech Academy",
+      businessLegalName: process.env.BUSINESS_LEGAL_NAME?.trim() || "OptiTech Academy",
+      businessAddress: process.env.BUSINESS_ADDRESS?.trim() || "",
+      supportEmail: process.env.SUPPORT_EMAIL?.trim() || "",
+      pricePerSeat: 699,
+      refundDays: 7,
+      termsVersion: TERMS_VERSION,
+    });
+  });
+
+  app.post("/api/enrollment/checkout", checkoutLimiter, async (req, res) => {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY?.trim();
+    const individualPriceId = process.env.STRIPE_STANDARD_PRICE_ID?.trim();
+    const practicePriceId = process.env.STRIPE_PRACTICE_PRICE_ID?.trim();
+
+    if (!stripeSecretKey || !individualPriceId) {
+      return res.status(503).json({
+        error: "Enrollment checkout is not configured yet. Please contact support.",
+      });
+    }
+
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const firstName = readString(body.firstName, 80);
+    const lastName = readString(body.lastName, 80);
+    const email = readString(body.email, 254).toLowerCase();
+    const phone = readString(body.phone, 40);
+    const experience = readString(body.experience, 80);
+    const goal = readString(body.goal, 500);
+    const enrollmentType = body.type === "practice" ? "practice" : "individual";
+    const organizationName = readString(body.organizationName, 160);
+    const seats = enrollmentType === "practice" ? 5 : 1;
+    const stripePriceId = enrollmentType === "practice" ? practicePriceId : individualPriceId;
+
+    if (!firstName || !lastName || !email || !phone || !goal) {
+      return res.status(400).json({ error: "Please complete all required enrollment fields." });
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      return res.status(400).json({ error: "Please enter a valid email address." });
+    }
+    if (enrollmentType === "practice" && !organizationName) {
+      return res.status(400).json({ error: "Please enter the practice or clinic name." });
+    }
+    if (!stripePriceId) {
+      return res.status(503).json({
+        error: "The selected enrollment package is not configured yet. Please contact support.",
+      });
+    }
+
+    try {
+      const baseUrl = getBaseUrl(req);
+      const checkoutParams = new URLSearchParams({
+        mode: "payment",
+        customer_email: email,
+        customer_creation: "always",
+        billing_address_collection: "auto",
+        success_url: `${baseUrl}/enrollment/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${baseUrl}/?enrollment=cancelled`,
+        "line_items[0][price]": stripePriceId,
+        "line_items[0][quantity]": "1",
+        "metadata[courseId]": COURSE_ID,
+        "metadata[firstName]": firstName,
+        "metadata[lastName]": lastName,
+        "metadata[phone]": phone,
+        "metadata[experience]": experience,
+        "metadata[goal]": goal,
+        "metadata[enrollmentType]": enrollmentType,
+        "metadata[organizationName]": organizationName,
+        "metadata[seats]": String(seats),
+        "metadata[termsVersion]": TERMS_VERSION,
+        "payment_intent_data[metadata][courseId]": COURSE_ID,
+        "payment_intent_data[metadata][enrollmentType]": enrollmentType,
+        "payment_intent_data[metadata][organizationName]": organizationName,
+        "payment_intent_data[metadata][seats]": String(seats),
+      });
+      if (process.env.STRIPE_ALLOW_PROMOTION_CODES !== "false") {
+        checkoutParams.set("allow_promotion_codes", "true");
+      }
+      if (process.env.STRIPE_AUTOMATIC_TAX === "true") {
+        checkoutParams.set("automatic_tax[enabled]", "true");
+      }
+
+      const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${stripeSecretKey}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: checkoutParams,
+      });
+      const session = (await stripeResponse.json()) as StripeCheckoutSession;
+
+      if (!stripeResponse.ok || !session.url) {
+        console.error("Stripe checkout response", session);
+        return res.status(502).json({
+          error: session.error?.message ?? "Unable to start secure checkout.",
+        });
+      }
+
+      return res.json({ url: session.url });
+    } catch (error) {
+      console.error("Stripe checkout error", error);
+      return res.status(500).json({ error: "Unable to start checkout. Please try again." });
+    }
+  });
+
+  app.post("/api/enrollment/complete", recoveryLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const sessionId = readString(body.sessionId, 300);
+    const password = readString(body.password, 200);
+
+    if (!sessionId.startsWith("cs_")) {
+      return res.status(400).json({ error: "A valid Stripe Checkout session is required." });
+    }
+
+    try {
+      const session = await getStripeCheckoutSession(sessionId);
+      await ensurePurchase(session);
+      const user = await activatePurchase(
+        (purchase) => purchase.checkoutSessionId === sessionId,
+        password,
+      );
+      setSessionCookie(res, user.id);
+      return res.status(201).json({ user: publicUser(user) });
+    } catch (error) {
+      if (error instanceof HttpError) return res.status(error.status).json({ error: error.message });
+      console.error("Enrollment activation error", error);
+      return res.status(500).json({ error: "Unable to activate course access." });
+    }
+  });
+
+  app.get("/api/enrollment/activation", async (req, res) => {
+    const token = readString(req.query.token, 200);
+    const tokenHash = hashOpaqueToken(token);
+    const database = await readDatabase();
+    const purchase = database.purchases.find(
+      (candidate) =>
+        candidate.activationTokenHash === tokenHash &&
+        !candidate.activatedAt &&
+        new Date(candidate.activationExpiresAt).getTime() >= Date.now(),
+    );
+    if (!purchase) return res.status(400).json({ error: "This activation link is invalid or expired." });
+    return res.json({
+      purchase: {
+        email: purchase.email,
+        firstName: purchase.firstName,
+        lastName: purchase.lastName,
+        enrollmentType: purchase.enrollmentType,
+        organizationName: purchase.organizationName,
+        seats: purchase.seats,
+      },
+    });
+  });
+
+  app.post("/api/enrollment/activate", recoveryLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const token = readString(body.token, 200);
+    const password = readString(body.password, 200);
+    try {
+      const tokenHash = hashOpaqueToken(token);
+      const user = await activatePurchase(
+        (purchase) => purchase.activationTokenHash === tokenHash,
+        password,
+      );
+      setSessionCookie(res, user.id);
+      return res.status(201).json({ user: publicUser(user) });
+    } catch (error) {
+      if (error instanceof HttpError) return res.status(error.status).json({ error: error.message });
+      console.error("Token activation error", error);
+      return res.status(500).json({ error: "Unable to activate course access." });
+    }
+  });
+
+  app.post("/api/enrollment/resend-activation", recoveryLimiter, async (req, res) => {
+    const email = readString((req.body as Record<string, unknown>)?.email, 254).toLowerCase();
+    const token = createOpaqueToken();
+    const purchase = await mutateDatabase((database) => {
+      const found = [...database.purchases]
+        .reverse()
+        .find((candidate) => candidate.email === email && !candidate.activatedAt);
+      if (!found) return null;
+      found.activationTokenHash = hashOpaqueToken(token);
+      found.activationExpiresAt = new Date(Date.now() + ACTIVATION_DURATION_MS).toISOString();
+      found.emailSentAt = undefined;
+      return found;
+    });
+    if (purchase) {
+      const sent = await sendActivationEmail({
+        email: purchase.email,
+        firstName: purchase.firstName,
+        token,
+        checkoutSessionId: `${purchase.checkoutSessionId}-${Date.now()}`,
+      });
+      if (sent) {
+        await mutateDatabase((database) => {
+          const stored = database.purchases.find(
+            (candidate) => candidate.checkoutSessionId === purchase.checkoutSessionId,
+          );
+          if (stored) stored.emailSentAt = new Date().toISOString();
+        });
+      }
+    }
+    return res.status(202).json({ message: "If an unactivated purchase exists, a new link has been sent." });
+  });
+
+  app.post("/api/auth/login", loginLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const email = readString(body.email, 254).toLowerCase();
+    const password = readString(body.password, 200);
+    const database = await readDatabase();
+    const user = database.users.find((candidate) => candidate.email === email);
+
+    if (!user || user.accessRevoked || !verifyPassword(password, user.passwordHash)) {
+      return res.status(401).json({ error: "Email or password is incorrect." });
+    }
+
+    setSessionCookie(res, user.id);
+    return res.json({ user: publicUser(user) });
+  });
+
+  app.post("/api/auth/spindel-staff", loginLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const email = readString(body.email, 254).toLowerCase();
+    const password = readString(body.password, 200);
+    const configuredCode = process.env.SPINDEL_STAFF_ACCESS_CODE;
+    if (!configuredCode?.trim()) {
+      return res.status(503).json({ error: "Spindel staff access is not configured yet." });
+    }
+    if (!isSpindelStaffEmail(email) || !verifySpindelStaffCode(password, configuredCode)) {
+      return res.status(401).json({ error: "Spindel email or staff password is incorrect." });
+    }
+
+    try {
+      const user = await mutateDatabase((database) => {
+        const existing = database.users.find((candidate) => candidate.email.toLowerCase() === email);
+        if (existing) {
+          if (existing.role !== "student" || existing.organizationName !== "Spindel Eye Associates" || existing.accessRevoked) {
+            throw new HttpError(403, "This account cannot use Spindel staff sign-in. Contact your manager.");
+          }
+          return existing;
+        }
+        const manager = database.users.find((candidate) =>
+          candidate.role === "manager" && candidate.organizationName === "Spindel Eye Associates" && !candidate.accessRevoked,
+        );
+        const name = staffNameFromEmail(email);
+        const newUser: CourseUser = {
+          id: randomUUID(),
+          email,
+          ...name,
+          passwordHash: hashPassword(randomBytes(32).toString("base64url")),
+          role: "student",
+          organizationName: "Spindel Eye Associates",
+          managerId: manager?.id,
+          seatLimit: 1,
+          createdAt: new Date().toISOString(),
+          progress: [],
+        };
+        database.users.push(newUser);
+        return newUser;
+      });
+      setSessionCookie(res, user.id);
+      return res.json({ user: publicUser(user) });
+    } catch (error) {
+      if (error instanceof HttpError) return res.status(error.status).json({ error: error.message });
+      console.error("Spindel staff sign-in error", error);
+      return res.status(500).json({ error: "Unable to open staff onboarding." });
+    }
+  });
+
+  app.post("/api/auth/logout", (_req, res) => {
+    clearSessionCookie(res);
+    res.status(204).end();
+  });
+
+  app.get("/api/auth/me", async (req, res) => {
+    const user = await requireUser(req, res);
+    if (!user) return;
+    return res.json({ user: publicUser(user) });
+  });
+
+  app.post("/api/auth/request-reset", recoveryLimiter, async (req, res) => {
+    const email = readString((req.body as Record<string, unknown>)?.email, 254).toLowerCase();
+    const database = await readDatabase();
+    const user = database.users.find((candidate) => candidate.email === email && !candidate.accessRevoked);
+
+    if (user) {
+      const token = createOpaqueToken();
+      await mutateDatabase((storedDatabase) => {
+        storedDatabase.passwordResets = storedDatabase.passwordResets.filter(
+          (reset) => reset.userId !== user.id || reset.usedAt,
+        );
+        storedDatabase.passwordResets.push({
+          tokenHash: hashOpaqueToken(token),
+          userId: user.id,
+          createdAt: new Date().toISOString(),
+          expiresAt: new Date(Date.now() + PASSWORD_RESET_DURATION_MS).toISOString(),
+        });
+      });
+      await sendPasswordResetEmail({
+        email: user.email,
+        firstName: user.firstName,
+        token,
+        userId: user.id,
+      });
+    }
+
+    return res.status(202).json({ message: "If an account exists, a reset link has been sent." });
+  });
+
+  app.get("/api/auth/reset-status", async (req, res) => {
+    const token = readString(req.query.token, 200);
+    const database = await readDatabase();
+    const reset = database.passwordResets.find(
+      (candidate) =>
+        candidate.tokenHash === hashOpaqueToken(token) &&
+        !candidate.usedAt &&
+        new Date(candidate.expiresAt).getTime() >= Date.now(),
+    );
+    if (!reset) return res.status(400).json({ error: "This reset link is invalid or expired." });
+    return res.json({ valid: true });
+  });
+
+  app.post("/api/auth/reset-password", recoveryLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const token = readString(body.token, 200);
+    const password = readString(body.password, 200);
+    const passwordError = validatePassword(password);
+    if (passwordError) return res.status(400).json({ error: passwordError });
+
+    try {
+      const user = await mutateDatabase((database) => {
+        const reset = database.passwordResets.find(
+          (candidate) =>
+            candidate.tokenHash === hashOpaqueToken(token) &&
+            !candidate.usedAt &&
+            new Date(candidate.expiresAt).getTime() >= Date.now(),
+        );
+        if (!reset) throw new HttpError(400, "This reset link is invalid or expired.");
+        const found = database.users.find((candidate) => candidate.id === reset.userId);
+        if (!found || found.accessRevoked) throw new HttpError(400, "This account is unavailable.");
+        found.passwordHash = hashPassword(password);
+        reset.usedAt = new Date().toISOString();
+        return found;
+      });
+      setSessionCookie(res, user.id);
+      return res.json({ user: publicUser(user) });
+    } catch (error) {
+      if (error instanceof HttpError) return res.status(error.status).json({ error: error.message });
+      console.error("Password reset error", error);
+      return res.status(500).json({ error: "Unable to reset the password." });
+    }
+  });
+
+  app.post("/api/support", supportLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const name = readString(body.name, 120);
+    const email = readString(body.email, 254).toLowerCase();
+    const subject = readString(body.subject, 160);
+    const message = readString(body.message, 3_000);
+    if (!name || !/^\S+@\S+\.\S+$/.test(email) || !subject || message.length < 10) {
+      return res.status(400).json({ error: "Please complete all support fields." });
+    }
+    const sent = await sendSupportMessage({ name, email, subject, message });
+    if (!sent) return res.status(503).json({ error: "Support email is temporarily unavailable." });
+    return res.status(202).json({ message: "Your support request has been sent." });
+  });
+
+  app.post("/api/course/progress", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const day = readInteger(body.day);
+    const score = Number(body.score);
+    if (!Number.isInteger(day) || day < 1 || day > MODULE_COUNT) {
+      return res.status(400).json({ error: "A valid module day is required." });
+    }
+    if (!Number.isFinite(score) || score < 0 || score > 100) {
+      return res.status(400).json({ error: "A valid quiz score is required." });
+    }
+
+    const updatedUser = await mutateDatabase((database) => {
+      const user = database.users.find((candidate) => candidate.id === authenticatedUser.id);
+      if (!user || user.accessRevoked) throw new HttpError(401, "Course access is unavailable.");
+
+      const existing = user.progress.find((item) => item.day === day);
+      const bestScore = Math.max(existing?.score ?? 0, Math.round(score * 10) / 10);
+      const passed = Boolean(existing?.passed) || bestScore >= PASSING_SCORE;
+      const now = new Date().toISOString();
+      const progress = {
+        day,
+        score: bestScore,
+        passed,
+        updatedAt: now,
+        completedAt: passed ? existing?.completedAt ?? now : undefined,
+      };
+
+      if (existing) Object.assign(existing, progress);
+      else user.progress.push(progress);
+      user.progress.sort((left, right) => left.day - right.day);
+      return user;
+    });
+
+    return res.json({ user: publicUser(updatedUser) });
+  });
+
+  app.get('/api/admin/video-workspaces', async (req, res) => {
+    const user = await requireUser(req, res);
+    if (!user) return;
+    return res.json({ workspaces: (['optitech', 'spindel'] as const).filter(workspace => canEditVideo(user.email, workspace)) });
+  });
+
+  app.all('/api/admin/videos/:workspace/:action?', async (req, res) => {
+    const user = await requireUser(req, res);
+    if (!user) return;
+    const workspace = req.params.workspace as Workspace;
+    if (!['optitech', 'spindel'].includes(workspace) || !canEditVideo(user.email, workspace)) return res.status(403).json({ error: 'Owner-authorized workspace editor access is required.' });
+    try {
+      const catalog = readWorkspaceCatalog(workspace);
+      const action = req.params.action || '';
+      if (req.method === 'GET' && !action) {
+        const data = await mutateDatabase(database => {
+          const locations = seedLocations(database, workspace, catalog);
+          return { locations: locations.filter(item => item.media.type === 'video'), tasks: database.videoTasks!.filter(task => task.workspace === workspace && task.editor === user.id && task.status === 'draft') };
+        });
+        return res.json(data);
+      }
+      if (req.method !== 'POST' || !['start', 'save', 'publish', 'restore'].includes(action)) return res.status(405).json({ error: 'Unsupported video action.' });
+      const body = req.body || {};
+      let verifiedFileId: string | undefined;
+      // Network validation precedes the atomic mutation; all revisions are checked again inside it.
+      if (action === 'publish' || action === 'restore') {
+        const database = await readDatabase();
+        const location = database.videoLocations?.find(item => item.id === body.locationId && item.workspace === workspace);
+        if (!location) throw new VideoError(404, 'Video location not found.');
+        const task = database.videoTasks?.find(item => item.id === body.taskId && item.locationId === location.id && item.editor === user.id && item.workspace === workspace);
+        const fileId = action === 'restore' ? location.history.at(-1)?.fileId : task?.replacementId;
+        if (!fileId) throw new VideoError(400, 'No saved video is available.');
+        if (body.playbackConfirmed !== true) throw new VideoError(400, 'Preview and confirm learner playback before publishing.');
+        await verifyFinishedVideo(fileId);
+        verifiedFileId = fileId;
+      }
+      const result = await mutateDatabase(database => {
+        const locations = seedLocations(database, workspace, catalog);
+        const location = locations.find(item => item.id === body.locationId && item.media.type === 'video');
+        if (!location) throw new VideoError(404, 'Video location not found.');
+        if (location.revision !== body.locationRevision) throw new VideoError(409, 'This location changed. Reload before editing.');
+        if (action === 'start') return { task: startTask(database, location, user.id), location };
+        if (action === 'restore') {
+          const previous = location.history.at(-1);
+          if (!previous) throw new VideoError(400, 'No previous video is available.');
+          if (previous.fileId !== verifiedFileId) throw new VideoError(409, 'The previous video changed. Reload and preview again.');
+          location.history.push({ fileId: location.media.driveFileId, editor: user.id, at: new Date().toISOString() });
+          location.media = withFile(location.media, previous.fileId);
+          location.revision++;
+          return { location };
+        }
+        const task = database.videoTasks!.find(item => item.id === body.taskId && item.locationId === location.id && item.workspace === workspace && item.editor === user.id);
+        if (!task) throw new VideoError(404, 'Edit task not found.');
+        if (task.status !== 'draft' || task.originalRevision !== location.revision || task.revision !== body.taskRevision) throw new VideoError(409, 'The draft changed. Reload before saving or publishing.');
+        if (action === 'save') { task.replacementId = extractVideoId(body.replacement); task.revision++; }
+        else {
+          if (task.replacementId !== verifiedFileId) throw new VideoError(409, 'The replacement changed. Reload and preview again.');
+          publishTask(location, task, user.id);
+        }
+        return { task, location };
+      });
+      return res.json(result);
+    } catch (error) {
+      return res.status(error instanceof VideoError ? error.status : 503).json({ error: error instanceof VideoError ? error.message : 'Video editing is temporarily unavailable.' });
+    }
+  });
+
+  app.get("/api/course/ocular-education", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+    if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
+      return res.status(403).json({ error: "Spindel onboarding access is required." });
+    }
+    const catalog = process.env.SPINDEL_OCULAR_EDUCATION_JSON?.trim();
+    if (!catalog) return res.status(503).json({ error: "Ocular Education is not configured yet." });
+    try {
+      const existing = parseProtectedMediaCatalog(process.env.SPINDEL_MEDIA_CATALOG_JSON || "[]");
+      return res.json({ videos: parseOcularEducationCatalog(catalog, existing.map(item => item.driveFileId)) });
+    } catch (error) {
+      console.error("Ocular education configuration error", error);
+      return res.status(503).json({ error: "Ocular Education is temporarily unavailable." });
+    }
+  });
+
+  app.get("/api/course/spindel-media", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+    if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
+      return res.status(403).json({ error: "Spindel onboarding access is required." });
+    }
+
+    const configuredCatalog = process.env.SPINDEL_MEDIA_CATALOG_JSON?.trim();
+    if (!configuredCatalog) {
+      return res.status(503).json({ error: "Approved media is not configured." });
+    }
+
+    try {
+      const response = buildSpindelMediaResponse(configuredCatalog);
+      return res.json({ ...response, media: learnerMedia(await readDatabase(), 'spindel', response.media) });
+    } catch (catalogError) {
+      console.error("Protected media configuration error", catalogError);
+      return res.status(503).json({ error: "Approved media is temporarily unavailable." });
+    }
+  });
+
+  app.get("/api/course/media", async (req, res) => {
+    const authenticatedUser = await requireUser(req, res);
+    if (!authenticatedUser) return;
+
+    const configuredCatalog = process.env.COURSE_MEDIA_CATALOG_JSON?.trim();
+    if (!configuredCatalog) {
+      return res.status(503).json({ error: "Course media is not configured." });
+    }
+
+    try {
+      const media = parseProtectedMediaCatalog(configuredCatalog);
+      assertCompleteCourseMediaCoverage(media);
+      assertPublicCourseCatalogIsGeneric(media);
+      return res.json({ media: learnerMedia(await readDatabase(), 'optitech', media) });
+    } catch (catalogError) {
+      console.error("Course media configuration error", catalogError);
+      return res.status(503).json({ error: "Course media is temporarily unavailable." });
+    }
+  });
+
+  app.get("/api/practice/team", async (req, res) => {
+    const manager = await requireUser(req, res);
+    if (!manager) return;
+    if (manager.role !== "manager") {
+      return res.status(403).json({ error: "Practice manager access is required." });
+    }
+
+    const database = await readDatabase();
     const team = database.users
       .filter((user) => user.id === manager.id || user.managerId === manager.id)
       .map(publicUser);
