@@ -18,6 +18,30 @@ afterEach(async () => {
 });
 
 describe("Spindel manager bootstrap", () => {
+  it('preserves video drafts and published revisions across reloads without losing learner data', async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'video-store-test-'));
+    temporaryDirectories.push(directory);
+    process.env.DATA_FILE = path.join(directory, 'course-data.json');
+    delete process.env.SPINDEL_MANAGER_EMAIL;
+    delete process.env.SPINDEL_MANAGER_PASSWORD;
+    vi.resetModules();
+    const store = await import('./store');
+    const { seedLocations, startTask, publishTask } = await import('./videoEditing');
+    await store.mutateDatabase(db => {
+      db.users.push({ id: 'learner', email: 'learner@example.com', firstName: 'Test', lastName: 'Learner', passwordHash: 'unused', role: 'student', seatLimit: 1, createdAt: '2026-01-01', progress: [{ day: 1, score: 100, passed: true, updatedAt: '2026-01-01' }] });
+      const [location] = seedLocations(db, 'optitech', [{ driveFileId: 'original_video_123', title: 'Lesson', description: 'Description', type: 'video', moduleDays: [1], embedUrl: '', openUrl: '', aiGenerated: false, learningTier: 'core', sourceLabel: 'Course', learningObjective: 'Objective' }]);
+      const task = startTask(db, location, 'editor');
+      task.replacementId = 'finished_video_123';
+      publishTask(location, task, 'editor');
+      startTask(db, location, 'editor').replacementId = 'draft_video_456';
+    });
+    vi.resetModules();
+    const reloaded = await (await import('./store')).readDatabase();
+    expect(reloaded.users[0].progress[0].score).toBe(100);
+    expect(reloaded.videoLocations?.[0].media.driveFileId).toBe('finished_video_123');
+    expect(reloaded.videoLocations?.[0].history[0].fileId).toBe('original_video_123');
+    expect(reloaded.videoTasks?.find(task => task.status === 'draft')?.replacementId).toBe('draft_video_456');
+  });
   it("uses the current Render manager password for an existing account", async () => {
     const directory = await mkdtemp(path.join(os.tmpdir(), "optitech-store-test-"));
     temporaryDirectories.push(directory);

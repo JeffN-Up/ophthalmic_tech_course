@@ -195,7 +195,7 @@ export default function CourseModule() {
                     : ImageIcon;
 
                 return (
-                  <article key={item.driveFileId} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                  <article id={item.placeholderId ? `media-${item.placeholderId}` : undefined} key={item.placeholderId || item.driveFileId} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
                     <iframe
                       src={item.embedUrl}
                       title={item.title}

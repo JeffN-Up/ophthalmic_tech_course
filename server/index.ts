@@ -1,4 +1,5 @@
 import { buildSpindelMediaResponse } from "./spindelMedia";
+import { canEditVideo, extractVideoId, learnerMedia, publishTask, readWorkspaceCatalog, seedLocations, startTask, verifyFinishedVideo, VideoError, withFile, type Workspace } from './videoEditing';
 import { parseOcularEducationCatalog } from "./ocularEducation";
 import express from "express";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -838,6 +839,73 @@ async function startServer() {
     return res.json({ user: publicUser(updatedUser) });
   });
 
+  app.get('/api/admin/video-workspaces', async (req, res) => {
+    const user = await requireUser(req, res);
+    if (!user) return;
+    return res.json({ workspaces: (['optitech', 'spindel'] as const).filter(workspace => canEditVideo(user.email, workspace)) });
+  });
+
+  app.all('/api/admin/videos/:workspace/:action?', async (req, res) => {
+    const user = await requireUser(req, res);
+    if (!user) return;
+    const workspace = req.params.workspace as Workspace;
+    if (!['optitech', 'spindel'].includes(workspace) || !canEditVideo(user.email, workspace)) return res.status(403).json({ error: 'Owner-authorized workspace editor access is required.' });
+    try {
+      const catalog = readWorkspaceCatalog(workspace);
+      const action = req.params.action || '';
+      if (req.method === 'GET' && !action) {
+        const data = await mutateDatabase(database => {
+          const locations = seedLocations(database, workspace, catalog);
+          return { locations: locations.filter(item => item.media.type === 'video'), tasks: database.videoTasks!.filter(task => task.workspace === workspace && task.editor === user.id && task.status === 'draft') };
+        });
+        return res.json(data);
+      }
+      if (req.method !== 'POST' || !['start', 'save', 'publish', 'restore'].includes(action)) return res.status(405).json({ error: 'Unsupported video action.' });
+      const body = req.body || {};
+      let verifiedFileId: string | undefined;
+      // Network validation precedes the atomic mutation; all revisions are checked again inside it.
+      if (action === 'publish' || action === 'restore') {
+        const database = await readDatabase();
+        const location = database.videoLocations?.find(item => item.id === body.locationId && item.workspace === workspace);
+        if (!location) throw new VideoError(404, 'Video location not found.');
+        const task = database.videoTasks?.find(item => item.id === body.taskId && item.locationId === location.id && item.editor === user.id && item.workspace === workspace);
+        const fileId = action === 'restore' ? location.history.at(-1)?.fileId : task?.replacementId;
+        if (!fileId) throw new VideoError(400, 'No saved video is available.');
+        if (body.playbackConfirmed !== true) throw new VideoError(400, 'Preview and confirm learner playback before publishing.');
+        await verifyFinishedVideo(fileId);
+        verifiedFileId = fileId;
+      }
+      const result = await mutateDatabase(database => {
+        const locations = seedLocations(database, workspace, catalog);
+        const location = locations.find(item => item.id === body.locationId && item.media.type === 'video');
+        if (!location) throw new VideoError(404, 'Video location not found.');
+        if (location.revision !== body.locationRevision) throw new VideoError(409, 'This location changed. Reload before editing.');
+        if (action === 'start') return { task: startTask(database, location, user.id), location };
+        if (action === 'restore') {
+          const previous = location.history.at(-1);
+          if (!previous) throw new VideoError(400, 'No previous video is available.');
+          if (previous.fileId !== verifiedFileId) throw new VideoError(409, 'The previous video changed. Reload and preview again.');
+          location.history.push({ fileId: location.media.driveFileId, editor: user.id, at: new Date().toISOString() });
+          location.media = withFile(location.media, previous.fileId);
+          location.revision++;
+          return { location };
+        }
+        const task = database.videoTasks!.find(item => item.id === body.taskId && item.locationId === location.id && item.workspace === workspace && item.editor === user.id);
+        if (!task) throw new VideoError(404, 'Edit task not found.');
+        if (task.status !== 'draft' || task.originalRevision !== location.revision || task.revision !== body.taskRevision) throw new VideoError(409, 'The draft changed. Reload before saving or publishing.');
+        if (action === 'save') { task.replacementId = extractVideoId(body.replacement); task.revision++; }
+        else {
+          if (task.replacementId !== verifiedFileId) throw new VideoError(409, 'The replacement changed. Reload and preview again.');
+          publishTask(location, task, user.id);
+        }
+        return { task, location };
+      });
+      return res.json(result);
+    } catch (error) {
+      return res.status(error instanceof VideoError ? error.status : 503).json({ error: error instanceof VideoError ? error.message : 'Video editing is temporarily unavailable.' });
+    }
+  });
+
   app.get("/api/course/ocular-education", async (req, res) => {
     const authenticatedUser = await requireUser(req, res);
     if (!authenticatedUser) return;
@@ -868,7 +936,8 @@ async function startServer() {
     }
 
     try {
-      return res.json(buildSpindelMediaResponse(configuredCatalog));
+      const response = buildSpindelMediaResponse(configuredCatalog);
+      return res.json({ ...response, media: learnerMedia(await readDatabase(), 'spindel', response.media) });
     } catch (catalogError) {
       console.error("Protected media configuration error", catalogError);
       return res.status(503).json({ error: "Approved media is temporarily unavailable." });
@@ -888,7 +957,7 @@ async function startServer() {
       const media = parseProtectedMediaCatalog(configuredCatalog);
       assertCompleteCourseMediaCoverage(media);
       assertPublicCourseCatalogIsGeneric(media);
-      return res.json({ media });
+      return res.json({ media: learnerMedia(await readDatabase(), 'optitech', media) });
     } catch (catalogError) {
       console.error("Course media configuration error", catalogError);
       return res.status(503).json({ error: "Course media is temporarily unavailable." });

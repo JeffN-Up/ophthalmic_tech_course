@@ -1,4 +1,5 @@
 export interface SpindelApprovedMedia {
+  placeholderId?: string;
   driveFileId: string;
   title: string;
   description: string;

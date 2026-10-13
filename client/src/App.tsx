@@ -21,6 +21,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Curriculum from "./pages/Curriculum";
 import EnrollmentSuccess from "./pages/EnrollmentSuccess";
 import Home from "./pages/Home";
+import VideoAdmin from './pages/VideoAdmin';
 
 function Router() {
   return (
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/disclaimer" component={Disclaimer} />
       <Route path="/join/:code" component={JoinPractice} />
       <Route path="/course/module/:day" component={CourseModule} />
+      <Route path="/course/admin/videos" component={VideoAdmin} />
       <Route path="/course/ocular-education" component={OcularEducation} />
       <Route path="/course/certificate" component={Certificate} />
       <Route path="/course" component={CourseDashboard} />
