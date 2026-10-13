@@ -33,12 +33,15 @@ export default function CourseDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [copiedCode, setCopiedCode] = useState("");
+  const [canEditVideos, setCanEditVideos] = useState(false);
 
   useEffect(() => {
     const load = async () => {
       try {
         const response = await apiRequest<{ user: CourseUser }>("/api/auth/me");
         setUser(response.user);
+        const editors = await apiRequest<{ workspaces: string[] }>('/api/admin/video-workspaces');
+        setCanEditVideos(editors.workspaces.length > 0);
         if (response.user.role === "manager") {
           setTeam(await apiRequest<TeamResponse>("/api/practice/team"));
         }
@@ -100,6 +103,7 @@ export default function CourseDashboard() {
             </span>
           </a>
           <div className="flex items-center gap-3">
+            {canEditVideos && <a href="/course/admin/videos" className="text-sm font-semibold text-cyan-200 underline">Edit course videos</a>}
             <span className="hidden text-sm text-slate-300 sm:inline">{user.firstName} {user.lastName}</span>
             <Button variant="outline" onClick={logout} className="border-white/20 bg-transparent text-white hover:bg-white/10">
               <LogOut className="mr-2 h-4 w-4" /> Sign Out

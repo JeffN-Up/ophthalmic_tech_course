@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { hashPassword, verifyPassword } from "./auth";
+import type { VideoLocation, VideoTask } from './videoEditing';
 
 export interface CourseProgress {
   day: number;
@@ -67,6 +68,8 @@ export interface ProcessedStripeEvent {
 }
 
 export interface CourseDatabase {
+  videoLocations?: VideoLocation[];
+  videoTasks?: VideoTask[];
   users: CourseUser[];
   invites: PracticeInvite[];
   purchases: CoursePurchase[];
@@ -153,6 +156,8 @@ function normalizeDatabase(value: unknown): CourseDatabase {
   if (!value || typeof value !== "object") return applySpindelBootstrap(structuredClone(emptyDatabase));
   const candidate = value as Partial<CourseDatabase>;
   return applySpindelBootstrap({
+    videoLocations: Array.isArray(candidate.videoLocations) ? candidate.videoLocations : [],
+    videoTasks: Array.isArray(candidate.videoTasks) ? candidate.videoTasks : [],
     users: Array.isArray(candidate.users) ? candidate.users : [],
     invites: Array.isArray(candidate.invites) ? candidate.invites : [],
     purchases: Array.isArray(candidate.purchases) ? candidate.purchases : [],
