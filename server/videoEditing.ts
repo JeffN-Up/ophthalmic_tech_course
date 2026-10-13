@@ -43,7 +43,16 @@ export function canEditVideo(email: string, workspace: Workspace): boolean {
     .split(",")
     .map(value => value.trim().toLowerCase())
     .filter(Boolean)
-    .includes(email.toLowerCase());
+    .some(allowed => {
+      const normalizedEmail = email.trim().toLowerCase();
+      if (allowed.startsWith("@")) {
+        return (
+          normalizedEmail.endsWith(allowed) &&
+          normalizedEmail.length > allowed.length
+        );
+      }
+      return normalizedEmail === allowed;
+    });
 }
 export function extractVideoId(input: unknown): string {
   if (typeof input !== "string")
