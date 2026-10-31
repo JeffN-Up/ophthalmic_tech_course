@@ -1,0 +1,33 @@
+{
+  "name": "ophthalmology-hpi-scribe",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.14"
+  },
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "tsc --noEmit && vite build",
+    "start": "NODE_ENV=production tsx server.ts",
+    "check": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@google/genai": "^1.0.0",
+    "dompurify": "^3.2.6",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "marked": "^15.0.12",
+    "openai": "^7.47.0",
+    "tsx": "^4.19.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.2.0"
+  }
+}
