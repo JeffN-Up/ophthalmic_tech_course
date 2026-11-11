@@ -28,13 +28,13 @@ COURSE_MEDIA_CATALOG_JSON=
 
 `SPINDEL_MEDIA_CATALOG_JSON` is a protected JSON array. Each item uses `driveFileId`, `title`, `description`, `type`, `moduleDays`, `aiGenerated`, `learningTier` (`core` or `extended`), `sourceLabel`, and `learningObjective`. Keep real Drive IDs in the environment value rather than in the browser bundle. Every module requires at least two videos and one audio item; `.m4a` files are entered as `"type": "audio"`. A single item can list multiple module days when it directly supports more than one lesson.
 
-`COURSE_MEDIA_CATALOG_JSON` is a separate catalog for paid OptiTech learners. It must use general ophthalmic-training content only. Do not copy Spindel names, internal workup protocols, office procedures, or other onboarding material into this catalog; the server rejects those items automatically.
+`COURSE_MEDIA_CATALOG_JSON` is a separate catalog for paid OptiTech learners. It must use general ophthalmic-training content only. Do not copy Spindel names, internal workup protocols, office procedures, or other 10 Day Crash Course material into this catalog; the server rejects those items automatically.
 
 Render automatically generates `SESSION_SECRET`, assigns `PUBLIC_APP_URL`, and configures the persistent `DATA_FILE`. The manager name defaults to `Spindel Administrator`, and the seat limit defaults to `100` unless changed in Render.
 
 The manager password should be unique, at least 12 characters long, and must not be committed to GitHub or sent through ordinary email or chat.
 
-The internal portal is available at `/spindel` after a successful deployment. See [`SPINDEL_ONBOARDING_SETUP.md`](SPINDEL_ONBOARDING_SETUP.md) for employee invitation and testing instructions.
+The internal portal is available at `/spindel` after a successful deployment. See [`SPINDEL_CRASH_COURSE_SETUP.md`](SPINDEL_CRASH_COURSE_SETUP.md) for employee invitation and testing instructions.
 
 ## Included Features
 
@@ -49,7 +49,7 @@ The internal portal is available at `/spindel` after a successful deployment. Se
 - One protected video overview and one protected audio overview for every public module
 - End-of-module quizzes with saved scores
 - Practice-manager invitation links and team progress
-- Private Spindel Eye Associates employee onboarding portal
+- Private Spindel Eye Associates employee 10 Day Crash Course portal
 - Printable certificate of course completion
 - Persistent local account/progress data
 - GitHub Actions type-check and production-build validation
@@ -101,7 +101,7 @@ BUSINESS_ADDRESS=Your business mailing address
 
 Configure two one-time Stripe Prices: **$699 for individual enrollment** and **$1,200 for the five-seat practice package**.
 
-The public paid course requires the Stripe, email, support, and legal-business values before production startup. The Spindel manager bootstrap values are documented in `SPINDEL_ONBOARDING_SETUP.md`.
+The public paid course requires the Stripe, email, support, and legal-business values before production startup. The Spindel manager bootstrap values are documented in `SPINDEL_CRASH_COURSE_SETUP.md`.
 
 ## Persistent Storage Requirement
 

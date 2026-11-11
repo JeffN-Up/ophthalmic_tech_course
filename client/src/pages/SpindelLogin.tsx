@@ -33,8 +33,8 @@ export default function SpindelLogin() {
       <Card className="mx-auto w-full max-w-md bg-white p-8 shadow-2xl">
         <div className="mb-8 text-center">
           <SpindelLogo variant="stacked" className="mx-auto h-32 w-32 border border-blue-100 shadow-lg" />
-          <p className="mt-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-700">Employee Onboarding</p>
-          <h1 className="mt-2 text-3xl font-bold text-slate-900">Employee Onboarding Sign In</h1>
+          <p className="mt-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-700">10 Day Crash Course</p>
+          <h1 className="mt-2 text-3xl font-bold text-slate-900">10 Day Crash Course Sign In</h1>
           <p className="mt-2 text-slate-600">Enter your @spindeleye.com email and staff access password. Your course opens automatically.</p>
         </div>
 
@@ -61,7 +61,7 @@ export default function SpindelLogin() {
         <div className="mt-7 space-y-2 text-center text-sm text-slate-500">
           <p>First time here? Your staff learner account will be created when you sign in.</p>
           <p><a href="/login" className="font-semibold text-blue-700 hover:underline">Manager or personal account sign in</a></p>
-          <p><a href="/spindel" className="font-semibold text-blue-700 hover:underline">Return to the onboarding portal</a></p>
+          <p><a href="/spindel" className="font-semibold text-blue-700 hover:underline">Return to the 10 Day Crash Course</a></p>
         </div>
       </Card>
     </div>

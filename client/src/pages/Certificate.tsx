@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { SpindelLogo } from "@/components/SpindelLogo";
 import { Card } from "@/components/ui/card";
-import { isSpindelOrganization } from "@/data/spindelOnboarding";
+import { isSpindelOrganization } from "@/data/spindelCrashCourse";
 import { ApiError, apiRequest, type CourseUser } from "@/lib/api";
 import { Award, Loader2, Printer } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -73,7 +73,7 @@ export default function Certificate() {
 
       <Card className={`mx-auto flex min-h-[700px] max-w-5xl flex-col items-center justify-center border-[12px] border-double ${spindel ? "border-cyan-800" : "border-blue-900"} bg-white px-10 py-16 text-center shadow-2xl print:min-h-screen print:max-w-none print:shadow-none`}>
         {spindel ? <SpindelLogo className="mb-7 h-20 w-72" /> : <Award className="mb-7 h-20 w-20 text-amber-500" />}
-        <p className="text-lg font-semibold uppercase tracking-[0.3em] text-blue-800">{spindel ? "Employee Onboarding" : "OptiTech Academy"}</p>
+        <p className="text-lg font-semibold uppercase tracking-[0.3em] text-blue-800">{spindel ? "10 Day Crash Course" : "OptiTech Academy"}</p>
         <h1 className="mt-5 font-serif text-6xl font-bold text-slate-900">Certificate of Completion</h1>
         <p className="mt-9 text-xl text-slate-600">This certifies that</p>
         <p className="mt-4 border-b-2 border-slate-400 px-12 pb-3 font-serif text-5xl font-semibold text-blue-950">
@@ -81,7 +81,7 @@ export default function Certificate() {
         </p>
         <p className="mt-8 max-w-3xl text-xl leading-8 text-slate-700">
           {spindel ? (
-            <>successfully completed the ten-module <strong>Spindel Eye Associates Employee Onboarding Program</strong> and passed each knowledge assessment.</>
+            <>successfully completed the ten-module <strong>Spindel Eye Associates 10 Day Crash Course</strong> and passed each knowledge assessment.</>
           ) : (
             <>successfully completed the ten-module <strong>Ophthalmic Technician Foundations</strong> educational course and passed each module assessment.</>
           )}
@@ -101,7 +101,7 @@ export default function Certificate() {
 
         <p className="mt-12 max-w-3xl text-xs leading-5 text-slate-500">
           {spindel
-            ? "This document confirms completion of online employee onboarding. It does not replace the employee handbook, current practice policies, hands-on training, supervisor competency validation, licensure, or professional certification."
+            ? "This document confirms completion of the online 10 Day Crash Course. It does not replace the employee handbook, current practice policies, hands-on training, supervisor competency validation, licensure, or professional certification."
             : "This document confirms completion of an independent educational course. It is not licensure, professional certification, JCAHPO certification, or proof of independent clinical competency."}
         </p>
       </Card>

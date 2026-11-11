@@ -110,7 +110,7 @@ export function assertCompleteCourseMediaCoverage(
   }
 }
 
-const INTERNAL_ONBOARDING_TERMS = [
+const INTERNAL_CRASH_COURSE_TERMS = [
   "spindel",
   "veradigm",
   "physician-specific",
@@ -126,10 +126,10 @@ export function assertPublicCourseCatalogIsGeneric(media: ProtectedMediaItem[]):
       item.learningObjective,
     ].join(" ").toLowerCase();
 
-    const internalTerm = INTERNAL_ONBOARDING_TERMS.find((term) => searchableText.includes(term));
+    const internalTerm = INTERNAL_CRASH_COURSE_TERMS.find((term) => searchableText.includes(term));
     if (internalTerm) {
       throw new Error(
-        `Public course media cannot include internal onboarding material (found "${internalTerm}").`,
+        `Public course media cannot include internal 10 Day Crash Course material (found "${internalTerm}").`,
       );
     }
   }

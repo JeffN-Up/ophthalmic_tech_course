@@ -56,9 +56,9 @@ export default function JoinPractice() {
       <Card className="mx-auto w-full max-w-xl bg-white p-8 shadow-2xl">
         <div className="mb-8 text-center">
           {spindel ? <SpindelLogo className="mx-auto mb-4 h-16 w-56" /> : <Users className="mx-auto mb-4 h-12 w-12 text-blue-600" />}
-          {spindel && <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-blue-700">Employee Onboarding</p>}
-          <h1 className="text-3xl font-bold text-slate-900">{spindel ? "Create Your Employee Onboarding Account" : "Join Your Practice Team"}</h1>
-          <p className="mt-2 text-slate-600">{spindel ? "This private invitation assigns your onboarding seat and saves your progress." : "Create your individual course account using the purchased team seat."}</p>
+          {spindel && <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-blue-700">10 Day Crash Course</p>}
+          <h1 className="text-3xl font-bold text-slate-900">{spindel ? "Create Your 10 Day Crash Course Account" : "Join Your Practice Team"}</h1>
+          <p className="mt-2 text-slate-600">{spindel ? "This private invitation assigns your 10 Day Crash Course seat and saves your progress." : "Create your individual course account using the purchased team seat."}</p>
         </div>
 
         <form onSubmit={submit} className="space-y-5">
@@ -85,7 +85,7 @@ export default function JoinPractice() {
             <input type="password" name="confirmation" value={form.confirmation} onChange={update} autoComplete="new-password" minLength={10} required className="w-full rounded-lg border border-slate-300 px-4 py-3" />
           </div>
 
-          {spindel && <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm leading-6 text-blue-950">Do not use a password from Veradigm, email, or another work system. This onboarding account has separate credentials.</div>}
+          {spindel && <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm leading-6 text-blue-950">Do not use a password from Veradigm, email, or another work system. This course account has separate credentials.</div>}
 
           {error && (
             <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
@@ -96,7 +96,7 @@ export default function JoinPractice() {
 
           <Button type="submit" disabled={isSubmitting || !code} className="w-full bg-blue-700 py-6 text-white hover:bg-blue-800">
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {spindel ? "Create My Onboarding Account" : "Create My Course Account"}
+            {spindel ? "Create My 10 Day Crash Course Account" : "Create My Course Account"}
           </Button>
         </form>
       </Card>

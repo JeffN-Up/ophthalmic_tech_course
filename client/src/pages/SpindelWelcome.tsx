@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SpindelLogo } from "@/components/SpindelLogo";
-import { spindelOnboardingModules } from "@/data/spindelOnboarding";
+import { spindelCrashCourseModules } from "@/data/spindelCrashCourse";
 import { ArrowRight, CheckCircle2, LockKeyhole, MapPin, ShieldCheck, Users } from "lucide-react";
 
 const locations = ["Derry", "Windham", "Londonderry", "Raymond", "Bedford"];
@@ -13,7 +13,7 @@ export default function SpindelWelcome() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
           <a href="/spindel" className="flex items-center gap-3">
             <SpindelLogo className="h-12 w-48 shadow-lg" />
-            <span className="hidden text-xs uppercase tracking-[0.22em] text-cyan-200 sm:block">Employee Onboarding</span>
+            <span className="hidden text-xs uppercase tracking-[0.22em] text-cyan-200 sm:block">10 Day Crash Course</span>
           </a>
           <a href="/spindel/login"><Button className="bg-white text-blue-900 hover:bg-cyan-50">Employee Sign In</Button></a>
         </div>
@@ -31,7 +31,7 @@ export default function SpindelWelcome() {
                 Ten focused modules. One shared standard. Build the judgment, habits, and team connections that help every patient experience feel safe, respectful, and uniquely Spindel.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <a href="/spindel/login"><Button size="lg" className="bg-white px-7 text-blue-900 hover:bg-cyan-50">Continue Onboarding <ArrowRight className="ml-2 h-4 w-4" /></Button></a>
+                <a href="/spindel/login"><Button size="lg" className="bg-white px-7 text-blue-900 hover:bg-cyan-50">Start the 10 Day Crash Course <ArrowRight className="ml-2 h-4 w-4" /></Button></a>
                 <a href="#modules"><Button size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10">Review Modules</Button></a>
               </div>
             </div>
@@ -40,7 +40,7 @@ export default function SpindelWelcome() {
               <SpindelLogo variant="stacked" className="h-32 w-32 shadow-xl" />
               <h2 className="mt-5 text-3xl font-bold">Everything you need to get oriented</h2>
               <ul className="mt-6 space-y-4 text-blue-50">
-                {["Private manager-issued invitation links", "Saved quiz scores and completion progress", "Manager team-progress dashboard", "Spindel-branded onboarding certificate", "Clinical content reinforced by supervised training"].map((item) => (
+                {["Private manager-issued invitation links", "Saved quiz scores and completion progress", "Manager team-progress dashboard", "Spindel-branded 10 Day Crash Course certificate", "Clinical content reinforced by supervised training"].map((item) => (
                   <li key={item} className="flex items-start gap-3"><CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-200" /> {item}</li>
                 ))}
               </ul>
@@ -59,12 +59,12 @@ export default function SpindelWelcome() {
         <section id="modules" className="bg-slate-50 px-4 py-20 text-slate-900">
           <div className="mx-auto max-w-7xl">
             <div className="text-center">
-              <p className="text-sm font-bold uppercase tracking-[0.25em] text-blue-700">Onboarding Path</p>
-              <h2 className="mt-3 text-4xl font-bold">Your ten-module learning path</h2>
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-blue-700">10 Day Crash Course</p>
+              <h2 className="mt-3 text-4xl font-bold">Your ten-day learning path</h2>
               <p className="mx-auto mt-4 max-w-3xl text-slate-600">Move at a thoughtful pace, score at least 80% on each knowledge check, and bring questions to your supervisor. Hands-on clinical tasks still require direct training and validation.</p>
             </div>
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-              {spindelOnboardingModules.map((module) => (
+              {spindelCrashCourseModules.map((module) => (
                 <Card key={module.id} className="premium-card border-blue-100 p-5 shadow-md">
                   <div className="text-4xl">{module.icon}</div>
                   <p className="mt-4 text-sm font-bold text-blue-700">Module {module.day}</p>
@@ -78,7 +78,7 @@ export default function SpindelWelcome() {
       </main>
 
       <footer className="border-t border-white/10 px-4 py-8 text-center text-sm text-blue-100">
-        Spindel Eye Associates Employee Onboarding · Internal education and supervised training support
+        Spindel Eye Associates 10 Day Crash Course · Internal education and supervised training support
       </footer>
     </div>
   );

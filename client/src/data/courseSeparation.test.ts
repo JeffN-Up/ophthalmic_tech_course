@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { courseContent } from "./courseContent";
 import { curriculumModules } from "./curriculum";
-import { spindelOnboardingLessons, spindelOnboardingModules } from "./spindelOnboarding";
+import { spindelCrashCourseLessons, spindelCrashCourseModules } from "./spindelCrashCourse";
 
-describe("paid course and private onboarding separation", () => {
+describe("paid course and private 10 Day Crash Course separation", () => {
   it("keeps paid-course lessons and module descriptions free of Spindel-specific content", () => {
     const publicCourseText = JSON.stringify({ courseContent, curriculumModules }).toLowerCase();
 
@@ -12,9 +12,9 @@ describe("paid course and private onboarding separation", () => {
     expect(publicCourseText).not.toContain("physician-specific");
   });
 
-  it("keeps the organization-specific onboarding material in its own private lesson set", () => {
-    const onboardingText = JSON.stringify({ spindelOnboardingLessons, spindelOnboardingModules }).toLowerCase();
+  it("keeps the organization-specific 10 Day Crash Course material in its own private lesson set", () => {
+    const crashCourseText = JSON.stringify({ spindelCrashCourseLessons, spindelCrashCourseModules }).toLowerCase();
 
-    expect(onboardingText).toContain("spindel");
+    expect(crashCourseText).toContain("spindel");
   });
 });

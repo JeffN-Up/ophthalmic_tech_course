@@ -8,7 +8,7 @@ const parse = () => {
   return fn;
 };
 
-it('provides preview links for optional videos without assigning onboarding modules', () => {
+it('provides preview links for optional videos without assigning 10 Day Crash Course modules', () => {
   const result = parse()(JSON.stringify([item]));
   expect(result[0].embedUrl).toBe('https://drive.google.com/file/d/ocular_video_001/preview');
   expect(result[0].category).toBe('Anatomy & vision');

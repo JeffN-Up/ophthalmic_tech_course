@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SpindelLogo } from "@/components/SpindelLogo";
 import { curriculumModules } from "@/data/curriculum";
-import { isSpindelOrganization, spindelOnboardingModules } from "@/data/spindelOnboarding";
+import { isSpindelOrganization, spindelCrashCourseModules } from "@/data/spindelCrashCourse";
 import { ApiError, apiRequest, type CourseUser } from "@/lib/api";
 import {
   Award,
@@ -83,10 +83,10 @@ export default function CourseDashboard() {
   }
 
   const spindel = isSpindelOrganization(user.organizationName);
-  const modules = spindel ? spindelOnboardingModules : curriculumModules;
+  const modules = spindel ? spindelCrashCourseModules : curriculumModules;
   const percentComplete = Math.round((user.completedModules / modules.length) * 100);
   const brandName = spindel ? "Spindel Eye Associates" : "OptiTech Academy";
-  const programName = spindel ? "Employee Onboarding" : "Ophthalmic Technician Foundations";
+  const programName = spindel ? "10 Day Crash Course" : "Ophthalmic Technician Foundations";
   const passingScore = spindel ? 80 : 70;
 
   return (
@@ -99,7 +99,7 @@ export default function CourseDashboard() {
               : <span className="text-cyan-400"><Eye className="h-6 w-6" /></span>}
             <span>
               {!spindel && <span className="block">{brandName}</span>}
-              {spindel && <span className="block text-[10px] uppercase tracking-[0.2em] text-cyan-200">Employee Onboarding</span>}
+              {spindel && <span className="block text-[10px] uppercase tracking-[0.2em] text-cyan-200">10 Day Crash Course</span>}
             </span>
           </a>
           <div className="flex items-center gap-3">
@@ -119,7 +119,7 @@ export default function CourseDashboard() {
             <h1 className="text-4xl font-bold">{spindel ? `Good to see you, ${user.firstName}.` : `Welcome back, ${user.firstName}`}</h1>
             <p className="mt-3 max-w-2xl text-slate-200">
               {spindel
-                ? `Your onboarding path is ready. Complete each lesson and earn at least ${passingScore}% on every knowledge check; hands-on duties still require supervisor validation.`
+                ? `Your 10 Day Crash Course is ready. Complete each lesson and earn at least ${passingScore}% on every knowledge check; hands-on duties still require supervisor validation.`
                 : `Complete each lesson and earn at least ${passingScore}% on every module quiz to receive the course completion certificate.`}
             </p>
             <div className="mt-7">
@@ -135,7 +135,7 @@ export default function CourseDashboard() {
 
           <Card className="border-white/10 bg-white/10 p-8 text-white backdrop-blur">
             <Award className="mb-4 h-10 w-10 text-amber-300" />
-            <h2 className="text-2xl font-bold">{spindel ? "Onboarding Certificate" : "Completion Certificate"}</h2>
+            <h2 className="text-2xl font-bold">{spindel ? "10 Day Crash Course Certificate" : "Completion Certificate"}</h2>
             <p className="mt-2 text-sm text-slate-300">
               {user.certificateEligible
                 ? `All ${modules.length} modules are complete. Your printable certificate is ready.`
@@ -152,7 +152,7 @@ export default function CourseDashboard() {
         <section>
           <div className="mb-5 flex items-end justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">{spindel ? "Required Onboarding" : "Course Modules"}</p>
+              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">{spindel ? "10 Day Crash Course" : "Course Modules"}</p>
               <h2 className="text-3xl font-bold">{spindel ? "Bring the full picture into focus" : "10-Day Learning Path"}</h2>
             </div>
           </div>
@@ -208,14 +208,14 @@ export default function CourseDashboard() {
         {user.role === "manager" && team && (
           <section className="space-y-5">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">{spindel ? "Onboarding Management" : "Practice Management"}</p>
+              <p className="text-sm font-semibold uppercase tracking-wider text-cyan-300">{spindel ? "10 Day Crash Course Management" : "Practice Management"}</p>
               <h2 className="flex items-center gap-2 text-3xl font-bold"><Users className="h-7 w-7" /> {spindel ? "Employee Seats" : "Team Seats"}</h2>
               <p className="mt-2 text-slate-300">{team.team.length} of {team.seatLimit} assigned seats are in use.</p>
             </div>
 
             <div className="grid gap-5 lg:grid-cols-2">
               <Card className="bg-white p-6 text-slate-900">
-                <h3 className="mb-4 text-xl font-bold">{spindel ? "Employee Onboarding Progress" : "Team Progress"}</h3>
+                <h3 className="mb-4 text-xl font-bold">{spindel ? "Employee 10 Day Crash Course Progress" : "Team Progress"}</h3>
                 <div className="space-y-3">
                   {team.team.map((member) => (
                     <div key={member.id} className="flex items-center justify-between rounded-lg bg-slate-50 p-3">

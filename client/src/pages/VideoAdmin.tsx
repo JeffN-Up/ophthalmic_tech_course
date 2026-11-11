@@ -8,7 +8,7 @@ import type {
   Workspace,
 } from "../../../server/videoEditing";
 
-const labels = { optitech: "OptiTech Academy", spindel: "Spindel onboarding" };
+const labels = { optitech: "OptiTech Academy", spindel: "Spindel 10 Day Crash Course" };
 export default function VideoAdmin() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [workspace, setWorkspace] = useState<Workspace>();

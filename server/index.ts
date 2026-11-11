@@ -698,7 +698,7 @@ async function startServer() {
     } catch (error) {
       if (error instanceof HttpError) return res.status(error.status).json({ error: error.message });
       console.error("Spindel staff sign-in error", error);
-      return res.status(500).json({ error: "Unable to open staff onboarding." });
+      return res.status(500).json({ error: "Unable to open the staff 10 Day Crash Course." });
     }
   });
 
@@ -910,7 +910,7 @@ async function startServer() {
     const authenticatedUser = await requireUser(req, res);
     if (!authenticatedUser) return;
     if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
-      return res.status(403).json({ error: "Spindel onboarding access is required." });
+      return res.status(403).json({ error: "Spindel 10 Day Crash Course access is required." });
     }
     const catalog = process.env.SPINDEL_OCULAR_EDUCATION_JSON?.trim();
     if (!catalog) return res.status(503).json({ error: "Ocular Education is not configured yet." });
@@ -927,7 +927,7 @@ async function startServer() {
     const authenticatedUser = await requireUser(req, res);
     if (!authenticatedUser) return;
     if (!canAccessSpindelMedia(authenticatedUser.organizationName)) {
-      return res.status(403).json({ error: "Spindel onboarding access is required." });
+      return res.status(403).json({ error: "Spindel 10 Day Crash Course access is required." });
     }
 
     const configuredCatalog = process.env.SPINDEL_MEDIA_CATALOG_JSON?.trim();

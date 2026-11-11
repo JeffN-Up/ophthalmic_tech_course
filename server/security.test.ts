@@ -167,7 +167,7 @@ describe("security helpers", () => {
     expect(() => parseProtectedMediaCatalog(JSON.stringify([{ ...catalog[0], learningTier: "featured" }]))).toThrow();
   });
 
-  it("rejects internal onboarding media from the public paid course catalog", async () => {
+  it("rejects internal 10 Day Crash Course media from the public paid course catalog", async () => {
     const { assertPublicCourseCatalogIsGeneric } = await import("./security");
     const genericItem = {
       driveFileId: "public_course_media_01",
@@ -187,6 +187,6 @@ describe("security helpers", () => {
     expect(() => assertPublicCourseCatalogIsGeneric([{
       ...genericItem,
       title: "Spindel precision workup",
-    }])).toThrow("Public course media cannot include internal onboarding material");
+    }])).toThrow("Public course media cannot include internal 10 Day Crash Course material");
   });
 });

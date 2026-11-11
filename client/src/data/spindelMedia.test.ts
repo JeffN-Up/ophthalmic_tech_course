@@ -48,7 +48,7 @@ describe("approved Spindel media", () => {
     ]);
   });
 
-  it("routes public learners to course media and Spindel learners to onboarding media", async () => {
+  it("routes public learners to course media and Spindel learners to 10 Day Crash Course media", async () => {
     const mediaModule = await import("./spindelMedia") as Record<string, unknown>;
     const getEndpoint = mediaModule.getApprovedMediaEndpoint as
       | ((organizationName?: string) => string)

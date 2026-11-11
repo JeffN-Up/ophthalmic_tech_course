@@ -5,7 +5,7 @@
 
 ## Goal
 
-Rebuild the current Spindel onboarding course so its main purpose is training ophthalmic technicians. Keep only the administrative material technicians truly need, and make anatomy, optics, testing, equipment skills, patient workups, and doctor-specific protocols the center of the course.
+Rebuild the current Spindel 10 Day Crash Course course so its main purpose is training ophthalmic technicians. Keep only the administrative material technicians truly need, and make anatomy, optics, testing, equipment skills, patient workups, and doctor-specific protocols the center of the course.
 
 The finished course must keep the current Spindel-branded staff experience, sign-in, progress tracking, quizzes, and completion system.
 

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
-  spindelOnboardingLessons,
-  spindelOnboardingModules,
-  spindelOnboardingQuizzes,
-} from "./spindelOnboarding";
+  spindelCrashCourseLessons,
+  spindelCrashCourseModules,
+  spindelCrashCourseQuizzes,
+} from "./spindelCrashCourse";
 
 const expectedTitles = [
   "Eye Anatomy & Visual Pathways",
@@ -20,19 +20,19 @@ const expectedTitles = [
 
 describe("Spindel technician training catalog", () => {
   it("keeps the ten-day progress contract while leading with technician skills", () => {
-    expect(spindelOnboardingModules.map((module) => module.day)).toEqual([
+    expect(spindelCrashCourseModules.map((module) => module.day)).toEqual([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ]);
-    expect(spindelOnboardingModules.map((module) => module.title)).toEqual(expectedTitles);
+    expect(spindelCrashCourseModules.map((module) => module.title)).toEqual(expectedTitles);
   });
 
   it("provides one lesson and one 80-percent quiz for every module", () => {
-    expect(spindelOnboardingLessons.map((lesson) => lesson.day)).toEqual([
+    expect(spindelCrashCourseLessons.map((lesson) => lesson.day)).toEqual([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ]);
-    expect(spindelOnboardingQuizzes.map((quiz) => quiz.day)).toEqual([
+    expect(spindelCrashCourseQuizzes.map((quiz) => quiz.day)).toEqual([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     ]);
-    expect(spindelOnboardingQuizzes.every((quiz) => quiz.passingScore === 80)).toBe(true);
+    expect(spindelCrashCourseQuizzes.every((quiz) => quiz.passingScore === 80)).toBe(true);
   });
 });

@@ -38,7 +38,7 @@ export default function OcularEducation() {
       <header className="border-b border-white/10 bg-slate-950/70">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5">
           <SpindelLogo className="h-11 w-40" />
-          <a href="/course" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-100 hover:text-white"><ArrowLeft className="h-4 w-4" /> Back to onboarding</a>
+          <a href="/course" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-100 hover:text-white"><ArrowLeft className="h-4 w-4" /> Back to the 10 Day Crash Course</a>
         </div>
       </header>
       <main className="mx-auto max-w-7xl px-4 py-10">

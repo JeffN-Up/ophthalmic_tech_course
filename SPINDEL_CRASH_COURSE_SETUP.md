@@ -1,11 +1,11 @@
-# Spindel Eye Associates Employee Onboarding
+# Spindel Eye Associates Employee 10 Day Crash Course
 
 ## What this adds
 
 The application now serves two programs from the same platform:
 
 - **OptiTech Academy** remains the public paid ophthalmic technician course.
-- **Spindel Eye Associates Employee Onboarding** is an internal, branded ten-module onboarding program.
+- **Spindel Eye Associates Employee 10 Day Crash Course** is an internal, branded ten-module 10 Day Crash Course program.
 
 Spindel employees receive the custom dashboard, lessons, quizzes, manager tracking, and certificate automatically when their account organization is `Spindel Eye Associates`.
 
@@ -40,7 +40,7 @@ Use a unique password of at least 12 characters. Do not reuse a practice email p
 3. Copy one unused private invitation link.
 4. Send it directly to the employee.
 5. The employee opens the link, enters their name and email, and creates a password.
-6. Their account inherits the `Spindel Eye Associates` organization and opens the branded onboarding program.
+6. Their account inherits the `Spindel Eye Associates` organization and opens the branded 10 Day Crash Course program.
 7. The manager dashboard shows progress for every assigned employee.
 
 Each invitation works once. Increase `SPINDEL_SEAT_LIMIT` when more links are needed.

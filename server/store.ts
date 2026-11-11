@@ -92,7 +92,7 @@ function deterministicSpindelId(email: string): string {
 }
 
 function deterministicInviteCode(managerId: string, index: number): string {
-  const secret = process.env.SESSION_SECRET?.trim() || "spindel-onboarding";
+  const secret = process.env.SESSION_SECRET?.trim() || "spindel-crash-course";
   const digest = createHash("sha256")
     .update(`${secret}:${managerId}:${index}`)
     .digest("hex")

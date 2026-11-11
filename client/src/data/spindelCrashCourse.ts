@@ -9,7 +9,7 @@ export const SPINDEL_PASSING_SCORE = 80;
 export function isSpindelOrganization(organizationName?: string): boolean {
   return organizationName?.trim().toLowerCase().includes('spindel eye') ?? false;
 }
-export const spindelOnboardingModules = spindelTechnicianModules;
+export const spindelCrashCourseModules = spindelTechnicianModules;
 const safetyNote = 'Follow current Spindel physician orders, approved protocols, device instructions, and supervisor direction. Online completion does not authorize independent clinical procedures. Stop and escalate urgent symptoms, unreliable results, or tasks outside demonstrated competency.';
 const section = (title: string, paragraphs: string[], keyPoints?: string[]): LessonSection => ({ title, paragraphs, keyPoints });
 const sourceLesson = (day: number) => courseContent.find(lesson => lesson.day === day)!;
@@ -24,7 +24,7 @@ const doctorLesson = (day: number): LessonContent => lesson(day,
     ['Review the visit sequences and conditional testing in the doctor protocol cards below. The linked current source takes priority over this training summary.'], protocol.reminders)),
   getProtocolsForModuleDay(day).map(protocol => `With a supervisor, compare a routine and a symptom-focused workup for ${protocol.doctorName}; identify required testing and demonstrate the handoff.`));
 
-export const spindelOnboardingLessons: LessonContent[] = [
+export const spindelCrashCourseLessons: LessonContent[] = [
   lesson(1, 'Start with the anatomy behind the measurements you collect. Connect each eye structure with vision, symptoms, and the purpose of testing.', [
     sourceLesson(1).sections[0],
     section('Light and the Visual Pathway', ['Light passes through the cornea, pupil, lens, and vitreous to the retina. Photoreceptors convert light into signals that travel through the optic nerve and central visual pathways to the brain. Distinguish central detail at the macula from peripheral vision.', 'Accommodation changes lens shape for near focus. Presbyopia reduces near focusing ability; cataract is lens opacity. These are different processes and must not be treated as interchangeable explanations for a patient’s symptoms.'], ['Anterior segment: cornea, anterior chamber, iris, lens', 'Posterior segment: vitreous, retina, choroid, optic nerve', 'Macula/fovea: detailed central vision']),
@@ -76,7 +76,7 @@ const customQuestions: Record<number, QuizQuestion[]> = {
   10: [question(10,1,'New flashes with a curtain in the vision require:', ['Prompt clinician escalation','Routine scheduling only','Independent reassurance','No documentation'],'Prompt clinician escalation','Follow the emergency pathway for time-sensitive symptoms.'), question(10,2,'An unlabeled medication is on the procedure tray. What should you do?', ['Stop and resolve the discrepancy','Assume it is the usual medication','Use it if the bottle looks familiar','Ask the patient to identify it'],'Stop and resolve the discrepancy','Verify medication and active order before use.'), question(10,3,'What does course completion establish?', ['Completion of online learning','Independent clinical competency','Professional certification','Authority to diagnose'],'Completion of online learning','Delegated clinical skills require separate supervised validation.')]
 };
 
-export const spindelOnboardingQuizzes: QuizData[] = spindelOnboardingModules.map(module => {
+export const spindelCrashCourseQuizzes: QuizData[] = spindelCrashCourseModules.map(module => {
   const sourceDay = ({4:2,5:3,6:5} as Record<number,number>)[module.day];
   let questions = customQuestions[module.day];
   if (sourceDay) questions = structuredClone(getCourseQuizByDay(sourceDay)!.questions);
@@ -86,5 +86,5 @@ export const spindelOnboardingQuizzes: QuizData[] = spindelOnboardingModules.map
     protocol.reminders[0], 'Apply the linked current doctor protocol, the visit type, and physician orders.'));
   return { id: `spindel-quiz-${module.day}`, title: module.title, description: 'Apply this module’s clinical skills and safety principles.', day: module.day, passingScore: SPINDEL_PASSING_SCORE, questions };
 });
-export function getSpindelLesson(day: number): LessonContent | undefined { return spindelOnboardingLessons.find(lesson => lesson.day === day); }
-export function getSpindelQuiz(day: number): QuizData | undefined { return spindelOnboardingQuizzes.find(quiz => quiz.day === day); }
+export function getSpindelLesson(day: number): LessonContent | undefined { return spindelCrashCourseLessons.find(lesson => lesson.day === day); }
+export function getSpindelQuiz(day: number): QuizData | undefined { return spindelCrashCourseQuizzes.find(quiz => quiz.day === day); }

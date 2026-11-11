@@ -28,7 +28,7 @@ export default function Home() {
             <a
               href="/spindel"
               className="rounded-lg transition-opacity hover:opacity-85"
-              aria-label="Open Spindel Employee Onboarding"
+              aria-label="Open Spindel 10 Day Crash Course"
             >
               <SpindelLogo variant="horizontal" className="h-8 w-20 sm:h-9 sm:w-24" />
             </a>
@@ -138,7 +138,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-cyan-100">Pricing</p>
             <h2 className="mt-2 text-4xl font-bold">Choose the path that fits.</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-slate-100">Learn independently, enroll a five-person practice team, or enter the private employee-onboarding portal.</p>
+            <p className="mx-auto mt-4 max-w-2xl text-slate-100">Learn independently, enroll a five-person practice team, or enter the private employee 10 Day Crash Course portal.</p>
             <div className="mx-auto mt-10 grid max-w-4xl gap-6 lg:grid-cols-2">
             <Card className="premium-card flex flex-col border-2 border-cyan-400/40 bg-white p-8 text-left text-slate-900 shadow-2xl">
               <div>

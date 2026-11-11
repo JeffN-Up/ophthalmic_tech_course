@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the administration-heavy Spindel onboarding path with a required ten-module ophthalmic technician course built from the repository curriculum, the Bootcamp Drive folder, and approved SEA Tech Alley protocols.
+**Goal:** Replace the administration-heavy Spindel 10 Day Crash Course path with a required ten-module ophthalmic technician course built from the repository curriculum, the Bootcamp Drive folder, and approved SEA Tech Alley protocols.
 
 **Architecture:** Preserve the existing ten-module progress and certificate contract while separating curriculum, clinical protocols, and protected media into focused typed data files. Render those records through the existing dashboard and module page, with doctor-specific workups as required lesson sections and Bootcamp media labeled Core or Extended Learning.
 
@@ -39,7 +39,7 @@
 **Files:**
 - Create: `client/src/data/spindelTrainingTypes.ts`
 - Create: `client/src/data/spindelTrainingCatalog.test.ts`
-- Modify: `client/src/data/spindelOnboarding.ts`
+- Modify: `client/src/data/spindelCrashCourse.ts`
 
 **Interfaces:**
 - Produces: `TrainingTier = "core" | "extended"`
@@ -47,7 +47,7 @@
 - Produces: `ProtocolStep { label: string; detail: string; condition?: string }`
 - Produces: `VisitProtocol { visitType: string; summary: string; steps: ProtocolStep[] }`
 - Produces: `DoctorProtocol { id: string; doctorName: string; source: TrainingSource; visits: VisitProtocol[]; reminders: string[] }`
-- Produces: existing exports `spindelOnboardingModules`, `spindelOnboardingLessons`, `spindelOnboardingQuizzes`, `getSpindelLessonByDay`, and `getSpindelQuizByDay` remain stable.
+- Produces: existing exports `spindelCrashCourseModules`, `spindelCrashCourseLessons`, `spindelCrashCourseQuizzes`, `getSpindelLessonByDay`, and `getSpindelQuizByDay` remain stable.
 
 - [ ] **Step 1: Write the failing catalog-shape test**
 
@@ -61,7 +61,7 @@ Expected: FAIL because the new module titles and training types do not exist.
 
 - [ ] **Step 3: Create the training types and replace only the module metadata**
 
-Define the interfaces above in `spindelTrainingTypes.ts`. Replace `spindelOnboardingModules` with the approved ten-module skeleton; keep days and export names stable. Do not write the detailed lesson bodies in this task.
+Define the interfaces above in `spindelTrainingTypes.ts`. Replace `spindelCrashCourseModules` with the approved ten-module skeleton; keep days and export names stable. Do not write the detailed lesson bodies in this task.
 
 - [ ] **Step 4: Run the targeted test and type checker**
 
@@ -72,7 +72,7 @@ Expected: PASS.
 - [ ] **Step 5: Commit the task**
 
 ```bash
-git add client/src/data/spindelTrainingTypes.ts client/src/data/spindelTrainingCatalog.test.ts client/src/data/spindelOnboarding.ts
+git add client/src/data/spindelTrainingTypes.ts client/src/data/spindelTrainingCatalog.test.ts client/src/data/spindelCrashCourse.ts
 git commit -m "feat: define Spindel technician training path"
 ```
 
@@ -186,7 +186,7 @@ git commit -m "feat: add approved Spindel workup protocols"
 ### Task 4: Technician Lessons, Practical Checklists, and Quizzes
 
 **Files:**
-- Modify: `client/src/data/spindelOnboarding.ts`
+- Modify: `client/src/data/spindelCrashCourse.ts`
 - Modify: `client/src/data/spindelTrainingCatalog.test.ts`
 - Test: `client/src/data/spindelProtocols.test.ts`
 
@@ -233,7 +233,7 @@ Expected: PASS.
 - [ ] **Step 9: Commit the task**
 
 ```bash
-git add client/src/data/spindelOnboarding.ts client/src/data/spindelTrainingCatalog.test.ts client/src/data/spindelProtocols.test.ts
+git add client/src/data/spindelCrashCourse.ts client/src/data/spindelTrainingCatalog.test.ts client/src/data/spindelProtocols.test.ts
 git commit -m "feat: write required technician training lessons"
 ```
 
@@ -314,7 +314,7 @@ Extract a pure `summarizeCourseProgress(progress, moduleCount = 10)` helper used
 
 - [ ] **Step 4: Rewrite Spindel-facing page copy**
 
-Change `Employee Onboarding` and administration-first language to `Ophthalmic Technician Training`, lead with clinical skills, and explain that all doctor protocols are required. Keep manager seat controls and staff authentication intact.
+Change `Employee 10 Day Crash Course` and administration-first language to `Ophthalmic Technician Training`, lead with clinical skills, and explain that all doctor protocols are required. Keep manager seat controls and staff authentication intact.
 
 - [ ] **Step 5: Run completion tests and type checker**
 

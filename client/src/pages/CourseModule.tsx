@@ -15,8 +15,8 @@ import {
   getSpindelLesson,
   getSpindelQuiz,
   isSpindelOrganization,
-  spindelOnboardingModules,
-} from "@/data/spindelOnboarding";
+  spindelCrashCourseModules,
+} from "@/data/spindelCrashCourse";
 import { ApiError, apiRequest, type CourseUser } from "@/lib/api";
 import {
   AlertTriangle,
@@ -96,7 +96,7 @@ export default function CourseModule() {
   }
 
   const spindel = isSpindelOrganization(user?.organizationName);
-  const modules = spindel ? spindelOnboardingModules : curriculumModules;
+  const modules = spindel ? spindelCrashCourseModules : curriculumModules;
   const module = modules.find((candidate) => candidate.day === day);
   const lesson = spindel ? getSpindelLesson(day) : getCourseContent(day);
   const quiz = spindel ? getSpindelQuiz(day) : getCourseQuizByDay(day);
@@ -131,7 +131,7 @@ export default function CourseModule() {
         <div className="mx-auto max-w-5xl px-4 py-10">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
             <a href="/course" className="inline-flex items-center text-sm text-blue-100 hover:text-white">
-              <ArrowLeft className="mr-2 h-4 w-4" /> {spindel ? "Onboarding Dashboard" : "Course Dashboard"}
+              <ArrowLeft className="mr-2 h-4 w-4" /> {spindel ? "10 Day Crash Course Dashboard" : "Course Dashboard"}
             </a>
             {spindel && <SpindelLogo className="h-11 w-44 shadow" />}
           </div>
@@ -178,7 +178,7 @@ export default function CourseModule() {
               <h2 className="mt-2 text-2xl font-bold">Watch, listen, and review</h2>
               <p className="mt-2 max-w-3xl text-blue-100">
                 {spindel
-                  ? "These resources support the current Spindel onboarding lesson and reinforce supervised practice."
+                  ? "These resources support the current Spindel 10 Day Crash Course lesson and reinforce supervised practice."
                   : "Use the video and audio overviews to reinforce the written lesson before completing the assessment."}
               </p>
             </div>
