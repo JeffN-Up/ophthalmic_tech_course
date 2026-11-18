@@ -99,6 +99,7 @@ export function Privacy() {
       <section>
         <h2>How information is used</h2>
         <ul className="mt-2 list-disc space-y-2 pl-6">
+          <li>Use the name, email, enrollment interest, and optional practice name provided on the waitlist to share course launch and enrollment updates.</li>
           <li>Provide purchased course access and practice-team seats.</li>
           <li>Track progress, quiz completion, and certificate eligibility.</li>
           <li>Send activation, password-reset, receipt-related, support, and service communications.</li>

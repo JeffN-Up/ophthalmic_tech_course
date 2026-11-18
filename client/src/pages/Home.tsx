@@ -74,6 +74,7 @@ export default function Home() {
                 </Button>
                 <a href="/curriculum"><Button size="lg" variant="outline" className="border-white/20 bg-transparent text-white hover:bg-white/10">Preview Curriculum</Button></a>
               </div>
+              <a href="/waitlist" className="mt-4 inline-block font-semibold text-cyan-200 underline underline-offset-4">Join the founding-buyer waitlist</a>
               <p className="mt-4 text-sm text-slate-200">One-time price per student seat. Secure checkout is processed by Stripe.</p>
             </div>
 

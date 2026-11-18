@@ -15,6 +15,7 @@ import ResetPassword from "@/pages/ResetPassword";
 import SpindelLogin from "@/pages/SpindelLogin";
 import SpindelWelcome from "@/pages/SpindelWelcome";
 import Support from "@/pages/Support";
+import Waitlist from "@/pages/Waitlist";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -27,6 +28,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/waitlist" component={Waitlist} />
       <Route path="/curriculum" component={Curriculum} />
       <Route path="/spindel" component={SpindelWelcome} />
       <Route path="/spindel/login" component={SpindelLogin} />
