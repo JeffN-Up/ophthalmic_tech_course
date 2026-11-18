@@ -67,7 +67,16 @@ export interface ProcessedStripeEvent {
   processedAt: string;
 }
 
+export interface WaitlistSignup {
+  name: string;
+  email: string;
+  interest: "individual" | "practice";
+  practiceName?: string;
+  createdAt: string;
+}
+
 export interface CourseDatabase {
+  waitlistSignups?: WaitlistSignup[];
   videoLocations?: VideoLocation[];
   videoTasks?: VideoTask[];
   users: CourseUser[];
@@ -156,6 +165,7 @@ function normalizeDatabase(value: unknown): CourseDatabase {
   if (!value || typeof value !== "object") return applySpindelBootstrap(structuredClone(emptyDatabase));
   const candidate = value as Partial<CourseDatabase>;
   return applySpindelBootstrap({
+    waitlistSignups: Array.isArray(candidate.waitlistSignups) ? candidate.waitlistSignups : [],
     videoLocations: Array.isArray(candidate.videoLocations) ? candidate.videoLocations : [],
     videoTasks: Array.isArray(candidate.videoTasks) ? candidate.videoTasks : [],
     users: Array.isArray(candidate.users) ? candidate.users : [],

@@ -786,6 +786,31 @@ async function startServer() {
     }
   });
 
+  app.post("/api/waitlist", rateLimit({ windowMs: 60 * 60 * 1000, max: 10 }), async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const name = readString(body.name, 120);
+    const email = readString(body.email, 254).toLowerCase();
+    const interest = body.interest;
+    const practiceName = interest === "practice" ? readString(body.practiceName, 160) : "";
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+      (interest !== "individual" && interest !== "practice")) {
+      return res.status(400).json({ error: "Enter your name, a valid email, and an enrollment preference." });
+    }
+
+    try {
+      await mutateDatabase((database) => {
+        const signups = database.waitlistSignups ??= [];
+        if (!signups.some((signup) => signup.email === email)) {
+          signups.push({ name, email, interest, practiceName: practiceName || undefined, createdAt: new Date().toISOString() });
+        }
+      });
+      return res.status(202).json({ message: "You're on the waitlist." });
+    } catch (error) {
+      console.error("Unable to save waitlist signup", error);
+      return res.status(503).json({ error: "The waitlist is temporarily unavailable. Please try again." });
+    }
+  });
+
   app.post("/api/support", supportLimiter, async (req, res) => {
     const body = (req.body ?? {}) as Record<string, unknown>;
     const name = readString(body.name, 120);
