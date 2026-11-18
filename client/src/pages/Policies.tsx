@@ -90,7 +90,7 @@ export function Privacy() {
     <PolicyLayout title="Privacy Policy">
       <section>
         <h2>Information collected</h2>
-        <p className="mt-2">We collect enrollment details such as name, email, telephone number, organization, training goals, purchased seats, account credentials in hashed form, course progress, quiz scores, support messages, and technical logs needed to operate and secure the service.</p>
+        <p className="mt-2">We collect founding-buyer interest details and enrollment details such as name, email, telephone number, organization, training goals, purchased seats, account credentials in hashed form, course progress, quiz scores, support messages, and technical logs needed to operate and secure the service.</p>
       </section>
       <section>
         <h2>Payment information</h2>
@@ -102,6 +102,7 @@ export function Privacy() {
           <li>Provide purchased course access and practice-team seats.</li>
           <li>Track progress, quiz completion, and certificate eligibility.</li>
           <li>Send activation, password-reset, receipt-related, support, and service communications.</li>
+          <li>Send launch and enrollment information to people who voluntarily join the founding-buyer list.</li>
           <li>Prevent fraud, investigate abuse, maintain security, and comply with legal obligations.</li>
           <li>Improve course content and customer experience using aggregated or de-identified information.</li>
         </ul>

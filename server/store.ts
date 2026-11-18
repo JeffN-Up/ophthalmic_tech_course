@@ -67,6 +67,16 @@ export interface ProcessedStripeEvent {
   processedAt: string;
 }
 
+export interface FoundingBuyerInterest {
+  id: string;
+  firstName: string;
+  email: string;
+  interest: "individual" | "practice";
+  organizationName?: string;
+  note?: string;
+  createdAt: string;
+}
+
 export interface CourseDatabase {
   videoLocations?: VideoLocation[];
   videoTasks?: VideoTask[];
@@ -75,6 +85,7 @@ export interface CourseDatabase {
   purchases: CoursePurchase[];
   passwordResets: PasswordReset[];
   processedStripeEvents: ProcessedStripeEvent[];
+  foundingBuyerInterests: FoundingBuyerInterest[];
 }
 
 const dataFile = process.env.DATA_FILE?.trim() || path.resolve(process.cwd(), "data", "course-data.json");
@@ -84,6 +95,7 @@ const emptyDatabase: CourseDatabase = {
   purchases: [],
   passwordResets: [],
   processedStripeEvents: [],
+  foundingBuyerInterests: [],
 };
 let mutationQueue: Promise<unknown> = Promise.resolve();
 
@@ -164,6 +176,9 @@ function normalizeDatabase(value: unknown): CourseDatabase {
     passwordResets: Array.isArray(candidate.passwordResets) ? candidate.passwordResets : [],
     processedStripeEvents: Array.isArray(candidate.processedStripeEvents)
       ? candidate.processedStripeEvents
+      : [],
+    foundingBuyerInterests: Array.isArray(candidate.foundingBuyerInterests)
+      ? candidate.foundingBuyerInterests
       : [],
   });
 }

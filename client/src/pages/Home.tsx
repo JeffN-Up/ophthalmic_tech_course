@@ -1,4 +1,4 @@
-import { EnrollmentForm } from "@/components/EnrollmentForm";
+import { FoundingBuyerForm } from "@/components/FoundingBuyerForm";
 import { SpindelLogo } from "@/components/SpindelLogo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,13 +7,8 @@ import { ArrowRight, Award, CheckCircle2, Clock, Eye, LogIn, ShieldCheck, Users 
 import { useState } from "react";
 
 export default function Home() {
-  const [showEnrollmentForm, setShowEnrollmentForm] = useState(false);
-  const [enrollmentType, setEnrollmentType] = useState<"individual" | "practice">("individual");
+  const [showFoundingBuyerForm, setShowFoundingBuyerForm] = useState(false);
   const totalDuration = getTotalCourseDuration();
-  const openEnrollment = (type: "individual" | "practice") => {
-    setEnrollmentType(type);
-    setShowEnrollmentForm(true);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white">
@@ -44,8 +39,8 @@ export default function Home() {
                 <LogIn className="mr-2 h-4 w-4" /> Sign In
               </Button>
             </a>
-            <Button onClick={() => openEnrollment("individual")} className="hidden bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 sm:inline-flex">
-              Enroll
+            <Button onClick={() => setShowFoundingBuyerForm(true)} className="hidden bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 sm:inline-flex">
+              Join the list
             </Button>
           </div>
         </div>
@@ -60,21 +55,21 @@ export default function Home() {
           <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <p className="mb-5 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200">
-                Ten-module self-paced ophthalmic technician foundation course
+                Founding-buyer access is opening soon
               </p>
               <h1 className="text-5xl font-bold leading-tight sm:text-7xl">
-                Build the skills behind a dependable ophthalmic examination.
+                Give your technicians a stronger start in ophthalmic care.
               </h1>
               <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-100">
-                Learn core anatomy, history taking, lensometry, tonometry, slit lamp workflow, imaging, visual fields, documentation, communication, and professional development.
+                A practical, self-paced foundation for new and developing ophthalmic technicians—built around the workflows, communication, and clinical judgment that support dependable patient care.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button size="lg" onClick={() => openEnrollment("individual")} className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600">
-                  Enroll for $699 <ArrowRight className="ml-2 h-4 w-4" />
+                <Button size="lg" onClick={() => setShowFoundingBuyerForm(true)} className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600">
+                  Join the founding-buyer list <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <a href="/curriculum"><Button size="lg" variant="outline" className="border-white/20 bg-transparent text-white hover:bg-white/10">Preview Curriculum</Button></a>
               </div>
-              <p className="mt-4 text-sm text-slate-200">One-time price per student seat. Secure checkout is processed by Stripe.</p>
+              <p className="mt-4 text-sm text-slate-200">Tell us whether you’re enrolling yourself or a practice team. We’ll send launch details before public enrollment opens.</p>
             </div>
 
             <Card className="premium-glass premium-card border-white/10 p-8 text-white">
@@ -155,7 +150,7 @@ export default function Home() {
                   <div key={item} className="flex items-center gap-2 text-slate-700"><CheckCircle2 className="h-4 w-4 text-green-600" /> {item}</div>
                 ))}
               </div>
-              <Button onClick={() => openEnrollment("individual")} className="mt-8 w-full bg-blue-600 py-6 text-white hover:bg-blue-700">Enroll as an Individual</Button>
+              <Button onClick={() => setShowFoundingBuyerForm(true)} className="mt-8 w-full bg-blue-600 py-6 text-white hover:bg-blue-700">Request Founding-Buyer Access</Button>
             </Card>
 
             <Card className="premium-card relative flex flex-col border-2 border-amber-400 bg-white p-8 text-left text-slate-900 shadow-2xl">
@@ -174,7 +169,7 @@ export default function Home() {
                   <div key={item} className="flex items-center gap-2 text-slate-700"><CheckCircle2 className="h-4 w-4 text-green-600" /> {item}</div>
                 ))}
               </div>
-              <Button onClick={() => openEnrollment("practice")} className="mt-8 w-full bg-amber-500 py-6 text-slate-950 hover:bg-amber-400">Enroll a Practice Team</Button>
+              <Button onClick={() => setShowFoundingBuyerForm(true)} className="mt-8 w-full bg-amber-500 py-6 text-slate-950 hover:bg-amber-400">Request Team Access</Button>
             </Card>
 
             </div>
@@ -202,7 +197,7 @@ export default function Home() {
         OptiTech Academy is an independent educational course. It does not award licensure or JCAHPO certification.
       </footer>
 
-      {showEnrollmentForm && <EnrollmentForm tier={enrollmentType} defaultType={enrollmentType} onClose={() => setShowEnrollmentForm(false)} />}
+      {showFoundingBuyerForm && <FoundingBuyerForm onClose={() => setShowFoundingBuyerForm(false)} />}
     </div>
   );
 }

@@ -416,6 +416,7 @@ async function startServer() {
   const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 12 });
   const recoveryLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 6 });
   const supportLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5 });
+  const foundingBuyerLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5 });
 
   app.get("/api/health", async (_req, res) => {
     try {
@@ -442,6 +443,40 @@ async function startServer() {
       refundDays: 7,
       termsVersion: TERMS_VERSION,
     });
+  });
+
+  app.post("/api/founding-buyer-interest", foundingBuyerLimiter, async (req, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const firstName = readString(body.firstName, 80);
+    const email = readString(body.email, 254).toLowerCase();
+    const interest = body.interest === "practice" ? "practice" : "individual";
+    const organizationName = readString(body.organizationName, 160);
+    const note = readString(body.note, 500);
+
+    if (!firstName || !email || !/^\S+@\S+\.\S+$/.test(email)) {
+      return res.status(400).json({ error: "Please provide your first name and a valid email address." });
+    }
+    if (interest === "practice" && !organizationName) {
+      return res.status(400).json({ error: "Please provide your practice or clinic name." });
+    }
+
+    await mutateDatabase((database) => {
+      const existing = database.foundingBuyerInterests.find((entry) => entry.email === email);
+      if (existing) {
+        existing.firstName = firstName;
+        existing.interest = interest;
+        existing.organizationName = organizationName || undefined;
+        existing.note = note || undefined;
+        return;
+      }
+      database.foundingBuyerInterests.push({
+        id: randomUUID(), firstName, email, interest,
+        organizationName: organizationName || undefined,
+        note: note || undefined,
+        createdAt: new Date().toISOString(),
+      });
+    });
+    return res.status(201).json({ received: true });
   });
 
   app.post("/api/enrollment/checkout", checkoutLimiter, async (req, res) => {
