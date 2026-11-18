@@ -44,19 +44,19 @@ export default function Waitlist() {
             <p className="mt-2">We’ll use your email to share launch details.</p>
           </section>
         ) : (
-          <form onSubmit={submit} className="space-y-5 rounded-xl bg-white p-6 shadow-sm">
+          <form onSubmit={submit} className="space-y-5 rounded-xl bg-white p-6 text-slate-900 shadow-sm">
             <label className="block font-medium">
               Name
-              <Input className="mt-2" name="name" autoComplete="name" maxLength={120} required />
+              <Input className="mt-2 bg-white font-medium text-slate-950 dark:bg-white" name="name" autoComplete="name" maxLength={120} required />
             </label>
             <label className="block font-medium">
               Email
-              <Input className="mt-2" name="email" type="email" autoComplete="email" maxLength={254} required />
+              <Input className="mt-2 bg-white font-medium text-slate-950 dark:bg-white" name="email" type="email" autoComplete="email" maxLength={254} required />
             </label>
             <label className="block font-medium">
               I’m interested in
               <select name="interest" value={interest} onChange={(event) => setInterest(event.target.value)}
-                className="mt-2 block w-full rounded-md border border-slate-300 bg-white p-2">
+                className="mt-2 block w-full rounded-md border border-slate-300 bg-white p-2 font-medium text-slate-950">
                 <option value="individual">Individual enrollment</option>
                 <option value="practice">Practice team enrollment</option>
               </select>
@@ -64,7 +64,7 @@ export default function Waitlist() {
             {interest === "practice" && (
               <label className="block font-medium">
                 Practice name (optional)
-                <Input className="mt-2" name="practiceName" autoComplete="organization" maxLength={160} />
+                <Input className="mt-2 bg-white font-medium text-slate-950 dark:bg-white" name="practiceName" autoComplete="organization" maxLength={160} />
               </label>
             )}
             <p className="text-sm text-slate-600">
