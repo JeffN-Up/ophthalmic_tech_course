@@ -1,6 +1,6 @@
 # OptiTech Academy: founding-buyer social launch pack
 
-Replace `[waitlist link]` with the public landing-page URL before posting. Do not say enrollment is open until payments and delivery are live.
+The [public founding-buyer waitlist](https://optitech-academy.onrender.com/waitlist) is open. Announce paid enrollment once payments and course delivery are live.
 
 ## LinkedIn
 
@@ -12,7 +12,7 @@ I’m building **OptiTech Academy: Ophthalmic Technician Foundations** to give n
 
 The self-paced course covers patient communication, lensometry, tonometry, slit lamp workflow, imaging, visual fields, documentation, and professional development—plus knowledge checks, practice checklists, and progress tracking.
 
-I’m opening a no-obligation founding-buyer list for individual technicians and small practice teams. If you’d like early launch details, join here: [waitlist link]
+I’m opening a no-obligation founding-buyer list for individual technicians and small practice teams. If you’d like early launch details, join here: https://optitech-academy.onrender.com/waitlist
 
 What part of onboarding new ophthalmic technicians takes the most time at your practice?
 
@@ -41,7 +41,7 @@ Join the no-obligation list through the link in bio. 🔗
 1. **New ophthalmic technicians need a clearer starting point.**
 2. **Practical training: patient flow, testing, imaging, documentation, communication.**
 3. **OptiTech Academy is opening founding-buyer access soon.**
-4. **Want early details for yourself or your practice?** Add the link sticker: `[waitlist link]`
+4. **Want early details for yourself or your practice?** Add the link sticker: `https://optitech-academy.onrender.com/waitlist`
 
 ### Bio line
 
@@ -67,7 +67,7 @@ Building a more consistent starting point for new ophthalmic technicians. Foundi
 
 ## Posting order for today
 
-1. Add `[waitlist link]` to LinkedIn post, Instagram bio, and TikTok bio.
-2. Publish LinkedIn first, then share its angle as the Instagram feed/Reel post.
+1. The LinkedIn announcement is live with the waitlist link. Add the link to the Instagram and TikTok bios.
+2. Share the Instagram feed post or Reel after the Instagram bio link is in place.
 3. Post the TikTok video 1–3 hours later.
 4. Respond to every genuine comment with a personal note; do not mass-message strangers.
