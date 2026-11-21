@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ophthalmology-hpi-scribe
+    runtime: node
+    rootDir: hpi-scribe
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false

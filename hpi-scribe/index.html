@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#125e59" />
+    <title>Ophthalmology HPI Scribe</title>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="HPI Scribe home"
+        ><span class="brand-icon"><i class="fa-solid fa-eye"></i></span
+        ><span
+          >Ophthalmology <strong>HPI Scribe</strong
+          ><small>LESS DOCUMENTATION. MORE CONNECTION.</small></span
+        ></a
+      >
+      <nav>
+        <label class="provider-label" for="provider"
+          >AI provider<select id="provider">
+            <option value="gemini">Google Gemini</option>
+            <option value="openai">OpenAI</option>
+          </select></label
+        ><span id="health" class="badge">Checking server…</span
+        ><button id="theme" aria-label="Toggle color theme">
+          <i class="fa-solid fa-circle-half-stroke"></i></button
+        ><button id="settings" aria-label="Settings">
+          <i class="fa-solid fa-sliders"></i></button
+        ><button id="history">
+          <i class="fa-solid fa-clock-rotate-left"></i> Saved history
+        </button>
+      </nav>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <span class="eyebrow">YOUR CLINICAL WORKSPACE</span>
+          <h1>A conversation. A clearer note.</h1>
+          <p>
+            Capture the visit. Let your scribe take care of the first draft.
+          </p>
+        </div>
+        <button id="new"><i class="fa-solid fa-plus"></i> New encounter</button>
+      </div>
+      <div class="workspace">
+        <section class="recorder card">
+          <div class="section-label">
+            <span class="step">01</span> CAPTURE THE CONVERSATION
+          </div>
+          <h2>Every detail starts here.</h2>
+          <p>
+            Record your patient encounter or paste a transcript to get started.
+          </p>
+          <label class="patient-label" for="patient"
+            >PATIENT NAME / CHART ID</label
+          >
+          <div
+            id="patient"
+            contenteditable="plaintext-only"
+            role="textbox"
+            aria-label="Patient name or chart ID"
+            data-placeholder="Enter patient name or chart ID"
+            spellcheck="false"
+          ></div>
+          <div class="mic-area">
+            <svg class="rings" viewBox="0 0 240 240" aria-hidden="true">
+              <circle cx="120" cy="120" r="77" />
+              <circle cx="120" cy="120" r="98" />
+              <circle cx="120" cy="120" r="118" /></svg
+            ><button id="record" aria-label="Start recording">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+          </div>
+          <div id="timer">00:00.00</div>
+          <strong id="record-label">Ready when you are</strong
+          ><span class="hint">Click the microphone to start recording</span
+          ><canvas
+            id="visualizer"
+            width="600"
+            height="70"
+            aria-label="Audio frequency visualization"
+          ></canvas
+          ><audio id="playback" controls hidden></audio>
+          <p class="privacy">
+            <i class="fa-solid fa-lock"></i> Audio is sent to your selected AI
+            provider for transcription.<br />Obtain patient consent before
+            recording.
+          </p>
+        </section>
+        <section class="note card">
+          <div class="note-heading">
+            <div>
+              <span class="section-label"
+                ><span class="step">02</span> REVIEW & REFINE</span
+              >
+              <h2>Your clinical note</h2>
+            </div>
+            <span class="badge draft">DRAFT · REVIEW REQUIRED</span>
+          </div>
+          <div class="tabs" role="tablist">
+            <button
+              id="summary-tab"
+              class="active"
+              role="tab"
+              aria-selected="true"
+              aria-controls="summary-panel"
+            >
+              HPI Summary</button
+            ><button
+              id="transcript-tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="transcript-panel"
+            >
+              Diarized Transcript
+            </button>
+          </div>
+          <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
+            <div
+              id="summary"
+              contenteditable="true"
+              role="textbox"
+              aria-label="Editable HPI summary"
+              data-placeholder="Your patient’s story, thoughtfully summarized.&#10;&#10;Record a conversation or add a transcript, then generate an HPI to see your note here."
+            ></div>
+          </div>
+          <div
+            id="transcript-panel"
+            role="tabpanel"
+            aria-labelledby="transcript-tab"
+            hidden
+          >
+            <textarea
+              id="transcript"
+              placeholder="Technician: What brings you in today?&#10;Patient: …"
+              aria-label="Editable diarized transcript"
+            ></textarea
+            ><button id="generate" class="primary">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Generate HPI
+            </button>
+          </div>
+          <div class="note-toolbar">
+            <span id="words">0 words</span>
+            <div>
+              <button id="polish">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Re-Polish</button
+              ><button id="export">
+                <i class="fa-solid fa-arrow-down-to-line"></i> Export</button
+              ><button id="copy" class="primary">
+                <i class="fa-regular fa-copy"></i> Copy HPI
+              </button>
+            </div>
+          </div>
+          <div class="submit-row">
+            <span
+              ><i class="fa-solid fa-table-cells"></i> Connect your clinic
+              workflow</span
+            ><button id="submit">
+              Submit to Google Form <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </section>
+      </div>
+      <footer>
+        <span
+          ><i class="fa-regular fa-circle-check"></i> Built for ophthalmology.
+          Designed for your day.</span
+        ><span>AI-generated notes require clinical review.</span>
+      </footer>
+      <div id="status" role="status" aria-live="polite"></div>
+    </main>
+    <dialog id="polish-modal">
+      <form id="polish-form">
+        <div class="modal-heading">
+          <h2>Refine your note</h2>
+          <button type="button" data-close aria-label="Close">×</button>
+        </div>
+        <label for="instructions">What would you like to adjust?</label
+        ><textarea
+          id="instructions"
+          maxlength="2000"
+          placeholder="Make more concise, or emphasize post-cataract status…"
+        ></textarea
+        ><button class="primary">Apply adjustments</button>
+      </form>
+    </dialog>
+    <dialog id="settings-modal">
+      <form id="settings-form">
+        <div class="modal-heading">
+          <h2>Workflow settings</h2>
+          <button type="button" data-close aria-label="Close">×</button>
+        </div>
+        <p>
+          History is saved in this browser on this device. Use only an approved
+          clinic device and approved Google Form.
+        </p>
+        <label
+          >Google Form action URL<input
+            id="form-url"
+            type="url"
+            placeholder="https://docs.google.com/forms/d/e/…/formResponse" /></label
+        ><label
+          >Patient name entry ID<input
+            id="entry-patient"
+            placeholder="entry.123456" /></label
+        ><label
+          >HPI entry ID<input
+            id="entry-hpi"
+            placeholder="entry.123457" /></label
+        ><label
+          >Transcript entry ID<input
+            id="entry-transcript"
+            placeholder="entry.123458"
+        /></label>
+        <p>
+          Google Forms does not confirm no-cors submissions. Check your
+          destination Sheet after sending.
+        </p>
+        <button class="primary">Save settings</button>
+      </form>
+    </dialog>
+    <dialog id="history-modal">
+      <div class="modal-heading">
+        <h2>Saved encounters</h2>
+        <button data-close aria-label="Close">×</button>
+      </div>
+      <input
+        id="search"
+        type="search"
+        placeholder="Search patient or note"
+        aria-label="Search history"
+      />
+      <div id="history-list"></div>
+      <button id="clear" class="danger">Clear saved history</button>
+    </dialog>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
